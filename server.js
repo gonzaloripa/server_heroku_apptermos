@@ -5,7 +5,7 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
   , RememberMeStrategy = require('passport-remember-me').Strategy;
   
-
+const PORT = process.env.PORT || 5000
 /* Fake, in-memory database of users */
 
 var users = [
@@ -182,8 +182,8 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(8081, function() {
-  console.log('Express server listening on port 8081');
+app.listen(PORT, function() {
+  console.log('Express server listening on port 5000');
 });
 
 
