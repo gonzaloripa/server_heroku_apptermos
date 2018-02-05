@@ -12,7 +12,12 @@
   },
   "dependencies": {
     "ejs": "^2.5.6",
-    "express": "^4.15.2"
+    "express": "3.x.x",
+    "connect-flash": "0.1.x",
+    "ejs-locals": "1.x.x",
+    "passport": "0.1.x",
+    "passport-remember-me": "0.0.1",
+    "passport-local": "0.1.x"
   },
   "devDependencies": {
     "request": "^2.81.0",
