@@ -198,7 +198,7 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(8081, function() {
+app.listen(process.env.PORT, function() {
   console.log('Express server listening on port 8081');
 });
 
