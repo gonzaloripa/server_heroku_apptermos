@@ -144,7 +144,7 @@ app.configure(function() {
   app.use(passport.authenticate('remember-me'));
   app.use(app.router);
 });
-
+/*
 var pg = require('pg');
 
   app.get('/db', function (request, response) {
@@ -158,7 +158,7 @@ var pg = require('pg');
       });
     });
   });
-
+*/
 
 app.get('/', function(req, res){
   res.render('index', { user: req.user });
