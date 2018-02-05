@@ -5,7 +5,7 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
   , RememberMeStrategy = require('passport-remember-me').Strategy;
   
-const PORT = process.env.PORT || 5000
+
 /* Fake, in-memory database of users */
 
 var users = [
@@ -31,6 +31,8 @@ function findByUsername(username, fn) {
   }
   return fn(null, null);
 }
+
+
 
 /* Fake, in-memory database of remember me tokens */
 
@@ -143,6 +145,20 @@ app.configure(function() {
   app.use(app.router);
 });
 
+var pg = require('pg');
+
+  app.get('/db', function (request, response) {
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query('SELECT * FROM test_table order by id', function(err, result) {
+        done();
+        if (err)
+         { console.error(err); response.send("Error " + err); }
+        else
+         { response.render('pages/db', {results: result.rows} ); }
+      });
+    });
+  });
+
 
 app.get('/', function(req, res){
   res.render('index', { user: req.user });
@@ -182,8 +198,8 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
-app.listen(PORT, function() {
-  console.log('Express server listening on port 5000');
+app.listen(8081, function() {
+  console.log('Express server listening on port 8081');
 });
 
 
