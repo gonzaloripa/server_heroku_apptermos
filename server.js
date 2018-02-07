@@ -51,6 +51,7 @@ function findByUsername(username,password,fn) {
         else
         { 
           user = result.rows;
+          console.log("Usuario"+user);
           if (user){
             var userObj = {"user":user.username};
             users[(user.id)-1]=userObj;
@@ -120,7 +121,7 @@ passport.use(new LocalStrategy(
       findByUsername(username,password, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        if (user.password != password) { return done(null, false, { message: 'Invalid password'+user.password }); }
+        if (user.password != password) { return done(null, false, { message: 'Invalid password'+user }); }
         return done(null, user);
       })
     });
