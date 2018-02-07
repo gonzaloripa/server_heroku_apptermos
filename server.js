@@ -44,7 +44,7 @@ function findById(id, fn) {
 function findByUsername(username,password,fn) {
 
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      client.query('SELECT * FROM users where username= $1 and password= $2',["'"+username"'","'"+password+"'"] , function(err, result) {
+      client.query('SELECT * FROM users where username= $1 and password= $2',[username,password] , function(err, result) {
         done();
         if (err)
          { console.error(err);}
