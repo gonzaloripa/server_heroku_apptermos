@@ -4,32 +4,67 @@ var express = require('express')
   , utils = require('./utils')
   , LocalStrategy = require('passport-local').Strategy
   , RememberMeStrategy = require('passport-remember-me').Strategy;
-  
+ var pg = require('pg'); 
 
 /* Fake, in-memory database of users */
 
-var users = [
+/*var users = [
     { id: 1, username: 'alice', password: 'abc123', email: 'alice@domain.com' }
   , { id: 2, username: 'bob', password: 'abc123', email: 'bob@domain.com' }
 ];
+*/
+//Almaceno info del usuario autenticado
+var users = [];
 
 function findById(id, fn) {
-  var idx = id - 1;
-  if (users[idx]) {
-    fn(null, users[idx]);
-  } else {
-    fn(new Error('User ' + id + ' does not exist'));
-  }
+
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query('SELECT * FROM users where id='+id, function(err, result) {
+        done();
+        if (err)
+         { console.error(err); response.send("Error " + err); }
+        else
+        { 
+          user = result.rows;
+          if (user.length() === 1){
+            client.end();
+            return fn(null, user);
+          }else{
+            client.end();
+            fn(new Error('User ' + id + ' does not exist'));
+          }
+        }
+      client.end();
+      });
+      pg.end();    
+    });
 }
 
-function findByUsername(username, fn) {
-  for (var i = 0, len = users.length; i < len; i++) {
-    var user = users[i];
-    if (user.username === username) {
-      return fn(null, user);
-    }
-  }
-  return fn(null, null);
+
+function findByUsername(username,password,fn) {
+
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query('SELECT * FROM users where username='+username+' and password='+password , function(err, result) {
+        done();
+        if (err)
+         { console.error(err); response.send("Error " + err); }
+        else
+        { 
+          user = result.rows;
+          if (user.length() === 1){
+            var userObj = {"user":user.username};
+            users[(user.id)-1]=userObj;
+            client.end();
+            return fn(null, user);
+          }
+          client.end();
+          return fn(null, null);
+        }
+      client.end();
+      });
+      pg.end();    
+    });
+
 }
 
 
@@ -82,7 +117,7 @@ passport.use(new LocalStrategy(
       // username, or the password is not correct, set the user to `false` to
       // indicate failure and set a flash message.  Otherwise, return the
       // authenticated `user`.
-      findByUsername(username, function(err, user) {
+      findByUsername(username,password, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
         if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
@@ -145,25 +180,27 @@ app.configure(function() {
   app.use(app.router);
 });
 
-var pg = require('pg');
+
 
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      client.query('SELECT * FROM test_table order by id', function(err, result) {
+      client.query('SELECT * FROM users order by id', function(err, result) {
         done();
         if (err)
          { console.error(err); response.send("Error " + err); }
         else
          { response.render('pages/db', {results: result.rows} ); }
+       client.end();
       });
+    pg.end();    
     });
+  
   });
 
 app.get('/user',function(req,res){
   res.set("Content-Type","application/json");
   res.json(    
-           {
-            "usuario":{id:users[0].id,cont: users[0].username}
+           { "usuario"{ cont: users[0].user}
             }
           );
 });
@@ -202,6 +239,7 @@ app.post('/login',
 app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
+  users[0]=null;
   req.logout();
   res.redirect('/');
 });
