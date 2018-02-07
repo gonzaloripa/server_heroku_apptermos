@@ -47,7 +47,7 @@ function findByUsername(username,password,fn) {
       client.query('SELECT * FROM users where username='+username+' and password='+password , function(err, result) {
         done();
         if (err)
-         { console.error(err); response.send("Error " + err); }
+         { console.error(err);}
         else
         { 
           user = result.rows;
