@@ -200,7 +200,7 @@ app.configure(function() {
 app.get('/user',function(req,res){
   res.set("Content-Type","application/json");
   res.json(    
-           { "usuario"{ cont: users[0].user}
+           { "usuario":{ cont: users[0].user}
             }
           );
 });
