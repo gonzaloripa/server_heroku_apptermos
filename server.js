@@ -120,7 +120,7 @@ passport.use(new LocalStrategy(
       findByUsername(username,password, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        if (user.password != password) { return done(null, false, { message: 'Invalid password' }); }
+        if (user.password != password) { return done(null, false, { message: 'Invalid password'+password }); }
         return done(null, user);
       })
     });
