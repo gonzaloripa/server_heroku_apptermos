@@ -25,7 +25,9 @@ function findById(id, fn) {
          { console.error(err); response.send("Error " + err); }
         else
         { 
-          user = result.rows;
+          result.rows.forEach(function(r){
+            user = {username:r.username,password:r.password}
+          });
           if (user){
             client.end();
             return fn(null, user);
@@ -50,7 +52,9 @@ function findByUsername(username,password,fn) {
          { console.error(err);}
         else
         { 
-          user = result.rows;
+          result.rows.forEach(function(r){
+            user = {username:r.username,password:r.password}
+          });
           console.log("Usuario"+user);
           if (user){
             var userObj = {"user":user.username};
