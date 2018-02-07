@@ -159,6 +159,14 @@ var pg = require('pg');
     });
   });
 
+app.get('/user',function(req,res){
+  res.set("Content-Type","application/json");
+  res.json(    
+           {
+            "usuario":{id:users[0].id,cont: users[0].username}
+            }
+          );
+});
 
 app.get('/', function(req, res){
   res.render('index', { user: req.user });
