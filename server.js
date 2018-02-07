@@ -26,7 +26,7 @@ function findById(id, fn) {
         else
         { 
           user = result.rows;
-          if (user.length() === 1){
+          if (user){
             client.end();
             return fn(null, user);
           }else{
@@ -51,7 +51,7 @@ function findByUsername(username,password,fn) {
         else
         { 
           user = result.rows;
-          if (user.length() === 1){
+          if (user){
             var userObj = {"user":user.username};
             users[(user.id)-1]=userObj;
             client.end();
