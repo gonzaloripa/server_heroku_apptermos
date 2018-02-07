@@ -26,7 +26,7 @@ function findById(id, fn) {
         else
         { 
           result.rows.forEach(function(r){
-            user = {username:r.username,password:r.password}
+            user = {username:r.username,password:r.password,id:r.id}
           });
           if (user){
             client.end();
@@ -53,7 +53,7 @@ function findByUsername(username,password,fn) {
         else
         { 
           result.rows.forEach(function(r){
-            user = {username:r.username,password:r.password}
+            user = {username:r.username,password:r.password,id:r.id}
           });
           console.log("Usuario"+user);
           if (user){
