@@ -204,13 +204,11 @@ app.configure(function() {
   });
 
 app.get('/user',function(req,res){
-  if (users[0]){
-    res.set("Content-Type","application/json");
-    res.json(    
+  res.set("Content-Type","application/json");
+  res.json(    
            { "usuario":{ cont: ((users[0])? users[0].user: "")}
             }
           );
-  }
 });
 
 app.get('/', function(req, res){
