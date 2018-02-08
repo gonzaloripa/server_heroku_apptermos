@@ -212,10 +212,12 @@ app.get('/user',function(req,res){
 });
 
 app.get('/', function(req, res){
+  console.log("-------Request User: "+ req.user);
   res.render('index', { user: req.user });
 });
 
 app.get('/login', function(req, res){
+   console.log("-------Request User: "+ req.user);
   res.render('login', { user: req.user, message: req.flash('error') });
 });
 
