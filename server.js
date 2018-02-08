@@ -250,7 +250,7 @@ app.get('/logout', function(req, res){
   res.clearCookie('remember_me');
   users[0]=null;
   req.logout();
-  //res.redirect('/');
+  res.redirect('/');
 });
 
 app.listen(process.env.PORT, function() {
