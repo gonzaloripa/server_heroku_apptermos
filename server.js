@@ -145,6 +145,7 @@ passport.use(new RememberMeStrategy(
       findById(uid, function(err, user) {
         if (err) { return done(err); }
         if (!user) { return done(null, false); }
+        console.log("-------------Entro al findbyid del strategy ")
         return done(null, user);
       });
     });
