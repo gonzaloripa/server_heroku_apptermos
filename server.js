@@ -172,7 +172,7 @@ app.configure(function() {
   app.engine('ejs', require('ejs-locals'));
   app.use(express.logger());
   app.use(express.static(__dirname + '/../../public'));
-  app.use('/stylesheets',express.static(__dirname + 'public/stylesheets'));
+  app.use('/stylesheets',express.static(__dirname + '/public/stylesheets'));
   app.use(express.cookieParser());
   app.use(express.bodyParser());
   app.use(express.methodOverride());
