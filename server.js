@@ -218,7 +218,7 @@ app.get('/', function(req, res){
 });
 
 app.get('/login', function(req, res){
-   console.log("-------Request User: "+ req.user);
+   console.log("-------Request User del login: "+ req.user);
   res.render('login', { user: req.user, message: req.flash('error') });
 });
 
@@ -250,7 +250,7 @@ app.get('/logout', function(req, res){
   res.clearCookie('remember_me');
   users[0]=null;
   req.logout();
-  res.redirect('/');
+  //res.redirect('/');
 });
 
 app.listen(process.env.PORT, function() {
