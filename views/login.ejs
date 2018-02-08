@@ -14,7 +14,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Custom styles for this template -->
-    <link href="/stylesheets/signin.css" rel="stylesheet" type="text/css" >
+    <link href="https://github.com/twbs/bootstrap/blob/v4-dev/docs/4.0/examples/sign-in/signin.css" rel="stylesheet">
   </head>
 
   <body class="text-center">
@@ -23,22 +23,33 @@
 		<p><%= message %></p>
 	<% } %>
     <form class="form-signin" action="/login" method="post">
+		<div class="container">
+	    	<div class="row">
+	    	</div>
+	    	<div class="row">
+	    		<div class="column">
+	    		</div>
+			    <div class="column">	
+			      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
 
-    <div class=".col-sm-6">
-      <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-
-      <label for="inputUsername" class="sr-only">Username</label>
-      <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
-      <div class="checkbox mb-3">
-        <label>
-          <input type="checkbox" value="remember-me" name="remember_me"> Remember me
-        </label>
-      </div>
-      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
-    </div>
+			      <label for="inputUsername" class="sr-only">Username</label>
+			      <input type="text" id="inputUsername" class="form-control" placeholder="Username" name="username" required autofocus>
+			      <label for="inputPassword" class="sr-only">Password</label>
+			      <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" required>
+			      <div class="checkbox mb-3">
+			        <label>
+			          <input type="checkbox" value="remember-me" name="remember_me"> Remember me
+			        </label>
+			      </div>
+			      <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+			      <p class="mt-5 mb-3 text-muted">&copy; 2018</p>
+			    </div>
+			    <div class="column">
+			    </div>
+			</div>
+			<div class="row">
+			</div>
+	    </div>
     </form>
   </body>
 </html>
