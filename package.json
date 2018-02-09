@@ -7,18 +7,20 @@
   },
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node quickstart.js",
     "test": "node test.js"
   },
   "dependencies": {
-    "pg": "6.x",
-    "ejs": "^2.5.6",
-    "express": "3.x.x",
     "connect-flash": "0.1.x",
+    "ejs": "^2.5.6",
     "ejs-locals": "1.x.x",
+    "express": "3.x.x",
+    "google-auth-library": "^0.12.0",
+    "googleapis": "^25.0.0",
     "passport": "0.1.x",
+    "passport-local": "0.1.x",
     "passport-remember-me": "0.0.1",
-    "passport-local": "0.1.x"
+    "pg": "6.x"
   },
   "devDependencies": {
     "request": "^2.81.0",
