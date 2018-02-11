@@ -5,6 +5,7 @@ var express = require('express')
   , LocalStrategy = require('passport-local').Strategy
   , RememberMeStrategy = require('passport-remember-me').Strategy;
  var pg = require('pg'); 
+ var uppy = require('uppy-server');
 
 /* Fake, in-memory database of users */
 
@@ -185,7 +186,23 @@ app.configure(function() {
   app.use(passport.session());
   app.use(passport.authenticate('remember-me'));
   app.use(app.router);
+  app.use(uppy.app(options));
 });
+
+const options = {
+  providerOptions: {
+    google: {
+      key: 'AIzaSyDQFTH42WnxLSqnNx7duNkmcURDqd-hJHg',
+    }
+  },
+  server: {
+    host: 'https://frozen-everglades-78768.herokuapp.com/:'+process.env.PORT,
+    protocol: 'https',
+  },
+  filePath: 'https://www.googleapis.com/upload/drive/v3/files'
+}
+
+
 
 
 
