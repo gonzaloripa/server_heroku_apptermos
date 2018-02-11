@@ -20,7 +20,8 @@
     "passport": "0.1.x",
     "passport-local": "0.1.x",
     "passport-remember-me": "0.0.1",
-    "pg": "6.x"
+    "pg": "6.x",
+    "uppy_server":"0.10.5"
   },
   "devDependencies": {
     "request": "^2.81.0",
