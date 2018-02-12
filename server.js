@@ -14,39 +14,6 @@ var scopes = [
 ];
  
 
-
- 
-//creating the folder in drive
-  function createFolder(name,folderId,next) {
-    var folderIds=[];
-    if(folderId !== null){
-      folderIds.push(folderId);
-    }
-    var fileMetadata = {
-      'name' : name,
-      'mimeType' : 'application/vnd.google-apps.folder',
-       parents: folderIds
-    };
-    drive.files.create({
-      resource: fileMetadata,
-      fields: 'id'
-    }, function(err, file) {
-      if(err) {
-        console.log("error creating folder: ",err);
-        next(err);
-      } else {
-        console.log('Folder Id: ', file.id);
-        next(err,file.id);
-      }
-    });
-  }
-  return {
-    getTokens:getTokens
-  };
-})();
-
-
-
 var express = require('express')
   , passport = require('passport')
   , flash = require('connect-flash')
