@@ -14,7 +14,7 @@ var scopes = [
 ];
  
 var url = oauth2Client.generateAuthUrl({
-  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+  access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
   scope: scopes // If you only need one scope you can pass it as string
 });
 console.log(url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
