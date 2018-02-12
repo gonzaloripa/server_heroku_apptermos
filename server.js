@@ -245,15 +245,13 @@ app.get('/drive',function(req,res){
 });
 
 app.get('/oauthcallback',function(req,res){
-  console.log("Codigo " + req.params.code);
-  oauth2Client.getToken(req.params.code, function (err, tokens) {
+  console.log("Codigo " + req.query.code);
+  oauth2Client.getToken(req.query.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
     if (!err) {
       oauth2Client.setCredentials(tokens);
-    }
-  });
-  
-  drive.files.insert({
+        console.log("File system "+fs);
+        drive.files.insert({
           resource: {
             name: 'testimage.jpeg',
             mimeType: 'image/jpeg'
@@ -271,6 +269,9 @@ app.get('/oauthcallback',function(req,res){
             console.log('File Id: ', file);
           }
         });
+    }
+  });
+
 });
 
 
