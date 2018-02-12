@@ -233,6 +233,31 @@ app.get('/user',function(req,res){
           );
 });
 
+app.post('/drivePost',function(req,res){
+  req.files.forEach((photo) => {
+    drive.files.insert({
+          resource: {
+            name: photo.name,
+            mimeType: 'image/jpeg'
+          },
+          media: {
+            mimeType: 'image/jpeg',
+            body: photo
+          },
+          auth: oauth2Client
+        },function (err, file) {
+          if (err) {
+            // Handle error
+            console.error(err);
+          } else {
+            console.log('File Id: ', file);
+          }
+        });
+
+  });
+  res.status(201).send('success upload photos')
+});
+
 
 app.get('/drive',function(req,res){
   var url = oauth2Client.generateAuthUrl({
@@ -250,25 +275,7 @@ app.get('/oauthcallback',function(req,res){
   // Now tokens contains an access_token and an optional refresh_token. Save them.
     if (!err) {
       oauth2Client.setCredentials(tokens);
-        console.log("File system "+fs);
-        drive.files.insert({
-          resource: {
-            name: 'testimage.jpeg',
-            mimeType: 'image/jpeg'
-          },
-          media: {
-            mimeType: 'image/jpeg',
-            body: fs.createReadStream('/home/dssd/Imágenes/index.jpeg') // read streams are awesome!
-          },
-          auth: oauth2Client
-        },function (err, file) {
-          if (err) {
-            // Handle error
-            console.error(err);
-          } else {
-            console.log('File Id: ', file);
-          }
-        });
+        
     }
   });
 
