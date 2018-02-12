@@ -244,7 +244,7 @@ app.get('/drive',function(req,res){
 
 });
 
-app.get('/oauthcallback?code',function(req,res){
+app.get('/oauthcallback',function(req,res){
   console.log("Codigo " + req.params.code);
   oauth2Client.getToken(req.params.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
