@@ -193,7 +193,7 @@ app.configure(function() {
   app.use(express.static(__dirname + '/../../public'));
   app.use('/stylesheets',express.static(__dirname + '/public/stylesheets'));
   app.use(express.cookieParser());
-  app.use(express.bodyParser());
+  //app.use(express.bodyParser());
   app.use(express.methodOverride());
   app.use(express.session({ secret: 'keyboard cat' }));
   app.use(flash());
@@ -203,6 +203,7 @@ app.configure(function() {
   app.use(passport.session());
   app.use(passport.authenticate('remember-me'));
   app.use(app.router);
+  app.use(express.json()); 
   //app.use(uppy.app(options));
 });
 
@@ -238,7 +239,7 @@ var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 
 app.post('/drivePost',urlEncodedParser,function(req,res){
   console.log("request body"+req.body + "value" + req.body.photos);
-  for(var key in req.body.photos) {
+  for(var key in req.body) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
     drive.files.insert({
