@@ -245,33 +245,31 @@ app.post('/drivePost',function(req,res){
       var file = req.files;
       console.log("req.files "+file+" "+req.body);
       //console.log(req);
-      for(var photo in req.files.photos) {
-
+      req.files.photos.forEach((photo) => {
         console.log("entra al for con photo "+photo);
-        drive.files.insert({
-              resource: {
-                name: photo.name,
-                mimeType: 'image/jpeg',
-                title: photo.name
-              },
-              media: {
-                mimeType: 'image/jpeg',
-                body: photo
-              },
-              auth: oauth2Client
-            },function (err, file) {
-              if (err) {
-                // Handle error
-                console.error(err);
-              } else {
-                console.log('File Id: ', file.id);
-                console.log('Req body: ', req.body);
+                drive.files.insert({
+                      resource: {
+                        name: photo.name,
+                        mimeType: 'image/jpeg',
+                        title: photo.name
+                      },
+                      media: {
+                        mimeType: 'image/jpeg',
+                        body: photo
+                      },
+                      auth: oauth2Client
+                    },function (err, file) {
+                      if (err) {
+                        // Handle error
+                        console.error(err);
+                      } else {
+                        console.log('File Id: ', file.id);
+                        console.log('Req body: ', req.body);
 
-              }
-            });
+                      }
+                    });
 
-      }
-
+      });
     res.status(201).send('success upload photos')
 
 });
