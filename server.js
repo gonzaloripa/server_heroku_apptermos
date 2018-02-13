@@ -234,7 +234,7 @@ app.get('/user',function(req,res){
 });
 
 app.post('/drivePost',function(req,res){
-  console.log("request body"+req.body + "value" + req.body.value);
+  console.log("request body"+req.body + "value" + req.body.customKey);
   for(var key in req.body) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
