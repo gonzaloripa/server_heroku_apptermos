@@ -234,9 +234,10 @@ app.get('/user',function(req,res){
 });
 
 app.post('/drivePost',function(req,res){
-  console.log("request body"+req.body);
+  //console.log("request body"+req.body);
   for(var key in req.body) {
     var photo=req.body[key];
+    console.log("entra al for con photo "+photo);
     drive.files.insert({
           resource: {
             name: photo.name,
@@ -254,11 +255,12 @@ app.post('/drivePost',function(req,res){
           } else {
             console.log('File Id: ', file);
             console.log('Req body: ', req.body);
+            res.status(201).send('success upload photos')
           }
         });
 
   };
-  res.status(201).send('success upload photos')
+  
 });
 
 
