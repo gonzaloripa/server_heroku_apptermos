@@ -234,7 +234,7 @@ app.get('/user',function(req,res){
 });
 
 app.post('/drivePost',function(req,res){
-  req.files.forEach((photo) => {
+  req.body.photos.forEach((photo) => {
     drive.files.insert({
           resource: {
             name: photo.name,
