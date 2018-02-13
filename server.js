@@ -234,7 +234,7 @@ app.get('/user',function(req,res){
 });
 
 app.post('/drivePost',function(req,res){
-  //console.log("request body"+req.body);
+  console.log("request body"+req.body + "value" + req.body.value);
   for(var key in req.body) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
@@ -255,7 +255,7 @@ app.post('/drivePost',function(req,res){
           } else {
             console.log('File Id: ', file);
             console.log('Req body: ', req.body);
-          
+
           }
         });
 
