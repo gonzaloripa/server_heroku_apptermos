@@ -245,7 +245,7 @@ app.post('/drivePost',function(req,res){
       var file = req.files;
       console.log("req.files "+file+" "+req.body);
       //console.log(req);
-      for(var photo in req.files) {
+      for(var photo in req.files.photos) {
         
         console.log("entra al for con photo "+photo);
         drive.files.insert({
