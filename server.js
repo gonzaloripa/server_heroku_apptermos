@@ -255,7 +255,7 @@ app.post('/drivePost',function(req,res){
                       },
                       media: {
                         mimeType: 'image/jpeg',
-                        body: photo
+                        body: photo.data
                       },
                       auth: oauth2Client
                     },function (err, file) {
