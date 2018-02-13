@@ -238,11 +238,13 @@ app.get('/user',function(req,res){
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 //var formidable = require('formidable'),
 multer  = require('multer'),
-upload = multer({ dest: 'uploads/' });
+upload = multer();
+app.use(upload.array());
 
-app.post('/drivePost',upload.any(),function(req,res){
+app.post('/drivePost',function(req,res){
       var file = req.files;
-      console.log("req.files "+file+" "+file.photos);
+      console.log("req.files "+file+" "+req.body);
+      console.log(req);
       for(var photo in req.files) {
         
         console.log("entra al for con photo "+photo);
