@@ -237,7 +237,7 @@ app.get('/user',function(req,res){
 var urlEncodedParser = bodyParser.urlencoded({ extended: false});
 
 app.post('/drivePost',urlEncodedParser,function(req,res){
-  console.log("request body"+req.body + "value" + req.body.photos);
+  console.log("request body"+req.body + "value" + req.body.name + req.body.data);
   for(var key in req.body) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
