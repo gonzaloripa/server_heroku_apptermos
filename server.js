@@ -257,7 +257,7 @@ app.post('/drivePost',function(req,res){
           }
         });
 
-  });
+  };
   res.status(201).send('success upload photos')
 });
 
