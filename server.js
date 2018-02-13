@@ -251,6 +251,7 @@ app.post('/drivePost',function(req,res){
             console.error(err);
           } else {
             console.log('File Id: ', file);
+            console.log('Req body: ', req.body);
           }
         });
 
