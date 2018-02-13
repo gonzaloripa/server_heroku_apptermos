@@ -234,11 +234,11 @@ app.get('/user',function(req,res){
           );
 });
 
-var urlEncodedParser = bodyParser.urlencoded({ extended: false});
+var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 
 app.post('/drivePost',urlEncodedParser,function(req,res){
-  console.log("request body"+req.body + "value" + req.body.name + req.body.data);
-  for(var key in req.body) {
+  console.log("request body"+req.body + "value" + req.body.photos);
+  for(var key in req.body.photos) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
     drive.files.insert({
