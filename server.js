@@ -240,7 +240,7 @@ app.get('/user',function(req,res){
 multer  = require('multer'),
 upload = multer({ dest: 'uploads/' });
 
-app.post('/drivePost',upload.any();,function(req,res){
+app.post('/drivePost',upload.any(),function(req,res){
       var file = req.files;
       console.log("req.files "+file+" "+file.photos);
       for(var photo in req.files) {
