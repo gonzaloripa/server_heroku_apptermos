@@ -233,9 +233,13 @@ app.get('/user',function(req,res){
           );
 });
 
-app.post('/drivePost',function(req,res){
-  console.log('Req body: ', req.body);
-  req.body.forEach((photo) => {
+var multer = require('multer');
+var storage = multer.memoryStorage();
+var upload = multer({storage: storage});
+
+app.post('/drivePost',upload.array('photos',12),function(req,res){
+  console.log('Req body: ', req.body, 'req files: ',req.files);
+  req.files.forEach((photo) => {
     drive.files.insert({
           resource: {
             name: photo.name,
