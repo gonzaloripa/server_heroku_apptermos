@@ -246,7 +246,7 @@ app.post('/drivePost',function(req,res){
       console.log("req.files "+file+" "+req.body);
       //console.log(req);
       req.files.photos.forEach((photo) => {
-        console.log("entra al for con photo "+photo);
+        console.log("entra al for con photo "+photo.data);
                 drive.files.insert({
                       resource: {
                         name: photo.name,
@@ -263,7 +263,7 @@ app.post('/drivePost',function(req,res){
                         // Handle error
                         console.error(err);
                       } else {
-                        console.log('File Id: ', file.id);
+                        console.log('File Id: ', file);
                         console.log('Req body: ', req.body);
 
                       }
