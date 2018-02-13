@@ -6,7 +6,7 @@ var CLIENT_ID =   "439187847005-v83ihsnpia82g7o8seoq05i6ck3m2d79.apps.googleuser
 var CLIENT_SECRET = "5U5oPtnbYthQ0nd4IMOP0siD";
 var REDIRECT_URL = "https://frozen-everglades-78768.herokuapp.com/oauthcallback";
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
-var drive = google.drive({ version: 'v3', auth: oauth2Client });
+var drive = google.drive({ version: 'v2', auth: oauth2Client });
 // generate a url that asks permissions for Google+ and Google Calendar scopes
 var scopes = [
 "https://www.googleapis.com/auth/drive",
