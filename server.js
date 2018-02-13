@@ -7,6 +7,7 @@ var CLIENT_SECRET = "5U5oPtnbYthQ0nd4IMOP0siD";
 var REDIRECT_URL = "https://frozen-everglades-78768.herokuapp.com/oauthcallback";
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 var drive = google.drive({ version: 'v2', auth: oauth2Client });
+var bodyParser = require('body-parser');
 // generate a url that asks permissions for Google+ and Google Calendar scopes
 var scopes = [
 "https://www.googleapis.com/auth/drive",
@@ -236,7 +237,7 @@ app.get('/user',function(req,res){
 var urlEncodedParser = bodyParser.urlencoded({ extended: false});
 
 app.post('/drivePost',urlEncodedParser,function(req,res){
-  console.log("request body"+req.body + "value" + req.body.customKey);
+  console.log("request body"+req.body + "value" + req.body.photos);
   for(var key in req.body) {
     var photo=req.body[key];
     console.log("entra al for con photo "+photo);
