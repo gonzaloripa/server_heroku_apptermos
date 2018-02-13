@@ -236,17 +236,12 @@ app.get('/user',function(req,res){
 });
 
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
-var formidable = require('formidable'),
+//var formidable = require('formidable'),
 multer  = require('multer'),
 upload = multer({ dest: 'uploads/' });
 
-app.post('/drivePost',function(req,res){
-
-    var form = new formidable.IncomingForm();
-
-    form.parse(req, function(err, fields, files) {
-       console.log("fields"+fields + "files" + files);
-      for(var photo in files) {
+app.post('/drivePost',upload.array('photos', 12),function(req,res){
+      for(var photo in req.files) {
         
         console.log("entra al for con photo "+photo);
         drive.files.insert({
@@ -273,7 +268,6 @@ app.post('/drivePost',function(req,res){
       }
 
     res.status(201).send('success upload photos')
-    });
 
 });
 
