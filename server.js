@@ -237,8 +237,8 @@ app.get('/user',function(req,res){
 
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 var formidable = require('formidable'),
-var multer  = require('multer'),
-var upload = multer({ dest: 'uploads/' });
+multer  = require('multer'),
+upload = multer({ dest: 'uploads/' });
 
 app.post('/drivePost',function(req,res){
 
