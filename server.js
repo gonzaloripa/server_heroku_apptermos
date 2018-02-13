@@ -203,7 +203,7 @@ app.configure(function() {
   app.use(passport.session());
   app.use(passport.authenticate('remember-me'));
   app.use(app.router);
-  app.use(express.json()); 
+  //app.use(express.json()); 
   //app.use(uppy.app(options));
 });
 
@@ -235,36 +235,46 @@ app.get('/user',function(req,res){
           );
 });
 
-var urlEncodedParser = bodyParser.urlencoded({ extended: true});
+//var urlEncodedParser = bodyParser.urlencoded({ extended: true});
+var formidable = require('formidable'),
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
-app.post('/drivePost',urlEncodedParser,function(req,res){
-  console.log("request body"+req.body + "value" + req.body.photos);
-  for(var key in req.body) {
-    var photo=req.body[key];
-    console.log("entra al for con photo "+photo);
-    drive.files.insert({
-          resource: {
-            name: photo.name,
-            mimeType: 'image/jpeg'
-          },
-          media: {
-            mimeType: 'image/jpeg',
-            body: photo
-          },
-          auth: oauth2Client
-        },function (err, file) {
-          if (err) {
-            // Handle error
-            console.error(err);
-          } else {
-            console.log('File Id: ', file);
-            console.log('Req body: ', req.body);
+app.post('/drivePost',function(req,res){
 
-          }
-        });
+    var form = new formidable.IncomingForm();
 
-  };
+    form.parse(req, function(err, fields, files) {
+       console.log("fields"+fields + "files" + files);
+      for(var photo in files) {
+        
+        console.log("entra al for con photo "+photo);
+        drive.files.insert({
+              resource: {
+                name: photo.name,
+                mimeType: 'image/jpeg'
+              },
+              media: {
+                mimeType: 'image/jpeg',
+                body: photo
+              },
+              auth: oauth2Client
+            },function (err, file) {
+              if (err) {
+                // Handle error
+                console.error(err);
+              } else {
+                console.log('File Id: ', file);
+                console.log('Req body: ', req.body);
+
+              }
+            });
+
+      }
+
     res.status(201).send('success upload photos')
+    });
+
 });
 
 
