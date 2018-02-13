@@ -233,7 +233,9 @@ app.get('/user',function(req,res){
           );
 });
 
-app.post('/drivePost',function(req,res){
+var urlEncodedParser = bodyParser.urlencoded({ extended: false});
+
+app.post('/drivePost',urlEncodedParser,function(req,res){
   console.log("request body"+req.body + "value" + req.body.customKey);
   for(var key in req.body) {
     var photo=req.body[key];
