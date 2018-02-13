@@ -255,12 +255,12 @@ app.post('/drivePost',function(req,res){
           } else {
             console.log('File Id: ', file);
             console.log('Req body: ', req.body);
-            res.status(201).send('success upload photos')
+          
           }
         });
 
   };
-  
+    res.status(201).send('success upload photos')
 });
 
 
