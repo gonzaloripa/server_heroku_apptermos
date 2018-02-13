@@ -246,12 +246,13 @@ app.post('/drivePost',function(req,res){
       console.log("req.files "+file+" "+req.body);
       //console.log(req);
       for(var photo in req.files.photos) {
-        
+
         console.log("entra al for con photo "+photo);
         drive.files.insert({
               resource: {
                 name: photo.name,
-                mimeType: 'image/jpeg'
+                mimeType: 'image/jpeg',
+                title: photo.name
               },
               media: {
                 mimeType: 'image/jpeg',
@@ -263,7 +264,7 @@ app.post('/drivePost',function(req,res){
                 // Handle error
                 console.error(err);
               } else {
-                console.log('File Id: ', file);
+                console.log('File Id: ', file.id);
                 console.log('Req body: ', req.body);
 
               }
