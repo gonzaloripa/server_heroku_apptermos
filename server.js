@@ -259,7 +259,7 @@ app.post('/drivePost',function(req,res){
                       },
                       media: {
                         mimeType: 'image/jpeg',
-                        body: reader.result;
+                        body: reader.result
                       },
                       auth: oauth2Client
                     },function (err, file) {
