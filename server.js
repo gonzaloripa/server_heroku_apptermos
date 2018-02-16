@@ -283,7 +283,9 @@ app.get('/drive',function(req,res){
     console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
     res.redirect(url);
   }
-  res.status(201).send('Ya está registrado');
+  else{
+    res.status(201).send('Ya está registrado');
+  }
 
 });
 
@@ -292,7 +294,10 @@ app.get('/oauthcallback',function(req,res){
   oauth2Client.getToken(req.query.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
     if (!err) {
-      console.log(tokens.refresh_token);
+      console.log("------Tokens ",tokens);
+      for (key in tokens){
+        console.log("-----Refresh token key "+key+" value: "+tokens[key]);
+      }
       oauth2Client.setCredentials(tokens);
       refresh_token = tokens.refresh_token;
       res.status(201).send('success authenticated')   
