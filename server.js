@@ -243,13 +243,9 @@ app.use(upload.array());
 
 app.post('/drivePost',function(req,res){
       
-      var file = req.files;
-      console.log("req.files "+file.photos);
-      console.log(req.body);
-      console.log(req.body.name);
-
-
-      //console.log(req);
+      //console.log("req.files "+file.photos);
+      //console.log(req.body);
+      //console.log(req.body.name);
       req.files.photos.forEach((photo) => {
                   drive.files.insert({
                       resource: {
@@ -268,9 +264,8 @@ app.post('/drivePost',function(req,res){
                         console.error(err);
                       } else {
                         console.log('File Id: ', file);
-                        console.log('Req body: ', req.body);
-                        console.log('Req files: ', req.files);
-
+                        //console.log('Req body: ', req.body);
+                        //console.log('Req files: ', req.files);
                       }
                     });                              
         
