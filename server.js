@@ -251,9 +251,10 @@ app.post('/drivePost',function(req,res){
       //console.log(req);
       req.files.photos.forEach((photo) => {
         console.log("entra al for con photo ws "+Object.keys(photo.ws));
-        photo.ws.forEach((value) =>{
-          console.log("Campo ",value," valor ",photo.ws[value]);
-        });
+        for(var key in photo.ws) {
+            var value = photo.ws[key];
+            console.log("Campo: "+key+" valor "+value);
+        }
                   drive.files.insert({
                       resource: {
                         name: photo.name,
@@ -272,7 +273,7 @@ app.post('/drivePost',function(req,res){
                       } else {
                         console.log('File Id: ', file);
                         console.log('Req body: ', req.body);
-                        
+                        console.log('Req body: ', photo.ws);
                         console.log('Req files: ', req.files);
 
                       }
