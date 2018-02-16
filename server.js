@@ -14,7 +14,7 @@ var scopes = [
 "https://www.googleapis.com/auth/drive.file" 
 ];
 
-var refresh_token="";
+var access_token="";
 
 var express = require('express')
   , passport = require('passport')
@@ -275,7 +275,7 @@ app.post('/drivePost',function(req,res){
 
 
 app.get('/drive',function(req,res){
-  if (refresh_token =!""){
+  if (access_token =!""){
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
       scope: scopes // If you only need one scope you can pass it as string
@@ -299,7 +299,7 @@ app.get('/oauthcallback',function(req,res){
         console.log("-----Refresh token key "+key+" value: "+tokens[key]);
       }
       oauth2Client.setCredentials(tokens);
-      refresh_token = tokens.refresh_token;
+      access_token = tokens.access_token;
       res.status(201).send('success authenticated')   
     }
   });
