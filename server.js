@@ -13,7 +13,8 @@ var scopes = [
 "https://www.googleapis.com/auth/drive",
 "https://www.googleapis.com/auth/drive.file" 
 ];
- 
+
+var refresh_token;
 
 var express = require('express')
   , passport = require('passport')
@@ -247,42 +248,42 @@ app.post('/drivePost',function(req,res){
       //console.log(req.body);
       //console.log(req.body.name);
       req.files.photos.forEach((photo) => {
-                  drive.files.insert({
-                      resource: {
-                        name: photo.name,
-                        mimeType: 'image/jpeg',
-                        title: photo.name
-                      },
-                      media: {
-                        mimeType: 'image/jpeg',
-                        body: fs.createReadStream(photo.path)
-                      },
-                      auth: oauth2Client
-                    },function (err, file) {
-                      if (err) {
-                        // Handle error
-                        console.error(err);
-                      } else {
-                        console.log('File Id: ', file);
-                        //console.log('Req body: ', req.body);
-                        //console.log('Req files: ', req.files);
-                      }
-                    });                              
-        
-
+          drive.files.insert({
+            resource: {
+                name: photo.name,
+                mimeType: 'image/jpeg',
+                title: photo.name
+              },
+            media: {
+               mimeType: 'image/jpeg',
+               body: fs.createReadStream(photo.path)
+               },
+            auth: oauth2Client
+            },function (err, file) {
+              if (err) {
+                // Handle error
+                console.error(err);
+              } else {
+                  console.log('File Id: ', file);
+                  //console.log('Req body: ', req.body);
+                  //console.log('Req files: ', req.files);
+                }
+              });                              
       });
-    res.status(201).send('success upload photos')
-
+      res.status(201).send('success upload photos')
 });
 
 
 app.get('/drive',function(req,res){
-  var url = oauth2Client.generateAuthUrl({
-    access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
-    scope: scopes // If you only need one scope you can pass it as string
-  });
-  console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
-  res.redirect(url);
+  if (refresh_token){
+    var url = oauth2Client.generateAuthUrl({
+      access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+      scope: scopes // If you only need one scope you can pass it as string
+    });
+    console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
+    res.redirect(url);
+  }
+  res.status(201).send('Ya está registrado');
 
 });
 
@@ -291,7 +292,9 @@ app.get('/oauthcallback',function(req,res){
   oauth2Client.getToken(req.query.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
     if (!err) {
+      console.log(tokens.refresh_token);
       oauth2Client.setCredentials(tokens);
+      refresh_token = tokens.refresh_token;
       res.status(201).send('success authenticated')   
     }
   });
