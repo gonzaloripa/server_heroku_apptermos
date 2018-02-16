@@ -276,7 +276,7 @@ app.post('/drivePost',function(req,res){
 
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
-  if (access_token =!""){
+  if (access_token === ""){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
