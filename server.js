@@ -246,11 +246,8 @@ app.post('/drivePost',function(req,res){
       var file = req.files;
       console.log("req.files "+file+" "+req.body);
       //console.log(req);
-      req.files.photos.forEach((photoBlob) => {
-        console.log("entra al for con photo "+photoBlob);
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            console.log("entra al onloadend "+reader.result);
+      req.files.photos.forEach((photo) => {
+        console.log("entra al for con photo data "+photo.data);
                   drive.files.insert({
                       resource: {
                         name: 'photo.name',
@@ -259,7 +256,7 @@ app.post('/drivePost',function(req,res){
                       },
                       media: {
                         mimeType: 'image/jpeg',
-                        body: reader.result
+                        body: photo.data
                       },
                       auth: oauth2Client
                     },function (err, file) {
@@ -272,8 +269,8 @@ app.post('/drivePost',function(req,res){
 
                       }
                     });                              
-        }
-        reader.readAsDataURL(blob);
+        
+
       });
     res.status(201).send('success upload photos')
 
