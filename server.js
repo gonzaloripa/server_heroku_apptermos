@@ -248,6 +248,7 @@ app.post('/drivePost',function(req,res){
       console.log(req.body);
       console.log(req.body.name);
 
+
       //console.log(req);
       req.files.photos.forEach((photo) => {
                   drive.files.insert({
@@ -258,7 +259,7 @@ app.post('/drivePost',function(req,res){
                       },
                       media: {
                         mimeType: 'image/jpeg',
-                        body: photo.path
+                        body: fs.createReadStream(photo.path)
                       },
                       auth: oauth2Client
                     },function (err, file) {
