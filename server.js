@@ -244,15 +244,18 @@ app.use(upload.array());
 app.post('/drivePost',function(req,res){
       
       var file = req.files;
-      console.log("req.files "+file+" "+req.body);
+      console.log("req.files "+file.photos);
+      console.log(req.body);
+      console.log(req.body.name);
+      console.log(req.body.photos);
       //console.log(req);
       req.files.photos.forEach((photo) => {
         console.log("entra al for con photo data "+photo.data);
                   drive.files.insert({
                       resource: {
-                        name: 'photo.name',
+                        name: photo.name,
                         mimeType: 'image/jpeg',
-                        title: 'photo.name'
+                        title: photo.name
                       },
                       media: {
                         mimeType: 'image/jpeg',
@@ -266,6 +269,7 @@ app.post('/drivePost',function(req,res){
                       } else {
                         console.log('File Id: ', file);
                         console.log('Req body: ', req.body);
+                        console.log('Req body: ', req.files);
 
                       }
                     });                              
