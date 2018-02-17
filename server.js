@@ -350,6 +350,15 @@ app.get('/logout', function(req, res){
   res.redirect('/');
 });
 
+app.post('/pedidoEnviado',function(req,res){
+      console.log("----------Info del pedido ",req.body);
+      res.status(201).send('Pedido recibido');
+      //Manejar el pedido que llega de la app.
+      //Agregar funcion para almacenar info en la base     
+});
+
+
+
 app.listen(process.env.PORT, function() {
   console.log('Express server listening on port 8081');
 });
