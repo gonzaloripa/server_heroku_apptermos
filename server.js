@@ -210,8 +210,6 @@ app.configure(function() {
 
 
 
-//algo
-
 
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -352,9 +350,39 @@ app.get('/logout', function(req, res){
 
 app.post('/pedidoEnviado',function(req,res){
       console.log("----------Info del pedido ",req.body);
-      res.status(201).send('Pedido recibido');
-      //Manejar el pedido que llega de la app.
-      //Agregar funcion para almacenar info en la base     
+      var nombreP = req.body.nombre;
+      var descripcionP = req.body.descripcion;
+      var termoP = req.body.termo;
+      var yerberaP = req.body.yerbera;
+      var mateP = req.body.mate;
+      var azucareraP = req.body.azucarera;
+      var idPedido; //id del ultimo pedido traido de la base
+
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      
+      client.query('select max(idPedido) from pedidos', function(err, result) {
+        if (err)
+         { console.error(err);}
+        else
+        { 
+          console.log("---Resultado insert: "+result.row);
+          idPedido = result.row;
+        }
+      });
+
+      client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera) values ($1,$2,$3,$4,$5,$6,$7)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP] , function(err, result) {
+        if (err)
+         { console.error(err);}
+        else
+        { 
+          console.log("---Resultado insert: "+result.row);
+        }
+      client.end();
+      });
+      pg.end();    
+    });
+    res.status(201).send('Pedido recibido');
+     
 });
 
 
