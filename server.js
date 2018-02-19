@@ -366,7 +366,9 @@ app.post('/pedidoEnviado',function(req,res){
         else
         { 
           result.rows.forEach(function(r){
-            idPedido = r.idPedido;
+            idPedido = r;
+            console.log("---Resultado select: "+r.value);
+
           });
           console.log("---Resultado select: "+idPedido);
         }
