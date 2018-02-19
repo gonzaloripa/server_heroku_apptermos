@@ -367,6 +367,8 @@ app.post('/pedidoEnviado',function(req,res){
         else
         { 
           result.rows.forEach(function(r){
+            console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
+
             if(r.idPedido)
               idPedido = (r.idpedido)+1;
             else
