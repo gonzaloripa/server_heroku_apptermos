@@ -366,15 +366,16 @@ app.post('/pedidoEnviado',function(req,res){
          { console.error(err);}
         else
         { 
+        if(result.rows){
           result.rows.forEach(function(r){
             console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
-
-            if(r.idPedido)
-              idPedido = (r.idpedido)+1;
-            else
-              idPedido = 1;
-            
+          idPedido = (r.idpedido)+1;
           });
+        }else
+         {
+              idPedido = 1;
+
+         } 
           console.log("---Resultado select: "+idPedido);
         }
       });
