@@ -352,10 +352,10 @@ app.post('/pedidoEnviado',function(req,res){
       console.log("----------Info del pedido ",req.body);
       var nombreP = req.body.nombre;
       var descripcionP = req.body.descripcion;
-      var termoP = (req.body.termo == 'true');
-      var yerberaP = (req.body.yerbera =='true');
-      var mateP = (req.body.mate == 'true');
-      var azucareraP = (req.body.azucarera == 'true');
+      var termoP = (req.body.chekedTermo == 'true');
+      var yerberaP = (req.body.checkedYerbera =='true');
+      var mateP = (req.body.checkedMate == 'true');
+      var azucareraP = (req.body.checkedAzucarera == 'true');
       var idPedido; //id del ultimo pedido traido de la base
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -366,7 +366,7 @@ app.post('/pedidoEnviado',function(req,res){
         else
         { 
           result.rows.forEach(function(r){
-            idPedido = parseInt(r.idPedido);
+            idPedido = r.idPedido;
           });
           console.log("---Resultado select: "+idPedido);
         }
