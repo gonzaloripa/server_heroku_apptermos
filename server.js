@@ -359,22 +359,22 @@ app.post('/pedidoEnviado',function(req,res){
       var idPedido; //id del ultimo pedido traido de la base
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      
-      client.query('select max(idPedido) from pedidos', function(err, result) {
+       
+      client.query('select idpedido from pedidos order by idpedido desc limit 1', function(err, result) {
+        done();
         if (err)
          { console.error(err);}
         else
         { 
           result.rows.forEach(function(r){
-            idPedido = r;
-            console.log("---Resultado select: "+r.value);
-
+            idPedido = r.idpedido;
           });
           console.log("---Resultado select: "+idPedido);
         }
       });
 
       client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera) values ($1,$2,$3,$4,$5,$6,$7)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP] , function(err, result) {
+        done();
         if (err)
          { console.error(err);}
         else
