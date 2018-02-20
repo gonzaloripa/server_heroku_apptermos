@@ -366,7 +366,8 @@ app.post('/pedidoEnviado',function(req,res){
          { console.error(err);}
         else
         { 
-        
+          if(!idPedido)
+            idPedido = 1;
           result.rows.forEach(function(r){
             //console.log("---Entra al foreach: ",Object.keys(r));
             console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
