@@ -368,12 +368,19 @@ app.post('/pedidoEnviado',function(req,res){
         { 
         
           result.rows.forEach(function(r){
-            console.log("---Entra al foreach: ",Object.keys(r));
+            //console.log("---Entra al foreach: ",Object.keys(r));
             //console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
-            if(r.idpedido != null)
-              idPedido = r.idpedido + 1;
-            else
+            if(r.idpedido != null){
+              //console.log("---Entra al if: ",r.idpedido);
+              idPedido = (r.idpedido) + 1;
+              console.log("---Entra al if: ",idPedido);
+            }
+            else{
               idPedido = 1;
+              console.log("---Entra al else: ",idPedido);
+
+            }
+          
           });
          } 
           console.log("---Resultado select: "+idPedido);
