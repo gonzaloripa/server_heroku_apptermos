@@ -366,30 +366,26 @@ app.post('/pedidoEnviado',function(req,res){
          { console.error(err);}
         else
         { 
-        if(result.rows){
+        
           result.rows.forEach(function(r){
             console.log("---Entra al foreach: ",Object.keys(r));
             //console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
-            //idPedido = r + 1;
-            idPedido = 1;
+            if(r.idpedido != null)
+              idPedido = r.idpedido;
+            else
+              idPedido = 1;
           });
-        }else
-         {
-            console.log("Entra al else"+ idPedido);
-            idPedido = 1;
-
          } 
-         done();
           console.log("---Resultado select: "+idPedido);
         }
       });
         
-        console.log("---antes del insert: "+idPedido);
 
       client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera) values ($1,$2,$3,$4,$5,$6,$7)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP] , function(err, result) {
         
-        if (err)
-         { console.error(err);}
+        if (err){ 
+          console.error(err);
+        }
         else
         { 
           result.rows.forEach(function(r){
