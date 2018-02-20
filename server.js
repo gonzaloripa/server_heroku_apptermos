@@ -371,7 +371,7 @@ app.post('/pedidoEnviado',function(req,res){
             console.log("---Entra al foreach: ",Object.keys(r));
             //console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
             if(r.idpedido != null)
-              idPedido = r.idpedido;
+              idPedido = r.idpedido + 1;
             else
               idPedido = 1;
           });
@@ -391,8 +391,9 @@ app.post('/pedidoEnviado',function(req,res){
             result.rows.forEach(function(r){
             console.log("---Resultado insert: "+r);
             });
-            done();
+            
           }
+          done();
         client.end();
         });
       });
