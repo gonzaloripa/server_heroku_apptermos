@@ -369,7 +369,7 @@ app.post('/pedidoEnviado',function(req,res){
         
           result.rows.forEach(function(r){
             //console.log("---Entra al foreach: ",Object.keys(r));
-            //console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
+            console.log("---Entra al foreach: "+idPedido+" "+r+" "+r.idpedido);
             if(r.idpedido != null){
               //console.log("---Entra al if: ",r.idpedido);
               idPedido = (r.idpedido) + 1;
