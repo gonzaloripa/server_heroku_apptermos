@@ -289,6 +289,12 @@ app.get('/drive',function(req,res){
 
 });
 
+app.get('/logueado',function(req,res){
+  
+    res.status(201).send('Usuario logueado correctamente');
+
+});
+
 app.get('/oauthcallback',function(req,res){
   console.log("Codigo " + req.query.code);
   oauth2Client.getToken(req.query.code, function (err, tokens) {
@@ -300,7 +306,7 @@ app.get('/oauthcallback',function(req,res){
       }
       oauth2Client.setCredentials(tokens);
       access_token = tokens.access_token;
-      res.status(201).send('success authenticated')   
+      res.redirect('/logueado');   
     }
   });
 
