@@ -396,6 +396,7 @@ app.post('/pedidoEnviado',function(req,res){
           }
           else
           { 
+            console.log("---Entra al else de insert ",result.rows);
             result.rows.forEach(function(r){
             console.log("---Resultado insert: "+r);
             });
