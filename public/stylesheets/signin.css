@@ -50,7 +50,9 @@ body {
 
 .form-signin button[type="submit"] {
   background-color: 'orange' !important;
+  color:'orange';
 }
 .btn, .btn-lg, .btn-primary, .btn-block{
   background-color: 'orange' !important;
+  color:#ffffff;
 }
