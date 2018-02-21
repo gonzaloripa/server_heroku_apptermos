@@ -349,8 +349,13 @@ app.post('/login',
 app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
-  users[0]=null;
-  users[1]=null;
+  console.log("user logout"+req.user.username);
+  if(req.user.username == users[0]){
+    users[0]=null;
+  }
+  if(req.user.username == users[1]){
+    users[1]=null;
+  }
   req.logout();
   res.redirect('/login');
 });
