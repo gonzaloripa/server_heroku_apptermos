@@ -19,6 +19,7 @@ body {
 #brand{
   color: #ffa500;
   font-size: 18px;
+  height: 40px;
 
 }
 .form-signin {
