@@ -350,13 +350,15 @@ app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
   res.clearCookie('remember_me');
   console.log("user logout"+req.user.username);
+  if(users[0]){
   if(req.user.username == users[0].user){
     users[0]=null;
-  }
+  }}
+  if(users[1]){
   if(req.user.username == users[1].user){
       console.log("entra"+users[1]+(req.user.username == users[1].user));
     users[1]=null;
-  }
+  }}
   req.logout();
   res.redirect('/login');
 });
