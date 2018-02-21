@@ -74,7 +74,7 @@ function findByUsername(username,password,fn) {
           result.rows.forEach(function(r){
             user = {username:r.username,password:r.password,id:r.id}
           });
-          console.log("Usuario"+user);
+          console.log("Usuario en find username "+user);
           if (user){
             var userObj = {"user":user.username};
             users[(user.id)-1]=userObj;
@@ -314,7 +314,7 @@ app.get('/oauthcallback',function(req,res){
 
 
 app.get('/', function(req, res){
-  console.log("-------Request User: "+ req.user);
+  console.log("-------Request User del /: "+ req.user);
   res.render('index', { user: req.user });
 });
 

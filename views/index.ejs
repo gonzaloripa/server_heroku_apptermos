@@ -1,6 +1,6 @@
 <% layout('layout') -%>
 <% if (!user) { %>
 	<h2>Welcome! Please log in.</h2>
-<% } else { console.log("----usuario"+user);%>
+<% } else { console.log("----usuario en index "+Object.keys(user));%>
 	<h2>You have successfully logged in!</h2>
 <% } %>
