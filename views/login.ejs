@@ -15,10 +15,6 @@
   </head>
 
   <body>
-	<% layout('layout') -%>
-		<% if (message) { %>
-		<p><%= message %></p>
-	<% } %>
 	<nav class="navbar navbar-inverse">
       <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
@@ -31,6 +27,10 @@
     </nav><!-- /.navbar -->
 
     <div class="container">
+        <% layout('layout') -%>
+    <% if (message) { %>
+    <p><%= message %></p>
+  <% } %>
     <form class="form-signin" action="/login" method="post">
 			
 
