@@ -40,8 +40,8 @@
     <div class="container">
     <% if (!user) { %>
 		<h2>Welcome! Please log in.</h2>
-	<% } else { console.log("----usuario en index "+Object.keys(user));%>
-		<h2>Welcome <%user.username%>! You have successfully logged in !</h2>
+	<% } else { console.log("----usuario en index "+user.username);%>
+		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
 	<% } %>
 	</div>
 
