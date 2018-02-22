@@ -373,7 +373,7 @@ app.get('/oauthcallback',function(req,res){
 app.get('/', function(req, res){
   if(req.user){
       console.log("-------Request User del /: "+ req.user);
-      var info=[];
+      //var info=[];
       drive.files.list({
             auth: oauth2Client,
             maxResults: 10,
@@ -387,10 +387,12 @@ app.get('/', function(req, res){
             if (files.length == 0) {
               console.log('No files found.');
             } else {
+              info=[];
               console.log('Files:');
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
+                
                 info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/open?id="+file.id,name:file.name,webLink:file.webViewLink}};
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
