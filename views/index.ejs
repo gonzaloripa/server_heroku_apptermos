@@ -44,19 +44,21 @@
 	    </nav><!-- /.navbar -->
 
 <div class="container gallery-container">
-	
-	<div class="row">
+	<h1>Bootstrap</h1>
+	<br>
+	<br>
+    
+    <div class="tz-gallery">
+   	<div class="row">
     <% if (!user) { %>
  
     <% console.log("----usuario en index "+user);%>
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
-	</div>
+	
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2 class="page-description text-center">Welcome <%=user.username%>! You have successfully logged in !</h2>
-	
+	</div>
 
-    
-    <div class="tz-gallery">
 	<% if(info){ %>
         <div class="row">
 		<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
