@@ -369,12 +369,18 @@ app.get('/oauthcallback',function(req,res){
 
 });
 
+/*var EventEmitter = require("events").EventEmitter;
+var body = new EventEmitter();
+body.on('pass', function (mensaje) {
+  info2=mensaje;
+}
+global.info2="";*/
 
 app.get('/', function(req, res){
   if(req.user){
       console.log("-------Request User del /: "+ req.user);
-      info=[];
-      var informacion = drive.files.list({
+      global.info=[];
+      drive.files.list({
             auth: oauth2Client,
             maxResults: 10,
           }, function(err, response) {
@@ -396,15 +402,16 @@ app.get('/', function(req, res){
                 info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/open?id="+file.id,name:file.name,webLink:file.webViewLink}};
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+                //body.emit('pass',"Termino");
               }
-              return info;
             }
-          });
-
-      for (var i = 0; i < 2; i++) {
-        console.log("------Info afuera "+informacion[i]+" "+informacion[i].cantFiles+" "+informacion[i].image);
-      }
-    res.render('index', { user: req.user,info:info });
+          }).then(function(){
+            for (var i = 0; i < 2; i++) {
+              console.log("------Info afuera "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+            }
+            res.render('index', { user: req.user,info:info });
+          };
+      //console.log("",info2);
   }else{
     res.render('index',{user:""});
   }
