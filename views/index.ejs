@@ -44,7 +44,7 @@
 	    </nav><!-- /.navbar -->
 
 <div class="container gallery-container">
-    
+    <div id="texto">
 	<div class="row">
     <% if (!user) { %>
     <% console.log("----usuario en index "+user);%>
@@ -52,7 +52,7 @@
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2 class="page-description text-center">Welcome <%=user.username%>! You have successfully logged in !</h2>
 	</div>
-	
+	</div>
     
     <div class="tz-gallery">
 	<% if(info){ %>
