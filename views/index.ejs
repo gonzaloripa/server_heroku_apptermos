@@ -51,22 +51,23 @@
 	<div class="row">
 	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
 	<% console.log("----info en index "+info[i]); %>
-		  <div class="col-md-4">
-		    <div class="thumbnail">
+
+		<div class="col-md-3 col-sm-4 col-xs-6">
+			<div class="thumbnail">
 		      <a href=<%=info[i].image.downloadUrl%>>
-		       <img style="width:100%" src=<%=info[i].image.href %> >
-		        <div class="caption">
-		          <h4><%=info[i].image.name %></h4>
-		        </div>
-		      </a>
-		    </div>
-		  </div>
+				<img class="img-responsive" src=<%=info[i].image.href %> />
+				<div class="caption">
+			        <h4><%=info[i].image.name %></h4>
+			    </div>
+			   </a>
+		    </div>      
+    	</div>
+
 	<% } %>
 	</div>
 	<%}} %>
 	
 	</div>
-
 
   </body>
   </html>
