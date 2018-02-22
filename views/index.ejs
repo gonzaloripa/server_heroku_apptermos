@@ -56,7 +56,8 @@
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
 	
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
-		<h2 class="page-description text-center">Welcome <%=user.username%>! You have successfully logged in !</h2>
+		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
+		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
 	</div>
 
 	<% if(info){ %>
@@ -76,7 +77,7 @@
 
 		<% } %>
 		<% if(urls){ %>
-			<button onclick="downloadAll(urls)">Descargar todas</button>
+			<button onclick="downloadAll('<%urls%>')">Descargar todas</button>
 		<% } %>
         </div>
         <% } %>
