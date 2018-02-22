@@ -439,7 +439,8 @@ app.get('/', function(req, res){
             }
           })
       });
-  
+      
+   pg.end();
   });   //console.log("",info2);
   }else{
     res.render('index',{user:""});
