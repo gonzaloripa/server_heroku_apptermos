@@ -420,6 +420,7 @@ app.get('/', function(req, res){
               console.log('No files found.');
             } else {
 
+              var urls=[];//Download urls
               console.log('Files:');
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -428,18 +429,19 @@ app.get('/', function(req, res){
                 var ok = files.some(a =>a.title.includes(file.title.substring(0,(file.title.length)-7))); //Se fija si en algun valor de nombres esta el del archivo
                 console.log("-----ok ",ok);
                 if(ok){
-                  info[i]={cantFiles:files.length,nombres:nombres,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
+                  urls.push("https://drive.google.com/uc?export=download&id="+file.id);
+                  info[i]={image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
                   //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                   console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                   //body.emit('pass',"Termino");
                 }
 
               }
-              res.render('index', { user: req.user,info:info });
+              res.render('index', { user: req.user,info:info,cantFiles:files.length,urls:urls,nombres:nombres});
             }
           })
       });
-      
+
    pg.end();
   });   //console.log("",info2);
   }else{
