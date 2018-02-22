@@ -23,11 +23,12 @@ img {
 }
 
 #texto{
-    
+    width:100%;
+    position: fixed;
     top: 35%;
     left: 15%;
-  
- 
+    margin-top: -100px;
+    margin-left: -200px;
 }
 
 #nav{
