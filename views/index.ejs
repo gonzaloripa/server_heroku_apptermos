@@ -48,12 +48,22 @@
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
 	<% if(info){ %>
+	<div class="row">
 	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
 	<% console.log("----info en index "+info[i]); %>
-		<img width="250" height="250" src=<%=info[i].image.href %> >
-		<a href=<%=info[i].image.downloadUrl%> > Descargar </a>
-		<h4><%=info[i].image.name %></h4>
-	<% }}} %>
+		  <div class="col-md-4">
+		    <div class="thumbnail">
+		      <a href=<%=info[i].image.downloadUrl%>>
+		       <img style="width:100%" src=<%=info[i].image.href %> >
+		        <div class="caption">
+		          <h4><%=info[i].image.name %></h4>
+		        </div>
+		      </a>
+		    </div>
+		  </div>
+	<% } %>
+	</div>
+	<%}} %>
 	
 	</div>
 
