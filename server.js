@@ -379,8 +379,34 @@ global.info2="";*/
 app.get('/', function(req, res){
   if(req.user){
       console.log("-------Request User del /: "+ req.user);
+      global.nombres=[];
       global.info=[];
-      drive.files.list({
+
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      var query = client.query('select nombre,idpedido from pedidos where finalizado=$1 order by idpedido',[false], function(err, result) {
+        
+        if (err)
+         { console.error(err);}
+        else
+        { 
+          
+          result.rows.forEach(function(r,index){
+            //console.log("---Entra al foreach: ",Object.keys(r));
+  
+            if(r.nombre != null){
+              //console.log("---Entra al if: ",r.idpedido);
+              nombres[index]={nombre:r.nombre,id:r.idpedido};
+              console.log("---Entra al if: ",r.nombre);
+            }
+          
+          });
+         } 
+          done();
+          client.end();
+        });
+
+      query.on('end',function(){
+        drive.files.list({
             auth: oauth2Client,
             maxResults: 10,
           }, function(err, response) {
@@ -398,16 +424,21 @@ app.get('/', function(req, res){
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
-                
-                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
-                //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
-                console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
-                //body.emit('pass',"Termino");
+
+                var ok = nombres.some(a =>a.nombre.includes(file.title)); //Se fija si en algun valor de nombres esta el del archivo
+                if(ok){
+                  info[i]={cantFiles:files.length,nombres:nombres,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
+                  //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
+                  console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+                  //body.emit('pass',"Termino");
+                }
 
               }
               res.render('index', { user: req.user,info:info });
             }
           })
+      });
+  
       //console.log("",info2);
   }else{
     res.render('index',{user:""});
