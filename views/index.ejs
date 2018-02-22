@@ -41,12 +41,14 @@
 
     
     <div id="texto">
-
+	<div class="row">
     <% if (!user) { %>
     <% console.log("----usuario en index "+user);%>
 		<h2>Welcome! Please log in.</h2>
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
+	</div>
+	
 	<% if(info){ %>
 
 	<div class="row">
