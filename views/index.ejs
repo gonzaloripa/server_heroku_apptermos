@@ -45,10 +45,9 @@
 	<% if(info){ %>
 	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
 	<% console.log("----info en index "+info[i]); %>
-		<img id="imagen" width="500" height="600" src=<%=info[i].image.href %> >
-	<label for="imagen" class="sr-only">
-		<%=info[i].image.name %>
-	</label> 
+		<img width="250" height="250" src=<%=info[i].image.href %> >
+		<a href=<%=info[i].image.downloadUrl%> > Descargar </a>
+		<h4><%=info[i].image.name %></h4>
 	<% }}} %>
 	
 	</div>
