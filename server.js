@@ -363,7 +363,7 @@ app.get('/oauthcallback',function(req,res){
       }
       oauth2Client.setCredentials(tokens);
       access_token = tokens.access_token;
-      res.redirect('/logueado');   
+      res.redirect('/');   
     }
   });
 
@@ -399,7 +399,7 @@ app.get('/', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
                 
-                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:file.downloadUrl}}; //"https://drive.google.com/open?id="
+                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                 //body.emit('pass',"Termino");
@@ -439,7 +439,7 @@ app.post('/login',
     });
   },
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/drive');
   });
 
 app.get('/logout', function(req, res){
