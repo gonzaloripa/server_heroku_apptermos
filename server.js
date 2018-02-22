@@ -382,7 +382,7 @@ app.get('/', function(req, res){
               console.log('The API returned an error: ' + err);
               return;
             }
-            console.log('Response: '+response.data);
+            console.log('Response: '+Object.keys(response.data));
             var files = response.items;
             if (files.length == 0) {
               console.log('No files found.');
