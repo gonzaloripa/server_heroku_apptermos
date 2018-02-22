@@ -410,7 +410,7 @@ app.get('/', function(req, res){
               console.log("------Info afuera "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
             }
             res.render('index', { user: req.user,info:info });
-          };
+          });
       //console.log("",info2);
   }else{
     res.render('index',{user:""});
