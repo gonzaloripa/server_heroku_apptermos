@@ -439,7 +439,7 @@ app.get('/', function(req, res){
           })
       });
   
-      //console.log("",info2);
+  });   //console.log("",info2);
   }else{
     res.render('index',{user:""});
   }
