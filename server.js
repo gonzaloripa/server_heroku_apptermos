@@ -341,7 +341,7 @@ app.get('/drive',function(req,res){
     res.redirect(url);
   }
   else{
-    res.status(201).send('Ya está registrado');
+    res.redirect('/');
   }
 
 });
