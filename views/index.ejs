@@ -52,28 +52,8 @@
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
 	</div>
-	
-	<% if(info){ %>
-
-	<div class="row">
-	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
-	<% console.log("----info en index "+info[i]); %>
-
-		<div class="col-md-3">
-			<div class="thumbnail">
-		      <a href=<%=info[i].image.downloadUrl%>>
-				<img class=".image-responsive" src=<%=info[i].image.href %> />
-				<div class="caption">
-			        <h4><%=info[i].image.name %></h4>
-			    </div>
-			   </a>
-		    </div>      
-    	</div>
-
-	<% } %>
-	</div>
-	<%} %>
-    <div class="container gallery-container">
+</div>
+	 <div class="container gallery-container">
 
     <h1>Bootstrap 3 Gallery</h1>
 
@@ -154,9 +134,26 @@
     </div>
 
 </div>
+	<% if(info){ %>
+
+	<div class="row">
+	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
+	<% console.log("----info en index "+info[i]); %>
+
+		<div class="col-md-3">
+			<div class="thumbnail">
+		      <a href=<%=info[i].image.downloadUrl%>>
+				<img class=".image-responsive" src=<%=info[i].image.href %> />
+				<div class="caption">
+			        <h4><%=info[i].image.name %></h4>
+			    </div>
+			   </a>
+		    </div>      
+    	</div>
+
 	<% } %>
-	
 	</div>
+	<%} }%>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
 <script>
