@@ -17,8 +17,8 @@ body {
 
 #texto{
     position: fixed;
-    top: 50%;
-    left: 50%;
+    top: 20%;
+    left: 15%;
     margin-top: -100px;
     margin-left: -200px;
 }
