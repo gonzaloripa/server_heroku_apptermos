@@ -373,8 +373,8 @@ app.get('/oauthcallback',function(req,res){
 app.get('/', function(req, res){
   if(req.user){
       console.log("-------Request User del /: "+ req.user);
-      //var info=[];
-      drive.files.list({
+      info=[];
+      var informacion = drive.files.list({
             auth: oauth2Client,
             maxResults: 10,
           }, function(err, response) {
@@ -387,7 +387,7 @@ app.get('/', function(req, res){
             if (files.length == 0) {
               console.log('No files found.');
             } else {
-              info=[];
+
               console.log('Files:');
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -397,6 +397,7 @@ app.get('/', function(req, res){
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
               }
+              return info;
             }
           });
 
