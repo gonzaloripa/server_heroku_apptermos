@@ -399,7 +399,7 @@ app.get('/', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
                 
-                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/open?id="+file.id,name:file.title,webLink:file.webViewLink}};
+                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,webLink:file.webViewLink}}; //"https://drive.google.com/open?id="
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                 //body.emit('pass',"Termino");
