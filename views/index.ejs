@@ -16,29 +16,33 @@
 
   <body>
   
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-         
-          <a id="brand" class="navbar-brand">Home</a>
-        </div> 
-        <% if (!user) { %>
-        <div class="navbar-header navbar-right">
-         
-          <a id="brand" class="navbar-brand" href="/login">Login</a>
-        </div>
-        <% } else { %>
-        <div class="navbar-header navbar-right">
-       
-          <a id="brand" class="navbar-brand" href="/logout">Logout</a>
-        </div>
-		<% } %>
+<div class="container">
+  <div class="row">
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container">
+	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	         
+	          <a id="brand" class="navbar-brand">Home</a>
+	        </div> 
+	        <% if (!user) { %>
+	        <div class="navbar-header navbar-right">
+	         
+	          <a id="brand" class="navbar-brand" href="/login">Login</a>
+	        </div>
+	        <% } else { %>
+	        <div class="navbar-header navbar-right">
+	       
+	          <a id="brand" class="navbar-brand" href="/logout">Logout</a>
+	        </div>
+			<% } %>
+	    
+	      </div><!-- /.container -->
+	    </nav><!-- /.navbar -->
+	</div>
     
-      </div><!-- /.container -->
-    </nav><!-- /.navbar -->
-	
-    <div class="container">
+    <div class="row">
+
     <% if (!user) { %>
     <% console.log("----usuario en index "+user);%>
 		<h2>Welcome! Please log in.</h2>
@@ -54,6 +58,7 @@
 	
 	</div>
 
+</div>
   </body>
   </html>
 
