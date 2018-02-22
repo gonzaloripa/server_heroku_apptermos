@@ -425,7 +425,7 @@ app.get('/', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
 
-                var ok = files.some(a =>a.title.includes(file.title.substring(0,(str.length)-7))); //Se fija si en algun valor de nombres esta el del archivo
+                var ok = files.some(a =>a.title.includes(file.title.substring(0,(file.title.length)-7))); //Se fija si en algun valor de nombres esta el del archivo
                 console.log("-----ok ",ok);
                 if(ok){
                   info[i]={cantFiles:files.length,nombres:nombres,image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
