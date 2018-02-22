@@ -398,7 +398,7 @@ app.get('/', function(req, res){
 
     res.render('index', { user: req.user,info:info });
   }else{
-    res.render('index');
+    res.render('index',{user:""});
   }
 });
 
