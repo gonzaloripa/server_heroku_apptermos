@@ -396,7 +396,7 @@ app.get('/', function(req, res){
             if(r.nombre != null){
               //console.log("---Entra al if: ",r.idpedido);
               nombres[index]={nombre:r.nombre,id:r.idpedido};
-              console.log("---Entra al if: ",r.nombre);
+              console.log("---Entra al if: ",r.nombre," ",nombres[index].nombre);
             }
           
           });
