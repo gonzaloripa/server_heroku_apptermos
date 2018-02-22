@@ -48,7 +48,7 @@
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
 	<% if(info){ %>
-	</div>
+
 	<div class="row">
 	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
 	<% console.log("----info en index "+info[i]); %>
@@ -67,6 +67,8 @@
 	<% } %>
 	</div>
 	<%}} %>
+	
+	</div>
 
   </body>
   </html>
