@@ -42,11 +42,11 @@
 		<h2>Welcome! Please log in.</h2>
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
-	
+	<% if(info){ %>
 	<% for (var i = 0; i < info[0].cantFiles; i++) { %> 
 	<% console.log("----info en index "+info[i]); %>
 		<a href= <%info[i].image.href %> > <%=info[i].image.name %> </a> 
-	<% }} %>
+	<% }}} %>
 	
 	</div>
 

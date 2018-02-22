@@ -383,7 +383,7 @@ app.get('/', function(req, res){
               return;
             }
             console.log('Response: '+Object.keys(response.data));
-            var files = response.items;
+            var files = response.data.items;
             if (files.length == 0) {
               console.log('No files found.');
             } else {
