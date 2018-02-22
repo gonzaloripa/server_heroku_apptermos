@@ -393,10 +393,14 @@ app.get('/', function(req, res){
                 console.log('%s (%s)', file.title, file.id);
                 info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/open?id="+file.id,name:file.name,webLink:file.webViewLink}};
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
+                console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
               }
             }
           });
 
+      for (var i = 0; i < 2; i++) {
+        console.log("------Info afuera "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+      }
     res.render('index', { user: req.user,info:info });
   }else{
     res.render('index',{user:""});
