@@ -43,21 +43,17 @@
 	      </div><!-- /.container -->
 	    </nav><!-- /.navbar -->
 
-
+<div class="container gallery-container">
     <div id="texto">
 	<div class="row">
     <% if (!user) { %>
     <% console.log("----usuario en index "+user);%>
 		<h2>Welcome! Please log in.</h2>
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
-		<h2>Welcome <%=user.username%>! You have successfully logged in !</h2>
+		<h2 class="page-description text-center">Welcome <%=user.username%>! You have successfully logged in !</h2>
 	</div>
-</div>
-	 <div class="container gallery-container">
-
-    <h1>Bootstrap 3 Gallery</h1>
-
-    <p class="page-description text-center">Thumbnails With Title And Description</p>
+	</div>
+	
     
     <div class="tz-gallery">
 
