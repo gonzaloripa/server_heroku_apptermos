@@ -210,7 +210,7 @@ app.configure(function() {
 
 
 
-
+/*
   app.get('/db', function (request, response) {
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query('SELECT * FROM users order by id', function(err, result) {
@@ -225,6 +225,7 @@ app.configure(function() {
     });
   
   });
+*/
 
 app.get('/user',function(req,res){
   res.set("Content-Type","application/json");
@@ -233,6 +234,62 @@ app.get('/user',function(req,res){
             }
           );
 });
+
+
+function listFiles(auth) {
+  
+ var service = google.drive('v2');
+  service.files.list({
+    auth: oauth2Client,
+    maxResults: 10,
+  }, function(err, response) {
+    if (err) {
+      console.log('The API returned an error: ' + err);
+      return;
+    }
+    var files = response.items;
+    if (files.length == 0) {
+      console.log('No files found.');
+    } else {
+      console.log('Files:');
+      for (var i = 0; i < files.length; i++) {
+        var file = files[i];
+        console.log('%s (%s)', file.title, file.id);
+      }
+    }
+  });
+
+}
+
+
+app.get('/files',function(req,res){
+      
+      //console.log("req.files "+file.photos);
+      //console.log(req.body);
+      //console.log(req.body.name);
+          drive.files.list({
+            auth: oauth2Client,
+            maxResults: 10,
+          }, function(err, response) {
+            if (err) {
+              console.log('The API returned an error: ' + err);
+              return;
+            }
+            var files = response.items;
+            if (files.length == 0) {
+              console.log('No files found.');
+            } else {
+              console.log('Files:');
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                console.log('%s (%s)', file.title, file.id);
+                document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
+              }
+            }
+          });
+      res.status(201).send('success upload photos')
+});
+
 
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 //var formidable = require('formidable'),
@@ -314,8 +371,35 @@ app.get('/oauthcallback',function(req,res){
 
 
 app.get('/', function(req, res){
-  console.log("-------Request User del /: "+ req.user);
-  res.render('index', { user: req.user });
+  if(req.user){
+      console.log("-------Request User del /: "+ req.user);
+      var info=[];
+      drive.files.list({
+            auth: oauth2Client,
+            maxResults: 10,
+          }, function(err, response) {
+            if (err) {
+              console.log('The API returned an error: ' + err);
+              return;
+            }
+            var files = response.items;
+            if (files.length == 0) {
+              console.log('No files found.');
+            } else {
+              console.log('Files:');
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                console.log('%s (%s)', file.title, file.id);
+                info[i]={cantFiles:files.length,image:{href:"https://drive.google.com/open?id="+file.id,name:file.name,webLink:file.webViewLink}};
+                //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
+              }
+            }
+          });
+
+    res.render('index', { user: req.user,info:info });
+  }else{
+    res.render('index');
+  }
 });
 
 app.get('/login', function(req, res){
