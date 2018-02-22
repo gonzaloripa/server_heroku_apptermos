@@ -402,7 +402,7 @@ app.get('/', function(req, res){
           });
 
       for (var i = 0; i < 2; i++) {
-        console.log("------Info afuera "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+        console.log("------Info afuera "+informacion[i]+" "+informacion[i].cantFiles+" "+informacion[i].image);
       }
     res.render('index', { user: req.user,info:info });
   }else{
