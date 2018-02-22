@@ -403,8 +403,9 @@ app.get('/', function(req, res){
                 //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                 console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                 //body.emit('pass',"Termino");
-                res.render('index', { user: req.user,info:info });
+
               }
+              res.render('index', { user: req.user,info:info });
             }
           })
       //console.log("",info2);
