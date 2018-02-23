@@ -452,9 +452,13 @@ app.get('/', function(req, res){
       res.render('index', { user: req.query.username, message: req.flash('error') });
    }
    else{
+      if(req.user){
        console.log("-------Request User del /: "+ req.user);
-
-    res.render('index', { user: req.user, message: req.flash('error') });
+       res.render('index', { user: req.user, message: req.flash('error') });
+      }
+      else{
+        res.render('index', { user: 'lauchagnr', message: req.flash('error') });
+      }
    }
 });
 
