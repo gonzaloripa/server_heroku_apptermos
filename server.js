@@ -236,31 +236,6 @@ app.get('/user',function(req,res){
 });
 
 
-function listFiles(auth) {
-  
- var service = google.drive('v2');
-  service.files.list({
-    auth: oauth2Client,
-    maxResults: 10,
-  }, function(err, response) {
-    if (err) {
-      console.log('The API returned an error: ' + err);
-      return;
-    }
-    var files = response.items;
-    if (files.length == 0) {
-      console.log('No files found.');
-    } else {
-      console.log('Files:');
-      for (var i = 0; i < files.length; i++) {
-        var file = files[i];
-        console.log('%s (%s)', file.title, file.id);
-      }
-    }
-  });
-
-}
-
 
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 //var formidable = require('formidable'),
@@ -312,16 +287,16 @@ app.get('/drive',function(req,res){
     res.redirect(url);
   }
   else{
-    res.redirect('/files');
+    if(users[0]){
+        res.redirect('/');
+      }
+      if(users[1]){
+        res.redirect('/files');
+      }   
   }
 
 });
 
-app.get('/logueado',function(req,res){
-  
-    res.status(201).send('Usuario logueado correctamente');
-
-});
 
 app.get('/oauthcallback',function(req,res){
   console.log("Codigo " + req.query.code);
@@ -338,7 +313,7 @@ app.get('/oauthcallback',function(req,res){
         res.redirect('/');
       }
       if(users[1]){
-        res.redirect('files');
+        res.redirect('/files');
       }   
     }
   });
@@ -462,27 +437,10 @@ app.post('/login',
   },
   function(req, res) {
    console.log('------Post login 2 '+req.user.username);
-   if(req.user.username == "lauchagnr"){
-      if(users[0]){
+   
         res.redirect('/drive');
-      }
-      else{
-        res.redirect('/login');
-      }
-   }
-    if(req.user.username == "admin"){
-      if(users[1]){
-        console.log('------Post login 3 '+users[1]);
-        res.redirect('/drive');
-      }
-      else{
-           console.log('------Post login 3 '+users[1]);
-
-        res.redirect('/login');
-      }
-   }
-
-  });
+      
+   });
 
 app.get('/logout', function(req, res){
   // clear the remember me cookie when logging out
