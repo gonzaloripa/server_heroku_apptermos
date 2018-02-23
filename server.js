@@ -312,7 +312,7 @@ app.get('/drive',function(req,res){
         res.redirect(url);
     }else{
         if(usuario === "lauchagnr"){
-              res.redirect('/');
+              res.redirect('/?username=lauchagnr');
         }else{
           res.redirect('/files');
         }
@@ -348,7 +348,7 @@ app.get('/oauthcallback',function(req,res){
 
       if(usuario == "lauchagnr"){
         access_token[0] = tokens.access_token;
-        res.redirect('/');
+        res.redirect('/?username=lauchagnr');
       }
       if(usuario == "admin"){
         access_token[1] = tokens.access_token;
@@ -417,7 +417,7 @@ app.get('/files', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
 
-                var ok = files.some(a =>a.title.includes(file.title.substring(0,(file.title.length)-7))); //Se fija si en algun valor de nombres esta el del archivo
+                var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-7))); //Se fija si en algun valor de nombres esta el del archivo
                 console.log("-----ok ",ok);
                 if(ok){
                   urls.push("https://drive.google.com/uc?export=download&id="+file.id);
@@ -449,6 +449,9 @@ app.get('/login', function(req, res){
 
 app.get('/', function(req, res){
    console.log("-------Request User del /: "+ req.user);
+   if(req.query){
+      res.render('index', { user: req.query.username, message: req.flash('error') });
+   }
   res.render('index', { user: req.user, message: req.flash('error') });
 });
 

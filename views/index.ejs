@@ -30,7 +30,9 @@
 	        <% if (!user) { %>
 	        <div class="navbar-header navbar-right">
 	         
-	          <a id="brand" class="navbar-brand" href="/login">Login</a>
+				<% if(user.username != 'lauchagnr') {%>
+	          		<a id="brand" class="navbar-brand" href="/logout">Login</a>
+	          	<% } %>	        
 	        </div>
 	        <% } else { %>
 	        <div class="navbar-header navbar-right">
