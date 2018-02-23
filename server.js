@@ -262,35 +262,6 @@ function listFiles(auth) {
 }
 
 
-app.get('/files',function(req,res){
-      
-      //console.log("req.files "+file.photos);
-      //console.log(req.body);
-      //console.log(req.body.name);
-          drive.files.list({
-            auth: oauth2Client,
-            maxResults: 10,
-          }, function(err, response) {
-            if (err) {
-              console.log('The API returned an error: ' + err);
-              return;
-            }
-            var files = response.items;
-            if (files.length == 0) {
-              console.log('No files found.');
-            } else {
-              console.log('Files:');
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                console.log('%s (%s)', file.title, file.id);
-                document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
-              }
-            }
-          });
-      res.status(201).send('success upload photos')
-});
-
-
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 //var formidable = require('formidable'),
 multer  = require('multer'),
