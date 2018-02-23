@@ -449,7 +449,7 @@ app.get('/login', function(req, res){
 
 app.get('/', function(req, res){
    if(req.query){
-      res.render('index', { user: req.query.username, message: req.flash('error') });
+      res.render('index', { user: req.query, message: req.flash('error') });
    }
    else{
       if(req.user){
@@ -457,7 +457,9 @@ app.get('/', function(req, res){
        res.render('index', { user: req.user, message: req.flash('error') });
       }
       else{
-        res.render('index', { user: {username:'lauchagnr'}, message: req.flash('error') });
+        var userObj= {username:'lauchagnr'};
+        console.log("-------Request User del /: "+ userObj.username);
+        res.render('index', { user: userObj, message: req.flash('error') });
       }
    }
 });
