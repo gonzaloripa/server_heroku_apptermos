@@ -103,7 +103,7 @@ function downloadAll(urls2) {
   document.body.appendChild(link);
 
     <% urls.forEach((l)=>{ 
-    var elem = l.replace(/&amp;/g, '&'); %> 
+    var elem = l.replace('&amp;', '&'); %> 
   		link.setAttribute('href', '<%= elem %>');
     	link.click();
   	<%});%>
