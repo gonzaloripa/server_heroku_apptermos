@@ -448,11 +448,14 @@ app.get('/login', function(req, res){
 });
 
 app.get('/', function(req, res){
-   console.log("-------Request User del /: "+ req.user);
    if(req.query){
       res.render('index', { user: req.query.username, message: req.flash('error') });
    }
-  res.render('index', { user: req.user, message: req.flash('error') });
+   else{
+       console.log("-------Request User del /: "+ req.user);
+
+    res.render('index', { user: req.user, message: req.flash('error') });
+   }
 });
 
 // POST /login
