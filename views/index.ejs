@@ -95,16 +95,18 @@ function downloadAll(urls2) {
   
   console.log("----urls2"+urls2);
   var link = document.createElement('a');
-  var urls = <%=urls%>;
+
+ 
   link.setAttribute('download', null);
   link.style.display = 'none';
 
   document.body.appendChild(link);
 
-  for (var i = 0; i < urls.length; i++) {
-    link.setAttribute('href', urls[i]);
-    link.click();
-  }
+    <% urls.forEach((l)=>{
+  		link.setAttribute('href', l);
+    	link.click();
+  	});%>
+
 
   document.body.removeChild(link);
 }
