@@ -274,27 +274,37 @@ app.post('/drivePost',function(req,res){
       res.status(201).send('success upload photos')
 });
 
+var access_token=[];
 
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
-  if (access_token === ""){
+  console.log("----------username drive ",req.user.username);
+
+  if (access_token[0] === "" && req.user.username == "lauchagnr"){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
       scope: scopes // If you only need one scope you can pass it as string
     });
     console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
+    //req.session['success'] = 'User added successfully';
     res.redirect(url);
   }
   else{
-    if(users[0]){
-        res.redirect('/');
+    res.redirect('/');
+  }  
+      if (access_token[1] === "" && req.user.username == "admin"){
+        console.log("-------Entro");
+        var url = oauth2Client.generateAuthUrl({
+          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+          scope: scopes // If you only need one scope you can pass it as string
+        });
+        console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
+        res.redirect(url);
+      }else{
+          res.redirect('/files');
       }
-      if(users[1]){
-        res.redirect('/files');
-      }   
-  }
-
+      
 });
 
 
@@ -308,13 +318,17 @@ app.get('/oauthcallback',function(req,res){
         console.log("-----Refresh token key "+key+" value: "+tokens[key]);
       }
       oauth2Client.setCredentials(tokens);
-      access_token = tokens.access_token;
-      if(users[0]){
+      console.log("----------username oauth ",req.user.username);
+
+      if(req.user.username == "lauchagnr"){
+        access_token[0] = tokens.access_token;
         res.redirect('/');
       }
-      if(users[1]){
+      if(req.user.username == "admin"){
+        access_token[1] = tokens.access_token;
         res.redirect('/files');
-      }   
+      }
+ 
     }
   });
 
@@ -329,7 +343,7 @@ global.info2="";*/
 
 app.get('/files', function(req, res){
   if(req.user){
-      console.log("-------Request User del /: "+ req.user);
+      console.log("-------Request User del /files: "+ req.user);
       global.nombres=[];
       global.info=[];
 
@@ -408,7 +422,7 @@ app.get('/login', function(req, res){
 });
 
 app.get('/', function(req, res){
-   console.log("-------Request User del login: "+ req.user);
+   console.log("-------Request User del /: "+ req.user);
   res.render('index', { user: req.user, message: req.flash('error') });
 });
 
@@ -438,7 +452,12 @@ app.post('/login',
   function(req, res) {
    console.log('------Post login 2 '+req.user.username);
    
+    if(req.user.username == "lauchagnr"){
+        res.redirect('/');
+    }
+    if(req.user.username == "admin"){
         res.redirect('/drive');
+    }
       
    });
 
