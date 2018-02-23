@@ -27,7 +27,9 @@
 	         
 	          <a id="brand" class="navbar-brand">Home</a>
 	        </div> 
-	        <% if (!user) { %>
+	        <% console.log(user.username == 'admin'); { %>
+
+	        <% if (!user || user.username == 'admin') { %>
 	        <div class="navbar-header navbar-right">
 	         
 				<% if(user.username != 'lauchagnr') {%>
