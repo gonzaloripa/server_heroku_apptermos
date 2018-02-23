@@ -105,6 +105,9 @@ function downloadAll(urls2) {
   		vars['link' + '<%= ind %>'].style.display = 'none';
   		document.body.appendChild(vars['link' + '<%= ind %>']);
     	vars['link' + '<%= ind %>'].click();
+    	setTimeout(function(){ 
+    		console.log("Descarganding"); 
+    	}, 4000);
 		document.body.removeChild(vars['link' + '<%= ind %>']);
   	<%});%>
 
