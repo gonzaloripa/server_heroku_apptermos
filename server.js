@@ -281,7 +281,7 @@ access_token[1]="";
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
   var usuario="";
-  console.log("----------username drive params ",request.query.username);
+  console.log("----------username drive params ",req.query.username);
 
   if (req.query.username) {
     usuario = req.query.username;
