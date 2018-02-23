@@ -27,7 +27,7 @@
 	         
 	          <a id="brand" class="navbar-brand">Home</a>
 	        </div> 
-	        <% if (!user) { %>
+	        <% if (!user || user.username == 'admin') { %>
 	        <div class="navbar-header navbar-right">
 	         
 	          <a id="brand" class="navbar-brand" href="/login">Login</a>
