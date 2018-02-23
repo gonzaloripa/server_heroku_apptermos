@@ -14,7 +14,7 @@ var scopes = [
 "https://www.googleapis.com/auth/drive.file" 
 ];
 
-var access_token="";
+//var access_token="";
 
 var express = require('express')
   , passport = require('passport')
@@ -275,12 +275,14 @@ app.post('/drivePost',function(req,res){
 });
 
 var access_token=[];
+access_token[0]="";
+access_token[1]="";
 
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
-  console.log("----------username drive ",req.user.username);
+  console.log("----------username drive ",req.user.username+" "+access_token[1]);
 
-  if (access_token[0] === "" && req.user.username == "lauchagnr"){
+  if (access_token[0] === "" && req.user.username === "lauchagnr"){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -291,7 +293,7 @@ app.get('/drive',function(req,res){
     res.redirect(url);
   }
   else{
-    if (access_token[1] === "" && req.user.username == "admin"){
+    if (access_token[1] === "" && req.user.username === "admin"){
         console.log("-------Entro");
         var url = oauth2Client.generateAuthUrl({
           access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -300,7 +302,7 @@ app.get('/drive',function(req,res){
         console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
         res.redirect(url);
     }else{
-        if(req.user.username == "lauchagnr"){
+        if(req.user.username === "lauchagnr"){
               res.redirect('/');
         }else{
           res.redirect('/files');
