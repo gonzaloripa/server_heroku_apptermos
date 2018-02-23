@@ -376,7 +376,7 @@ body.on('pass', function (mensaje) {
 }
 global.info2="";*/
 
-app.get('/', function(req, res){
+app.get('/files', function(req, res){
   if(req.user){
       console.log("-------Request User del /: "+ req.user);
       global.nombres=[];
@@ -437,7 +437,7 @@ app.get('/', function(req, res){
                 }
 
               }
-              res.render('index', { user: req.user,info:info,cantFiles:files.length,urls:urls,nombres:nombres});
+              res.render('files', { user: req.user,info:info,cantFiles:files.length,urls:urls,nombres:nombres});
             }
           })
       });
@@ -445,13 +445,23 @@ app.get('/', function(req, res){
    pg.end();
   });   //console.log("",info2);
   }else{
-    res.render('index',{user:""});
+    res.render('files',{user:""});
   }
 });
 
 app.get('/login', function(req, res){
    console.log("-------Request User del login: "+ req.user);
-  res.render('login', { user: req.user, message: req.flash('error') });
+   if(!users[0]){
+      res.render('login', { user: req.user, message: req.flash('error') });
+   }
+   else{
+        res.render('login', { user: req.user, message: req.flash('error') });
+   }
+});
+
+app.get('/', function(req, res){
+   console.log("-------Request User del login: "+ req.user);
+  res.render('index', { user: req.user, message: req.flash('error') });
 });
 
 // POST /login
@@ -466,7 +476,8 @@ app.post('/login',
   function(req, res, next) {
     // Issue a remember me cookie if the option was checked
     if (!req.body.remember_me) { return next(); }
-    
+    console.log('------Post login '+req.user);
+
     issueToken(req.user, function(err, token) {
       if (err) { return next(err); }
       res.cookie('remember_me', token, { path: '/', httpOnly: true, maxAge: 604800000 });
@@ -474,7 +485,24 @@ app.post('/login',
     });
   },
   function(req, res) {
-    res.redirect('/drive');
+   console.log('------Post login 2 '+req.user);
+   if(req.user == "lauchagnr"){
+      if(!users[0]){
+        res.redirect('/drive');
+      }
+      else{
+        res.redirect('/login');
+      }
+   }
+    if(req.user == "admin"){
+      if(!users[1]){
+        res.redirect('/drive');
+      }
+      else{
+        res.redirect('/login');
+      }
+   }
+
   });
 
 app.get('/logout', function(req, res){
