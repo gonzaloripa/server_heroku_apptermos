@@ -104,7 +104,7 @@ function downloadAll(urls2) {
 
     <% urls.forEach((l)=>{ 
     var elem=l;	%>
-  		link.setAttribute('href', <%= elem %>);
+  		link.setAttribute('href', '<%= elem %>');
     	link.click();
   	<%});%>
 
