@@ -463,7 +463,7 @@ app.get('/', function(req, res){
           res.render('index', { user: userObj, message: req.flash('error') });
         }
       }
-   }
+   
 });
 
 // POST /login
