@@ -457,7 +457,7 @@ app.get('/', function(req, res){
        res.render('index', { user: req.user, message: req.flash('error') });
       }
       else{
-        res.render('index', { user: 'lauchagnr', message: req.flash('error') });
+        res.render('index', { user: {username:'lauchagnr'}, message: req.flash('error') });
       }
    }
 });
