@@ -93,18 +93,7 @@
 
 function downloadAll(urls2) {
   
-  /*console.log("----urls2"+urls2);
-  vars['link' + '<%= ind %>'] = document.createElement('a');
-  		vars['link' + '<%= ind %>'].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
-  		vars['link' + '<%= ind %>'].style.display = 'none';
-  		document.body.appendChild(vars['link' + '<%= ind %>']);
-  		if (vars['link' + '<%= ind %>'].click) {
-		      vars['link' + '<%= ind %>'].click(); // The click method is supported by most browsers.
-		    } else {
-		      $(vars['link' + '<%= ind %>']).click(); // Backup using jquery
-		    } 
-    	document.body.removeChild(vars['link' + '<%= ind %>']);
-  */
+  
 	var link = document.createElement('a');
 	link.setAttribute('download', null);
     link.style.display = 'none';
