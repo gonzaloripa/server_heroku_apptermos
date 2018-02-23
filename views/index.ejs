@@ -8,14 +8,14 @@
     <link rel="icon" href="../../../../favicon.ico">
  <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
-    <link rel="stylesheet" href="thumbnail-gallery.css">
+    
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Custom styles for this template -->
     <link href="/stylesheets/signin.css" rel="stylesheet"> 
 
-    <link rel="stylesheet" href="/stylesheets/thumbnail-gallery.css"> 
+    <link href="/stylesheets/thumbnail-gallery.css" rel="stylesheet" > 
   </head>
 
   <body>
@@ -76,7 +76,7 @@
             </div>
 
 		<% } %>
-		<% if(urls){ %>
+		<% if(urls){ console.log(<%=urls%>); %>
 			<button onclick="downloadAll('<%=urls%>')">Descargar todas</button>
 		<% } %>
         </div>
@@ -103,7 +103,7 @@ function downloadAll(urls2) {
   document.body.appendChild(link);
 
     <% urls.forEach((l)=>{ 
-    var elem=l;	%>
+    var elem = l.replace(/&amp;/g, '&'); %> 
   		link.setAttribute('href', '<%= elem %>');
     	link.click();
   	<%});%>
