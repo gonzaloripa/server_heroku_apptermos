@@ -456,12 +456,9 @@ app.get('/files', function(req, res){
 
 app.get('/login', function(req, res){
    console.log("-------Request User del login: "+ req.user);
-   if(!users[0]){
+   
       res.render('login', { user: req.user, message: req.flash('error') });
-   }
-   else{
-        res.render('login', { user: req.user, message: req.flash('error') });
-   }
+
 });
 
 app.get('/', function(req, res){
@@ -495,7 +492,7 @@ app.post('/login',
   function(req, res) {
    console.log('------Post login 2 '+req.user.username);
    if(req.user.username == "lauchagnr"){
-      if(!users[0]){
+      if(users[0]){
         res.redirect('/drive');
       }
       else{
@@ -503,10 +500,13 @@ app.post('/login',
       }
    }
     if(req.user.username == "admin"){
-      if(!users[1]){
+      if(users[1]){
+        console.log('------Post login 3 '+users[1]);
         res.redirect('/drive');
       }
       else{
+           console.log('------Post login 3 '+users[1]);
+
         res.redirect('/login');
       }
    }
