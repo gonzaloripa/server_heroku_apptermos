@@ -77,7 +77,7 @@
 
 		<% } %>
 		<% if(urls){ console.log(<%=urls%>) %>
-			<button onclick="downloadAll('<%=urls%>')">Descargar todas</button>
+			<button onclick="downloadAll()">Descargar todas</button>
 		<% } %>
         </div>
         <% } %>
@@ -91,7 +91,7 @@
 <script>
     baguetteBox.run('.tz-gallery');
 
-function downloadAll(urls2) {
+function downloadAll() {
   
   console.log("----urls2"+urls2);
   var link = document.createElement('a');
