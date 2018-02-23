@@ -341,7 +341,7 @@ app.get('/drive',function(req,res){
     res.redirect(url);
   }
   else{
-    res.redirect('/');
+    res.redirect('/files');
   }
 
 });
@@ -363,7 +363,12 @@ app.get('/oauthcallback',function(req,res){
       }
       oauth2Client.setCredentials(tokens);
       access_token = tokens.access_token;
-      res.redirect('/');   
+      if(users[0]){
+        res.redirect('/');
+      }
+      if(users[1]){
+        res.redirect('files');
+      }   
     }
   });
 
