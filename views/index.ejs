@@ -96,15 +96,16 @@ function downloadAll(urls2) {
   console.log("----urls2"+urls2);
   
 
-
+	var vars = {};
     <% urls.forEach((l,index)=>{ 
     var elem=l;	%>
-    var link = document.createElement('a');
-  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
-  		link.style.display = 'none';
-  		document.body.appendChild(link);
-    	link.click();
-		document.body.removeChild(link);
+    
+    	vars['link' + index] = document.createElement('a');
+  		vars['link' + index].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
+  		vars['link' + index].style.display = 'none';
+  		document.body.appendChild(vars['link' + index]);
+    	vars['link' + index].click();
+		document.body.removeChild(vars['link' + index]);
   	<%});%>
 
 
