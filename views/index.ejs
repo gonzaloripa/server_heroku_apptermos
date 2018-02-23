@@ -97,20 +97,21 @@ function downloadAll(urls2) {
   
 
 	var vars = {};
+	<% if(users){ %>
     <% urls.forEach((l,index)=>{ 
     var elem=l; var ind=index;	%>
     
+    	setTimeout(function(){ 
     	vars['link' + '<%= ind %>'] = document.createElement('a');
   		vars['link' + '<%= ind %>'].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
   		vars['link' + '<%= ind %>'].style.display = 'none';
   		document.body.appendChild(vars['link' + '<%= ind %>']);
-    	vars['link' + '<%= ind %>'].click();
-    	setTimeout(function(){ 
-    		console.log("Descarganding"); 
-    	}, 4000);
-		document.body.removeChild(vars['link' + '<%= ind %>']);
+    	vars['link' + '<%= ind %>'].click(); 
+    	document.body.removeChild(vars['link' + '<%= ind %>']);
+    	}, 3000);
+		
   	<%});%>
-
+  	<% } %>
 
 }
 </script>
