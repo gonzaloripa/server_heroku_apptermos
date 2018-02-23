@@ -458,7 +458,7 @@ app.get('/', function(req, res){
           console.log("-------Request User del /: "+ req.query);
           res.render('index', { user: req.query, message: req.flash('error') });
         }else{
-          var userObj= {username:'lauchagnr'};
+          var userObj= {username:'admin'};
           console.log("-------Request User del /: "+ userObj.username);
           res.render('index', { user: userObj, message: req.flash('error') });
         }
