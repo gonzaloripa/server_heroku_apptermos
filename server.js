@@ -71,6 +71,7 @@ function findByUsername(username,password,fn) {
          { console.error(err);}
         else
         { 
+          var user = "";
           result.rows.forEach(function(r){
             user = {username:r.username,password:r.password,id:r.id}
           });
