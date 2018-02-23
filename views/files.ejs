@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+ <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/signin.css" rel="stylesheet"> 
+
+  </head>
+
+  <body>
+  
+
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container">
+	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	         
+	          <a id="brand" class="navbar-brand">Home</a>
+	        </div> 
+	        <% if (!user) { %>
+	        <div class="navbar-header navbar-right">
+	         
+	          <a id="brand" class="navbar-brand" href="/login">Login</a>
+	        </div>
+	        <% } else { %>
+	        <div class="navbar-header navbar-right">
+	       
+	          <a id="brand" class="navbar-brand" href="/logout">Logout</a>
+	        </div>
+			<% } %>
+	    
+	      </div><!-- /.container -->
+	    </nav><!-- /.navbar -->
+
+<div class="container gallery-container">
+	
+    
+    <div class="tz-gallery">
+   	<div class="row">
+    <% if (!user) { %>
+ 
+    <% console.log("----usuario en index "+user);%>
+		<h2 class="page-description text-center">Welcome! Please log in.</h2>
+	
+	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
+		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
+		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
+	</div>
+
+	<% if(info){ %>
+        <div class="row">
+		<% for (var i = 0; i < cantFiles; i++) { %> 
+			<% console.log("----info en index "+info[i]); %>
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a class="lightbox" href=<%=info[i].image.downloadUrl%>>
+                        <img src='<%=info[i].image.href %>' alt="Traffic">
+                    </a>
+                    <div class="caption">
+                        <h4><%=info[i].image.name %></h4>
+                    </div>
+                </div>
+            </div>
+
+		<% } %>
+		<% if(urls){ %>
+			<button onclick="downloadAll('<%=urls%>')">Descargar todas</button>
+		<% } %>
+        </div>
+        <% } %>
+                   
+    </div>
+	<% } %>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+
+function downloadAll(urls2) {
+  
+  
+	var link = document.createElement('a');
+	link.setAttribute('download', null);
+    link.style.display = 'none';
+	document.body.appendChild(link);
+	
+	<% if(urls){ %>
+    <% urls.forEach((l,index)=>{ 
+    var elem=l; var ind=index;	%>
+    
+  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
+  		
+  		if (link.click) {
+		      link.click(); // The click method is supported by most browsers.
+		    } else {
+		      $(link).click(); // Backup using jquery
+		    } 
+
+  	<%});%>
+  	document.body.removeChild(link);
+  	<% } %>
+
+}
+</script>
+  </body>
+  </html>
+
