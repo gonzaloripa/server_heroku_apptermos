@@ -98,18 +98,25 @@ function downloadAll(urls2) {
 
 	var vars = {};
 	<% if(urls){ %>
-    <% urls.forEach((l,index)=>{ 
+    <% urls.forEach(function callback(l,index){ 
     var elem=l; var ind=index;	%>
-    
-    	setTimeout(function(){ 
+     
     	vars['link' + '<%= ind %>'] = document.createElement('a');
   		vars['link' + '<%= ind %>'].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
   		vars['link' + '<%= ind %>'].style.display = 'none';
   		document.body.appendChild(vars['link' + '<%= ind %>']);
-    	vars['link' + '<%= ind %>'].click(); 
+  		if (vars['link' + '<%= ind %>'].click) {
+		      vars['link' + '<%= ind %>'].click(); // The click method is supported by most browsers.
+		    } else {
+		      $(vars['link' + '<%= ind %>']).click(); // Backup using jquery
+		    } 
     	document.body.removeChild(vars['link' + '<%= ind %>']);
+    	
     	console.log("Descarganding");
-    	}, 9000);
+    	
+    	setTimeout(function(){
+    		callback(l,index);
+    	}, 3000);
 		
   	<%});%>
   	<% } %>
