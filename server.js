@@ -475,7 +475,10 @@ app.post('/login',
   passport.authenticate('local', { failureRedirect: '/login', failureFlash: true }),
   function(req, res, next) {
     // Issue a remember me cookie if the option was checked
-    if (!req.body.remember_me) { return next(); }
+    if (!req.body.remember_me) {     
+      console.log('------Post login '+req.user);
+      return next(); 
+    }
     console.log('------Post login '+req.user);
 
     issueToken(req.user, function(err, token) {
@@ -485,8 +488,8 @@ app.post('/login',
     });
   },
   function(req, res) {
-   console.log('------Post login 2 '+req.user);
-   if(req.user == "lauchagnr"){
+   console.log('------Post login 2 '+req.user.username);
+   if(req.user.username == "lauchagnr"){
       if(!users[0]){
         res.redirect('/drive');
       }
@@ -494,7 +497,7 @@ app.post('/login',
         res.redirect('/login');
       }
    }
-    if(req.user == "admin"){
+    if(req.user.username == "admin"){
       if(!users[1]){
         res.redirect('/drive');
       }
