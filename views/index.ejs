@@ -93,15 +93,8 @@
 
 function downloadAll(urls2) {
   
-  //console.log("----urls2"+urls2);
-  
-
-	var vars = {};
-	<% if(urls){ %>
-    <% urls.forEach(function callback(l,index){ 
-    var elem=l; var ind=index;	%>
-     
-    	vars['link' + '<%= ind %>'] = document.createElement('a');
+  /*console.log("----urls2"+urls2);
+  vars['link' + '<%= ind %>'] = document.createElement('a');
   		vars['link' + '<%= ind %>'].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
   		vars['link' + '<%= ind %>'].style.display = 'none';
   		document.body.appendChild(vars['link' + '<%= ind %>']);
@@ -111,14 +104,26 @@ function downloadAll(urls2) {
 		      $(vars['link' + '<%= ind %>']).click(); // Backup using jquery
 		    } 
     	document.body.removeChild(vars['link' + '<%= ind %>']);
-    	
-    	console.log("Descarganding");
-    	
-    	setTimeout(function(){
-    		callback(l,index);
-    	}, 3000);
-		
+  */
+	var link = document.createElement('a');
+	link.setAttribute('download', null);
+    link.style.display = 'none';
+	document.body.appendChild(link);
+	
+	<% if(urls){ %>
+    <% urls.forEach((l,index)=>{ 
+    var elem=l; var ind=index;	%>
+    
+  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
+  		
+  		if (link.click) {
+		      link.click(); // The click method is supported by most browsers.
+		    } else {
+		      $(link).click(); // Backup using jquery
+		    } 
+
   	<%});%>
+  	document.body.removeChild(link);
   	<% } %>
 
 }
