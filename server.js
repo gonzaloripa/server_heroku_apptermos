@@ -280,9 +280,18 @@ access_token[1]="";
 
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
-  console.log("----------username drive ",req.user.username+" "+access_token[1]);
+  var usuario="";
+  console.log("----------username drive params ",request.query.username);
 
-  if (access_token[0] === "" && req.user.username === "lauchagnr"){
+  if (req.query.username) {
+    usuario = req.query.username;
+  }
+  if(req.user.username){
+    usuario = req.user.username;
+  }
+  console.log("----------username drive ",usuario+" "+access_token[1]);
+
+  if (access_token[0] === "" && usuario === "lauchagnr"){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -293,7 +302,7 @@ app.get('/drive',function(req,res){
     res.redirect(url);
   }
   else{
-    if (access_token[1] === "" && req.user.username === "admin"){
+    if (access_token[1] === "" && usuario === "admin"){
         console.log("-------Entro");
         var url = oauth2Client.generateAuthUrl({
           access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -302,7 +311,7 @@ app.get('/drive',function(req,res){
         console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
         res.redirect(url);
     }else{
-        if(req.user.username === "lauchagnr"){
+        if(usuario === "lauchagnr"){
               res.redirect('/');
         }else{
           res.redirect('/files');

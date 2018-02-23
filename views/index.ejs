@@ -34,8 +34,9 @@
 	        </div>
 	        <% } else { %>
 	        <div class="navbar-header navbar-right">
-	       
-	          <a id="brand" class="navbar-brand" href="/logout">Logout</a>
+	       	  <% if(user.username != 'lauchagnr') {%>
+	          	<a id="brand" class="navbar-brand" href="/logout">Logout</a>
+	          <% } %>
 	        </div>
 			<% } %>
 	    
