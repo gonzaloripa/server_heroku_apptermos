@@ -15,7 +15,7 @@
     <!-- Custom styles for this template -->
     <link href="/stylesheets/signin.css" rel="stylesheet"> 
 
-    <link href="/stylesheets/thumbnail-gallery.css" rel="stylesheet" > 
+    <link href="/stylesheets/thumbnail-gallery.css" type="text/css" rel="stylesheet" > 
   </head>
 
   <body>
@@ -98,14 +98,14 @@ function downloadAll(urls2) {
 
 	var vars = {};
     <% urls.forEach((l,index)=>{ 
-    var elem=l;	%>
+    var elem=l; var ind=index;	%>
     
-    	vars['link' + index] = document.createElement('a');
-  		vars['link' + index].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
-  		vars['link' + index].style.display = 'none';
-  		document.body.appendChild(vars['link' + index]);
-    	vars['link' + index].click();
-		document.body.removeChild(vars['link' + index]);
+    	vars['link' + '<%= ind %>'] = document.createElement('a');
+  		vars['link' + '<%= ind %>'].setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
+  		vars['link' + '<%= ind %>'].style.display = 'none';
+  		document.body.appendChild(vars['link' + '<%= ind %>']);
+    	vars['link' + '<%= ind %>'].click();
+		document.body.removeChild(vars['link' + '<%= ind %>']);
   	<%});%>
 
 
