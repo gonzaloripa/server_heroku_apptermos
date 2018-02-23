@@ -93,7 +93,7 @@
 
 function downloadAll(urls2) {
   
-  console.log("----urls2"+urls2);
+  //console.log("----urls2"+urls2);
   
 
 	var vars = {};
@@ -108,7 +108,8 @@ function downloadAll(urls2) {
   		document.body.appendChild(vars['link' + '<%= ind %>']);
     	vars['link' + '<%= ind %>'].click(); 
     	document.body.removeChild(vars['link' + '<%= ind %>']);
-    	}, 3000);
+    	console.log("Descarganding");
+    	}, 9000);
 		
   	<%});%>
   	<% } %>
