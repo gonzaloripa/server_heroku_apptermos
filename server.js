@@ -4,7 +4,7 @@ var fs = require('fs');
 var OAuth2 = google.auth.OAuth2;
 var CLIENT_ID = "400882850360-5kesr51274f13qp76h283l42l1ql8hp8.apps.googleusercontent.com";
 var CLIENT_SECRET = "lkTLOTJQYmIbgdxFxepd2Hhl";
-var REDIRECT_URL = "https://termoslp.herokuapp.com/oauthcallback";
+var REDIRECT_URL = "https://termoslp.herokuapp.com/oauthcallback?username=lauchagnr";
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL);
 var drive = google.drive({ version: 'v2', auth: oauth2Client });
 var bodyParser = require('body-parser');
