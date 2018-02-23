@@ -74,8 +74,8 @@ function findByUsername(username,password,fn) {
           result.rows.forEach(function(r){
             user = {username:r.username,password:r.password,id:r.id}
           });
-          console.log("Usuario en find username "+user);
           if (user){
+                      console.log("Usuario en find username "+user);
             var userObj = {"user":user.username};
             users[(user.id)-1]=userObj;
             client.end();
