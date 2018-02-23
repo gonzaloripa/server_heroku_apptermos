@@ -76,7 +76,7 @@
             </div>
 
 		<% } %>
-		<% if(urls){ console.log(<%=urls%>); %>
+		<% if(urls){ console.log(<%=urls%>) %>
 			<button onclick="downloadAll('<%=urls%>')">Descargar todas</button>
 		<% } %>
         </div>
@@ -103,9 +103,8 @@ function downloadAll(urls2) {
   document.body.appendChild(link);
 
     <% urls.forEach((l)=>{ 
-    var elem = l%>
-    	var x = <%= elem %>;  
-  		link.setAttribute('href', x);
+    var elem=l;	%>
+  		link.setAttribute('href', '<%= elem %>');
     	link.click();
   	<%});%>
 
