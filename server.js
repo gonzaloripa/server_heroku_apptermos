@@ -332,13 +332,25 @@ app.get('/oauthcallback',function(req,res){
         console.log("-----Refresh token key "+key+" value: "+tokens[key]);
       }
       oauth2Client.setCredentials(tokens);
-      console.log("----------username oauth ",req.user.username);
 
-      if(req.user.username == "lauchagnr"){
+      var usuario="";
+
+      
+      if(req.user){
+        console.log("----------username oauth ",req.user.username);
+        usuario = req.user.username;
+      }else{
+          if (req.query) {
+          console.log("----------username oauth params ",req.query.username);
+          usuario = req.query.username;
+        }
+      }
+
+      if(usuario == "lauchagnr"){
         access_token[0] = tokens.access_token;
         res.redirect('/');
       }
-      if(req.user.username == "admin"){
+      if(usuario == "admin"){
         access_token[1] = tokens.access_token;
         res.redirect('/files');
       }
