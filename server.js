@@ -365,7 +365,9 @@ var body = new EventEmitter();
 body.on('pass', function (mensaje) {
   info2=mensaje;
 }
-global.info2="";*/
+global.info2="";
+q carajo pasa
+*/
 
 app.get('/files', function(req, res){
   if(req.user){
