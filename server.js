@@ -283,10 +283,10 @@ app.get('/drive',function(req,res){
   var usuario="";
   console.log("----------username drive params ",req.query.username);
 
-  if (req.query.username) {
+  if (req.query) {
     usuario = req.query.username;
   }
-  if(req.user.username){
+  if(req.user){
     usuario = req.user.username;
   }
   console.log("----------username drive ",usuario+" "+access_token[1]);
