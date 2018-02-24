@@ -42,9 +42,14 @@ body {
     padding: 40px;
 }
 
+.thumbnail{
+  height: 300px;
+  width: 300px;
+}
 .thumbnail img {
-    height:300px;
-    width:100%;
+   max-height: 100%;
+   max-width: 100%;
+
 }
 
 .tz-gallery .thumbnail {
