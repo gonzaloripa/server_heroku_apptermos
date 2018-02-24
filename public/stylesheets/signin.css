@@ -22,8 +22,8 @@ body {
 }
 
 #descargar{
-  margin-left:40%;
-  margin-right:40%;
+  width: 100%;
+  max-width: 260px;
 }
 .gallery-container h1 {
     
