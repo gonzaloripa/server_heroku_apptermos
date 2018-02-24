@@ -424,7 +424,7 @@ app.get('/files', function(req, res){
                 console.log("-----ok ",ok);
                 if(ok){
                   urls.push("https://drive.google.com/uc?export=download&id="+file.id);
-                  info[i]={image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}; //"https://drive.google.com/open?id="
+                  info.push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                   //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                   console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                   //body.emit('pass',"Termino");

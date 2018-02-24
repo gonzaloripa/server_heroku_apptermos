@@ -60,7 +60,7 @@
 	<% if(info){ %>
         <div class="row">
 		<% for (var i = 0; i < cantFiles; i++) { %> 
-			<% console.log("----info en index "+info[i]); %>
+			<% console.log("----info en index "+info[i]+cantFiles); %>
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a class="lightbox" href=<%=info[i].image.downloadUrl%>>
