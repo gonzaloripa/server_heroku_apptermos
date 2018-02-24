@@ -25,7 +25,7 @@ var express = require('express')
  var pg = require('pg'); 
  //var uppy = require('uppy-server');
 
-/* Fake, in-memory database of users */
+/* Fake, in-memory database of users lpm */
 
 /*var users = [
     { id: 1, username: 'alice', password: 'abc123', email: 'alice@domain.com' }
