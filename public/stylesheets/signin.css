@@ -47,15 +47,15 @@ body {
   width: 400px;
 }
 .thumbnail img {
-   max-height: 75%;
+   max-height: 85%;
    max-width: 100%;
 
 }
 
 .tz-gallery .thumbnail {
     padding: 0;
-    margin-bottom: 30px;
-    background-color: #fff;
+    margin-bottom: 10px;
+    background-color: #F3E2A9;
     border-radius: 4px;
     border: none;
     transition: 0.15s ease-in-out;
