@@ -562,7 +562,7 @@ app.post('/pedidoEnviado',function(req,res){
         });
         
       query.on('end', function(){
-          client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera) values ($1,$2,$3,$4,$5,$6,$7)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP] , function(err, result) {
+          client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera,finalizado) values ($1,$2,$3,$4,$5,$6,$7)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP,false] , function(err, result) {
           console.log("Valor de idPedido",idPedido);
           if (err){ 
             console.error(err);
