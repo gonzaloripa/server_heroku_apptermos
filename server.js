@@ -431,7 +431,7 @@ app.get('/files', function(req, res){
                 }
 
               }
-              res.render('files', { user: req.user,info:info,cantFiles:files.length,urls:urls,nombres:nombres});
+              res.render('files', { user: req.user,info:info,cantFiles:info.length,urls:urls,nombres:nombres});
             }
           })
       });
