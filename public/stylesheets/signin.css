@@ -42,6 +42,11 @@ body {
     padding: 40px;
 }
 
+.thumbnail img {
+    height:300px;
+    width:100%;
+}
+
 .tz-gallery .thumbnail {
     padding: 0;
     margin-bottom: 30px;
