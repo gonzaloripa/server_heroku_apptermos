@@ -469,7 +469,7 @@ app.get('/files', function(req, res){
               var file_act;
               var cant = 0;
               //var file_act;
-              var first
+          
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
@@ -485,12 +485,13 @@ app.get('/files', function(req, res){
                   if(file.title.includes(file_act.substring(0,(file.title.length)-6))){
                     
                     cant+=1;
-
+                    console.log("---cant1",cant);
                     urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
                     info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                     
                   }else{
                     file_act=file.title;
+                                        console.log("---cant2",cant);
                     info[ind].push(cant);
                     cant=0;
                     ind+=1;
