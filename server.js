@@ -373,26 +373,46 @@ q carajo pasa
 
     function retrieveAllFiles(files,nextPageToken,callback){
 
-        drive.files.list({
-              auth: oauth2Client,
-              maxResults:4,
-              pageToken:nextPageToken
-            }, function(err, response) {
-              if (err) {
-                console.log('The API returned an error: ' + err);
-                return;
-              }
-              console.log('Response: '+Object.keys(response.data));
-              files.concat(response.data.items);
-              if(response.data.nextPageToken){
-                nextPageToken = response.data.nextPageToken;
-                console.log('Response nextPageToken1: '+nextPageToken);
-                retrieveAllFiles(files,nextPageToken,callback);
-              }else{
-                  callback();
-              }
-          });
-         
+      if(!nextPageToken){
+          drive.files.list({
+                auth: oauth2Client,
+                maxResults:4,
+              }, function(err, response) {
+                if (err) {
+                  console.log('The API returned an error: ' + err);
+                  return;
+                }
+                console.log('Response: '+Object.keys(response.data));
+                files.concat(response.data.items);
+                if(response.data.nextPageToken){
+                  nextPageToken = response.data.nextPageToken;
+                  console.log('Response nextPageToken1: '+nextPageToken);
+                  retrieveAllFiles(files,nextPageToken,callback);
+                }else{
+                    callback();
+                }
+            });
+      }else{
+          drive.files.list({
+                auth: oauth2Client,
+                maxResults:4,
+                pageToken:nextPageToken
+              }, function(err, response) {
+                if (err) {
+                  console.log('The API returned an error: ' + err);
+                  return;
+                }
+                console.log('Response: '+Object.keys(response.data));
+                files.concat(response.data.items);
+                if(response.data.nextPageToken){
+                  nextPageToken = response.data.nextPageToken;
+                  console.log('Response nextPageToken1: '+nextPageToken);
+                  retrieveAllFiles(files,nextPageToken,callback);
+                }else{
+                    callback();
+                }
+            });
+        }
     }
 
 
