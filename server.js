@@ -371,7 +371,7 @@ q carajo pasa
 */
 
 
-    function retrieveAllFiles(files,nextPageToken){
+    function retrieveAllFiles(files,nextPageToken,callback){
 
         drive.files.list({
               auth: oauth2Client,
@@ -386,7 +386,6 @@ q carajo pasa
               if(response.data.nextPageToken){
                 nextPageToken = response.data.nextPageToken;
               }
-              first=false;
           });
       
    
@@ -406,6 +405,7 @@ q carajo pasa
                 nextPageToken = response.data.nextPageToken;                
             });
         }
+        callback();
       
     }
 
@@ -443,9 +443,9 @@ app.get('/files', function(req, res){
           var files=[];
           var nextPageToken;
      
-          retrieveAllFiles(files,nextPageToken);
-          console.log("---------files"+files);
-      
+          retrieveAllFiles(files,nextPageToken,function(){
+            
+            console.log("---------files"+files);
             if (files.length == 0) {
               console.log('No files found.');
             } else {
@@ -497,6 +497,8 @@ app.get('/files', function(req, res){
               }
               res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
             }
+          });
+
           });
       pg.end();
     });   //Cierra pg.connect
