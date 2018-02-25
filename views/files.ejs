@@ -61,13 +61,13 @@
         <div class="row">
 		<% for (var i = 0; i < (info.length); i++) { %> 
 		<%  console.log("---- info2 "+info.length+"  "+info[i]);%>
-			<% for (var q = 0; q < (info[i][0]); q++) { %> 
+			<% for (var q = 0; q < (info[i][0]+1); q++) { %> 
 				<%  console.log("---- info3 "+info[i][q]);%>
 
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
                     <a class="lightbox" href=<%=info[i][q+1].image.downloadUrl%>>
-                        <img src='<%=info[i][q].image.href %>' class='img-responsive'>
+                        <img src='<%=info[i][q+1].image.href %>' class='img-responsive'>
                     </a>
                     <div class="caption">
                         <h4><%=info[i][q+1].image.name %></h4>
