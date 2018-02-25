@@ -371,6 +371,7 @@ q carajo pasa
 */
 function retrieveAllFiles(callback) {
   var retrievePageOfFiles = function(request, result) {
+    console.log(Object.keys(request)+" "+result);
     request.execute(function(resp) {
       console.log('Response: '+Object.keys(resp.data));
       result = result.concat(resp.data.items);
@@ -393,6 +394,7 @@ function retrieveAllFiles(callback) {
             maxResults:100,
             orderBy:'createdDate',
           });
+  console.log(Object.keys(initialRequest));
   retrievePageOfFiles(initialRequest, []);
 }
 
