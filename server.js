@@ -385,11 +385,15 @@ q carajo pasa
               files.concat(response.data.items);
               if(response.data.nextPageToken){
                 nextPageToken = response.data.nextPageToken;
+                console.log('Response nextPageToken1: '+nextPageToken);
+
               }else{
                   callback();
               }
           });
-      
+        
+        console.log('Response nextPageToken2: '+nextPageToken);
+
    
         while(nextPageToken) {
           console.log("-------entra al while");
@@ -405,6 +409,7 @@ q carajo pasa
                 console.log('Response: '+Object.keys(response.data));
                 files.concat(response.data.items);
                 nextPageToken = response.data.nextPageToken;
+                console.log('Response nextPageToken3: '+nextPageToken);
                 if(!nextPageToken){
                     callback();
                 }                
