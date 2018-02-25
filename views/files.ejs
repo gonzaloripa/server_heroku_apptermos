@@ -52,7 +52,7 @@
     <% console.log("----usuario en index "+user);%>
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
 
-	<% } else { console.log("---- info"+info.length+"  "+info[0].pop());%>
+	<% } else { console.log("---- info"+info.length+"  "+info[0]);%>
 		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
 		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
 	</div>
@@ -60,6 +60,7 @@
 	<% if(info){ %>
         <div class="row">
 		<% for (var i = 0; info.length; i++) { %> 
+		<%  console.log("---- info2"+info.length+"  "+info[i]);%>
 			<% for (var q = 0; info[i].length-1; q++) { %> 
 
             <div class="col-sm-6 col-md-4">
