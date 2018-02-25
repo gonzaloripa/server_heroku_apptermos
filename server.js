@@ -389,7 +389,7 @@ q carajo pasa
                   console.log('Response nextPageToken1: '+nextPageToken);
                   retrieveAllFiles(files,nextPageToken,callback);
                 }else{
-                    callback();
+                    callback(files);
                 }
             });
       }else{
@@ -406,10 +406,10 @@ q carajo pasa
                 files.concat(response.data.items);
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
-                  console.log('Response nextPageToken1: '+nextPageToken);
+                  console.log('Response nextPageToken2: '+nextPageToken);
                   retrieveAllFiles(files,nextPageToken,callback);
                 }else{
-                    callback();
+                    callback(files);
                 }
             });
         }
@@ -449,7 +449,7 @@ app.get('/files', function(req, res){
           var files=[];
        
      
-          retrieveAllFiles(files,null,function(){
+          retrieveAllFiles(files,null,function(files){
             
             console.log("---------files"+files);
             if (files.length == 0) {
