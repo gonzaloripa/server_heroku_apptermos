@@ -383,7 +383,7 @@ q carajo pasa
               }
               console.log('Response: '+Object.keys(response.data));
               files.concat(response.data.items);
-              nextPageToken = resp.data.nextPageToken;
+              nextPageToken = response.data.nextPageToken;
               first=false;
           });
       
@@ -400,7 +400,7 @@ q carajo pasa
                 }
                 console.log('Response: '+Object.keys(response.data));
                 files.concat(response.data.items);
-                nextPageToken = resp.data.nextPageToken;                
+                nextPageToken = response.data.nextPageToken;                
             });
         }
       
