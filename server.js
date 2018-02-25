@@ -468,7 +468,7 @@ app.get('/files', function(req, res){
               urls[ind]=[];
               var file_act;
               var cant = 0;
-              //var file_act;
+              var first=true;
           
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
@@ -480,9 +480,10 @@ app.get('/files', function(req, res){
                 //file_act=file.title;
 
                 if(ok){
-                    if(i==0){
-                    file_act=file.title;
-                    console.log("entra al if i==0");
+                    if(first){
+                      file_act=file.title;
+                      console.log("entra al if i==0");
+                      first=false;
                   }
                   if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
                     
