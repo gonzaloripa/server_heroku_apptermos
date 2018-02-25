@@ -482,7 +482,7 @@ app.get('/files', function(req, res){
                 if(ok){
                     if(first){
                       file_act=file.title;
-                      console.log("entra al if i==0");
+                      console.log("entra al if first");
                       first=false;
                   }
                   if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
@@ -497,7 +497,7 @@ app.get('/files', function(req, res){
                                         console.log("---cant2",cant);
                     info[ind].push(cant);
                                         console.log("---info cant",info[ind][info[ind].length-1]);
-                    cant=0;
+                    cant=1;
                     ind+=1;
                     info[ind]=[];
                     urls[ind]=[];
