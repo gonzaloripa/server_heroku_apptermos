@@ -381,7 +381,6 @@ function retrieveAllFiles(callback) {
           auth: oauth2Client,
           maxResults:100,
           pageToken: nextPageToken,
-          orderBy:'createdDate',
         });
         retrievePageOfFiles(request, result);
       } else {
@@ -392,7 +391,6 @@ function retrieveAllFiles(callback) {
   var initialRequest = drive.files.list({
             auth: oauth2Client,
             maxResults:100,
-            orderBy:'createdDate',
           });
   console.log(Object.keys(initialRequest));
   retrievePageOfFiles(initialRequest, []);
