@@ -52,7 +52,7 @@
     <% console.log("----usuario en index "+user);%>
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
 
-	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
+	<% } else { console.log("----usuario en index "+user.username+" "+info.length+" "+info[0].pop());%>
 		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
 		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
 	</div>
