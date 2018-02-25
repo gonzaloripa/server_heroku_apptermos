@@ -491,7 +491,13 @@ app.get('/files', function(req, res){
                     console.log("---cant1",cant);
                     if(!info[ind][0]){
                       info[ind][0]=cant;
-                    }
+                    }else{
+                      if (info[ind][0] == (int)info[ind][0])
+                      {
+                         info[ind][0]=cant;
+                      }
+                    }     
+
                     urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
                     info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                     
@@ -506,7 +512,12 @@ app.get('/files', function(req, res){
                     urls[ind]=[];
                     if(!info[ind][0]){
                       info[ind][0]=cant;
-                    }
+                    }else{
+                      if (info[ind][0] == (int)info[ind][0])
+                      {
+                         info[ind][0]=cant;
+                      }
+                    }                    }
                     urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
                     info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                   }
