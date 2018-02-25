@@ -467,7 +467,7 @@ app.get('/files', function(req, res){
               info[ind]=[];
               urls[ind]=[];
               var file_act;
-              var cant = 0;
+              global.cant = 0;
               //var file_act;
           
               for (var i = 0; i < files.length; i++) {
@@ -493,6 +493,7 @@ app.get('/files', function(req, res){
                     file_act=file.title;
                                         console.log("---cant2",cant);
                     info[ind].push(cant);
+                                        console.log("---info cant",info[ind][info[ind].length-1]);
                     cant=0;
                     ind+=1;
                     info[ind]=[];
