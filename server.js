@@ -369,32 +369,42 @@ body.on('pass', function (mensaje) {
 global.info2="";
 q carajo pasa
 */
-function retrieveAllFiles(callback) {
-  var retrievePageOfFiles = function(request, result) {
-    console.log(Object.keys(request)+" "+result);
-    request.execute(function(resp) {
-      console.log('Response: '+Object.keys(resp.data));
-      result = result.concat(resp.data.items);
-      var nextPageToken = resp.data.nextPageToken;
-      if (nextPageToken) {
-        request = drive.files.list({
-          auth: oauth2Client,
-          maxResults:100,
-          pageToken: nextPageToken,
-        });
-        retrievePageOfFiles(request, result);
-      } else {
-        callback(result);
-      }
-    });
-  }
-  var initialRequest = drive.files.list({
-            auth: oauth2Client,
-            maxResults:100,
+
+
+    function retrieveAllFiles(files,nextPageToken){
+
+        drive.files.list({
+              auth: oauth2Client,
+              maxResults:100,
+            }, function(err, response) {
+              if (err) {
+                console.log('The API returned an error: ' + err);
+                return;
+              }
+              console.log('Response: '+Object.keys(response.data));
+              files.concat(response.data.items);
+              nextPageToken = resp.data.nextPageToken;
+              first=false;
           });
-  console.log(Object.keys(initialRequest));
-  retrievePageOfFiles(initialRequest, []);
-}
+      
+   
+        while(nextPageToken) {
+            drive.files.list({
+                auth: oauth2Client,
+                maxResults:100,
+                pageToken: nextPageToken,
+              }, function(err, response) {
+                if (err) {
+                  console.log('The API returned an error: ' + err);
+                  return;
+                }
+                console.log('Response: '+Object.keys(response.data));
+                files.concat(response.data.items);
+                nextPageToken = resp.data.nextPageToken;                
+            });
+        }
+      
+    }
 
 
 app.get('/files', function(req, res){
@@ -427,8 +437,12 @@ app.get('/files', function(req, res){
         });
       
       query.on('end',function(){
-        retrieveAllFiles(function(result){
-             var files = result;
+          var files=[];
+          var nextPageToken;
+     
+          retrieveAllFiles(files,nextPageToken,first);
+
+      
             if (files.length == 0) {
               console.log('No files found.');
             } else {
@@ -480,8 +494,7 @@ app.get('/files', function(req, res){
               }
               res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
             }
-          })
-        });
+          });
       pg.end();
     });   //Cierra pg.connect
   }else{
