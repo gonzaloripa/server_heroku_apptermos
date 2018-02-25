@@ -369,6 +369,33 @@ body.on('pass', function (mensaje) {
 global.info2="";
 q carajo pasa
 */
+function retrieveAllFiles(callback) {
+  var retrievePageOfFiles = function(request, result) {
+    request.execute(function(resp) {
+      console.log('Response: '+Object.keys(resp.data));
+      result = result.concat(resp.data.items);
+      var nextPageToken = resp.data.nextPageToken;
+      if (nextPageToken) {
+        request = drive.files.list({
+          auth: oauth2Client,
+          maxResults:100,
+          pageToken: nextPageToken,
+          orderBy:'createdDate',
+        });
+        retrievePageOfFiles(request, result);
+      } else {
+        callback(result);
+      }
+    });
+  }
+  var initialRequest = drive.files.list({
+            auth: oauth2Client,
+            maxResults:100,
+            orderBy:'createdDate',
+          });
+  retrievePageOfFiles(initialRequest, []);
+}
+
 
 app.get('/files', function(req, res){
   if(req.user){
@@ -398,11 +425,74 @@ app.get('/files', function(req, res){
           done();
           client.end();
         });
-
+      
       query.on('end',function(){
+        retrieveAllFiles(function(result){
+             var files = result;
+            if (files.length == 0) {
+              console.log('No files found.');
+            } else {
+
+              var urls=[];//Download urls
+              var info=[];
+              console.log('Files:');
+              var ind = 0;
+              info[ind]=[];
+              urls[ind]=[];
+              var file_act;
+              var cant = 0;
+              //var file_act;
+
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                console.log('%s (%s)', file.title, file.id);
+
+                var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
+                console.log("-----ok ",ok);
+                
+                //file_act=file.title;
+                if(i=0){
+                  file_act=file.title;
+                }
+                if(ok){
+                  if(file.title.includes(file_act.substring(0,(file.title.length)-6))){
+                    
+                    cant+=1;
+
+                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                    
+                  }else{
+                    file_act=file.title;
+                    info[ind].push(cant);
+                    cant=0;
+                    ind+=1;
+                    info[ind]=[];
+                    urls[ind]=[];
+                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                  }
+                  //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
+                  //console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
+                  //body.emit('pass',"Termino");
+                }
+
+              }
+              res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
+            }
+          })
+        });
+      pg.end();
+    });   //Cierra pg.connect
+  }else{
+    res.render('files',{user:""});
+  }
+});
+
+      /*query.on('end',function(){
         drive.files.list({
             auth: oauth2Client,
-
+            maxResults:460,
           }, function(err, response) {
             if (err) {
               console.log('The API returned an error: ' + err);
@@ -463,14 +553,8 @@ app.get('/files', function(req, res){
             }
           })
       });
-
-   pg.end();
-  });   //console.log("",info2);
-  }else{
-    res.render('files',{user:""});
-  }
-});
-
+*/
+   
 app.get('/login', function(req, res){
    console.log("-------Request User del login: "+ req.user);
    
