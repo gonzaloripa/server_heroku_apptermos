@@ -478,11 +478,12 @@ app.get('/files', function(req, res){
                 console.log("-----ok ",ok);
                 
                 //file_act=file.title;
-                if(i==0){
-                  file_act=file.title;
-                  console.log("entra al if i==0");
-                }
+
                 if(ok){
+                    if(i==0){
+                    file_act=file.title;
+                    console.log("entra al if i==0");
+                  }
                   if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
                     
                     cant+=1;
