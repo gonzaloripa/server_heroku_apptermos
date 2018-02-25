@@ -51,7 +51,7 @@
  
     <% console.log("----usuario en index "+user);%>
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
-	
+
 	<% } else { console.log("----usuario en index "+user.username+" "+info);%>
 		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
 		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
@@ -59,26 +59,27 @@
 
 	<% if(info){ %>
         <div class="row">
-		<% for (var i = 0; i < cantFiles; i++) { %> 
-			<% console.log("----info en index "+info[i]+cantFiles); %>
+		<% for (var i = 0; info.length; i++) { %> 
+			<% for (var q = 0; info[i].pop(); q++) { %> 
+
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <a class="lightbox" href=<%=info[i].image.downloadUrl%>>
+                    <a class="lightbox" href=<%=info[i][q].image.downloadUrl%>>
                         <img src='<%=info[i].image.href %>' clas='img-responsive'>
                     </a>
                     <div class="caption">
-                        <h4><%=info[i].image.name %></h4>
+                        <h4><%=info[i][q].image.name %></h4>
                     </div>
                 </div>
             </div>
 
 		<% } %>
 		<% if(urls){ %>
-			<center> <button id="descargar" class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%=urls%>')">Descargar todas</button>
+			<center> <button id="descargar" class="btn btn-lg btn-warning btn-block" onclick="downloadAll(i)">Descargar todas</button>
 			</center>
 		<% } %>
         </div>
-        <% } %>
+        <% }} %>
                    
     </div>
 	<% } %>
@@ -89,7 +90,7 @@
 <script>
     baguetteBox.run('.tz-gallery');
 
-function downloadAll(urls2) {
+function downloadAll(indUrls) {
   
   
 	var link = document.createElement('a');
@@ -98,7 +99,7 @@ function downloadAll(urls2) {
 	document.body.appendChild(link);
 	
 	<% if(urls){ %>
-    <% urls.forEach((l,index)=>{ 
+    <% urls[indUrls].forEach((l,index)=>{ 
     var elem=l; var ind=index;	%>
     
   		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
