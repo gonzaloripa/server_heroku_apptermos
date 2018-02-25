@@ -385,6 +385,8 @@ q carajo pasa
               files.concat(response.data.items);
               if(response.data.nextPageToken){
                 nextPageToken = response.data.nextPageToken;
+              }else{
+                  callback();
               }
           });
       
@@ -402,10 +404,12 @@ q carajo pasa
                 }
                 console.log('Response: '+Object.keys(response.data));
                 files.concat(response.data.items);
-                nextPageToken = response.data.nextPageToken;                
+                nextPageToken = response.data.nextPageToken;
+                if(!nextPageToken){
+                    callback();
+                }                
             });
         }
-        callback();
       
     }
 
