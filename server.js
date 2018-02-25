@@ -489,13 +489,14 @@ app.get('/files', function(req, res){
                     
                     cant+=1;
                     console.log("---cant1",cant);
+                    info[ind][0]=cant;
                     urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
                     info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                     
                   }else{
                     file_act=file.title;
                                         console.log("---cant2",cant);
-                    info[ind].push(cant);
+                    //info[ind].push(cant);
                                         console.log("---info cant",info[ind][info[ind].length-1]);
                     cant=1;
                     ind+=1;
