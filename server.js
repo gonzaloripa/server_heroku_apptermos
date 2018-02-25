@@ -383,7 +383,9 @@ q carajo pasa
                   return;
                 }
                 console.log('Response: '+Object.keys(response.data));
+                console.log('Response files1: '+response.data.items);
                 files.concat(response.data.items);
+                console.log(' filesconcat1: '+files);
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
                   console.log('Response nextPageToken1: '+nextPageToken);
@@ -403,7 +405,9 @@ q carajo pasa
                   return;
                 }
                 console.log('Response: '+Object.keys(response.data));
+                console.log('Response files2: '+response.data.items);
                 files.concat(response.data.items);
+                console.log(' filesconcat2: '+files);                
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
                   console.log('Response nextPageToken2: '+nextPageToken);
@@ -420,7 +424,7 @@ app.get('/files', function(req, res){
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
       global.nombres=[];
-      global.info=[];
+      //global.info=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       var query = client.query('select nombre,idpedido from pedidos where finalizado=$1 order by idpedido',[false], function(err, result) {
