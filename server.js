@@ -375,7 +375,7 @@ q carajo pasa
 
         drive.files.list({
               auth: oauth2Client,
-              maxResults:100,
+              maxResults:4,
             }, function(err, response) {
               if (err) {
                 console.log('The API returned an error: ' + err);
@@ -383,12 +383,15 @@ q carajo pasa
               }
               console.log('Response: '+Object.keys(response.data));
               files.concat(response.data.items);
-              nextPageToken = response.data.nextPageToken;
+              if(response.data.nextPageToken){
+                nextPageToken = response.data.nextPageToken;
+              }
               first=false;
           });
       
    
         while(nextPageToken) {
+          console.log("-------entra al while");
             drive.files.list({
                 auth: oauth2Client,
                 maxResults:100,
@@ -441,7 +444,7 @@ app.get('/files', function(req, res){
           var nextPageToken;
      
           retrieveAllFiles(files,nextPageToken);
-
+          console.log("---------files"+files);
       
             if (files.length == 0) {
               console.log('No files found.');
