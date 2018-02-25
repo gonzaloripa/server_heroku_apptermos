@@ -367,7 +367,7 @@ body.on('pass', function (mensaje) {
   info2=mensaje;
 }
 global.info2="";
-q carajo pasa
+q carajo pasa 2
 */
 
 
