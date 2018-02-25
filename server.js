@@ -469,7 +469,7 @@ app.get('/files', function(req, res){
               var file_act;
               var cant = 0;
               //var file_act;
-
+              var first
               for (var i = 0; i < files.length; i++) {
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
@@ -478,9 +478,9 @@ app.get('/files', function(req, res){
                 console.log("-----ok ",ok);
                 
                 //file_act=file.title;
-                //if(i=0){
-                  //file_act=file.title;
-                //}
+                if(i==0){
+                  file_act=file.title;
+                }
                 if(ok){
                   if(file.title.includes(file_act.substring(0,(file.title.length)-6))){
                     
