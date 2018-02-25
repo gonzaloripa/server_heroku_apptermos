@@ -376,6 +376,7 @@ q carajo pasa
         drive.files.list({
               auth: oauth2Client,
               maxResults:4,
+              pageToken:nextPageToken
             }, function(err, response) {
               if (err) {
                 console.log('The API returned an error: ' + err);
@@ -386,36 +387,12 @@ q carajo pasa
               if(response.data.nextPageToken){
                 nextPageToken = response.data.nextPageToken;
                 console.log('Response nextPageToken1: '+nextPageToken);
-
+                retrieveAllFiles(files,nextPageToken,callback);
               }else{
                   callback();
               }
           });
-        
-        console.log('Response nextPageToken2: '+nextPageToken);
-
-   
-        while(nextPageToken) {
-          console.log("-------entra al while");
-            drive.files.list({
-                auth: oauth2Client,
-                maxResults:100,
-                pageToken: nextPageToken,
-              }, function(err, response) {
-                if (err) {
-                  console.log('The API returned an error: ' + err);
-                  return;
-                }
-                console.log('Response: '+Object.keys(response.data));
-                files.concat(response.data.items);
-                nextPageToken = response.data.nextPageToken;
-                console.log('Response nextPageToken3: '+nextPageToken);
-                if(!nextPageToken){
-                    callback();
-                }                
-            });
-        }
-      
+         
     }
 
 
@@ -450,9 +427,9 @@ app.get('/files', function(req, res){
       
       query.on('end',function(){
           var files=[];
-          var nextPageToken;
+       
      
-          retrieveAllFiles(files,nextPageToken,function(){
+          retrieveAllFiles(files,null,function(){
             
             console.log("---------files"+files);
             if (files.length == 0) {
