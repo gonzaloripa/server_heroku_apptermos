@@ -478,9 +478,9 @@ app.get('/files', function(req, res){
                 console.log("-----ok ",ok);
                 
                 //file_act=file.title;
-                if(i=0){
-                  file_act=file.title;
-                }
+                //if(i=0){
+                  //file_act=file.title;
+                //}
                 if(ok){
                   if(file.title.includes(file_act.substring(0,(file.title.length)-6))){
                     
