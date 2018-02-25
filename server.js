@@ -440,7 +440,7 @@ app.get('/files', function(req, res){
           var files=[];
           var nextPageToken;
      
-          retrieveAllFiles(files,nextPageToken,first);
+          retrieveAllFiles(files,nextPageToken);
 
       
             if (files.length == 0) {
