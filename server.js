@@ -384,7 +384,7 @@ q carajo pasa
                 }
                 console.log('Response: '+Object.keys(response.data));
                 console.log('Response files1: '+response.data.items);
-                files.concat(response.data.items);
+                files = files.concat(response.data.items);
                 console.log(' filesconcat1: '+files);
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
@@ -406,7 +406,7 @@ q carajo pasa
                 }
                 console.log('Response: '+Object.keys(response.data));
                 console.log('Response files2: '+response.data.items);
-                files.concat(response.data.items);
+                files=files.concat(response.data.items);
                 console.log(' filesconcat2: '+files);                
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
