@@ -542,7 +542,7 @@ app.get('/files/realizados', function(req, res){
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero," limite ",r.limite);
               idCorte=r.numero;
-                            console.log("---Is integer: ",idCorte.isNaN());
+                            console.log("---Is integer: ",isNaN(idCorte));
               limit=r.limite;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
