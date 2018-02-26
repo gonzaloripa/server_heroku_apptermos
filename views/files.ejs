@@ -87,35 +87,55 @@ function downloadAll(urls) {
 
 	<% } else { console.log("---- info1 "+info.length+"  "+info[0]);%>
 		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
-		<h2 class="page-description text-center">Listado de pedidos sin realizar </h2>
+		<h2 class="page-description text-center">Pedidos pendientes </h2>
 	</div>
 
 	<% if(info){ %>
+		<h3> Descripción del pedido: <%= pedido.descripcion %></h3>
+		<h3> Elementos del pedido: </h3>
+		<% if(pedido.termo) {%>
+			<h3> Termo</h3>
+		<% } %>
+		<% if(pedido.mate) {%>
+			<h3> Mate</h3>
+		<% } %>
+		<% if(pedido.yerbera) {%>
+			<h3> Yerbera</h3>
+		<% } %>
+		<% if(pedido.azucarera) {%>
+			<h3> Azucarera</h3>
+		<% } %>
+
         <div class="row">
 		<% for (var i = 0; i < (info.length); i++) { %> 
 		<%  console.log("---- info2 "+info.length+"  "+info[i]);%>
-			<% for (var q = 1; q <= (info[i][0]); q++) { %> 
-				<%  console.log("---- info3 "+info[i][q]);%>
 
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
-                    <a class="lightbox" href=<%=info[i][q].image.downloadUrl%>>
-                        <img src='<%=info[i][q].image.href %>' class='img-responsive'>
+                    <a class="lightbox" href=<%=info[i].image.downloadUrl%>>
+                        <img src='<%=info[i].image.href %>' class='img-responsive'>
                     </a>
                     <div class="caption">
-                        <h4><%=info[i][q].image.name %></h4>
+                        <h4><%=info[i].image.name %></h4>
                     </div>
                 </div>
             </div>
 
 		<% } %>
-		<% if(urls){ %>
+		
 
-			<center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar todas</button>
-			</center>
+		<% if(urls){ %>
+			<form class="form-signin" action="/filesPost" method="post" autocomplete="off">
+				   
+			
+			    <input type="hidden" value="<%= pedido.id %>" id="pedidoId" name="pedidoId">
+			    
+				<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls %>')">Descargar fotos</button>
+				</center>
+			</form>
 		<% } %>
         </div>
-        <% }} %>
+        <% } %>
                    
     </div>
 	<% } %>

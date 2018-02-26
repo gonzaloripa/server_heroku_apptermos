@@ -423,11 +423,11 @@ q carajo pasa 2
 app.get('/files', function(req, res){
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
-      global.nombres=[];
+      global.pedido;
       //global.info=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      var query = client.query('select nombre,idpedido from pedidos where finalizado=$1 order by idpedido',[false], function(err, result) {
+      var query = client.query('select * from pedidos where finalizado=$1 order by idpedido limit 1',[false], function(err, result) {
         
         if (err)
          { console.error(err);}
@@ -439,8 +439,8 @@ app.get('/files', function(req, res){
   
             if(r.nombre != null){
               //console.log("---Entra al if: ",r.idpedido);
-              nombres[index]={nombre:r.nombre,id:r.idpedido};
-              console.log("---Entra al if: ",r.nombre," ",nombres[index].nombre);
+              pedido={nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate};
+              console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
           
           });
@@ -451,6 +451,66 @@ app.get('/files', function(req, res){
       
       query.on('end',function(){
           var files=[];
+       
+     
+          retrieveAllFiles(files,null,function(files){
+            
+            console.log("---------files"+files);
+            if (files.length == 0) {
+              console.log('No files found.');
+            } else {
+
+              var urls=[];//Download urls
+              var info=[];
+              console.log('Files:');
+          
+             
+              var file_act;
+            
+              var first=true;
+          
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                console.log('%s (%s)', file.title, file.id);
+
+                var ok = pedido.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
+                console.log("-----ok ",ok);
+                
+                //file_act=file.title;
+
+                if(ok){
+                    if(first){
+                      file_act=file.title;
+                      console.log("entra al if first");
+                      first=false;
+                    }
+                    if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
+                    
+             
+
+                    urls.push("https://drive.google.com/uc?export=download&id="+file.id);
+                    info.push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                    
+                  }else{
+                    break;
+                  }
+
+              }
+            }
+              res.render('files', { user: req.user,info:info,urls:urls,pedido:pedido});
+            }
+          });
+
+          });
+      pg.end();
+    });   //Cierra pg.connect
+  }else{
+    res.render('files',{user:""});
+  }
+});
+
+      /*query.on('end',function(){
+                 var files=[];
        
      
           retrieveAllFiles(files,null,function(files){
@@ -519,80 +579,35 @@ app.get('/files', function(req, res){
               }
               res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
             }
-          });
-
-          });
-      pg.end();
-    });   //Cierra pg.connect
-  }else{
-    res.render('files',{user:""});
-  }
-});
-
-      /*query.on('end',function(){
-        drive.files.list({
-            auth: oauth2Client,
-            maxResults:460,
-          }, function(err, response) {
-            if (err) {
-              console.log('The API returned an error: ' + err);
-              return;
-            }
-            console.log('Response: '+Object.keys(response.data));
-            var files = response.data.items;
-            if (files.length == 0) {
-              console.log('No files found.');
-            } else {
-
-              var urls=[];//Download urls
-              var info=[];
-              console.log('Files:');
-              var ind = 0;
-              info[ind]=[];
-              urls[ind]=[];
-              var file_act;
-              var cant = 0;
-              //var file_act;
-
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                console.log('%s (%s)', file.title, file.id);
-
-                var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
-                console.log("-----ok ",ok);
-                
-                //file_act=file.title;
-                if(i=0){
-                  file_act=file.title;
-                }
-                if(ok){
-                  if(file.title.includes(file_act.substring(0,(file.title.length)-6))){
-                    
-                    cant+=1;
-
-                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
-                    
-                  }else{
-                    file_act=file.title;
-                    info[ind].push(cant);
-                    cant=0;
-                    ind+=1;
-                    info[ind]=[];
-                    urls[ind]=[];
-                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
-                  }
-                  //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
-                  //console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
-                  //body.emit('pass',"Termino");
-                }
-
-              }
-              res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
-            }
-          })
       });
+
+
+        <% if(info){ %>
+        <div class="row">
+    <% for (var i = 0; i < (info.length); i++) { %> 
+    <%  console.log("---- info2 "+info.length+"  "+info[i]);%>
+      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
+        <%  console.log("---- info3 "+info[i][q]);%>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a class="lightbox" href=<%=info[i][q].image.downloadUrl%>>
+                        <img src='<%=info[i][q].image.href %>' class='img-responsive'>
+                    </a>
+                    <div class="caption">
+                        <h4><%=info[i][q].image.name %></h4>
+                    </div>
+                </div>
+            </div>
+
+    <% } %>
+    <% if(urls){ %>
+
+      <center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar todas</button>
+      </center>
+    <% } %>
+        </div>
+        <% }} %>
 */
    
 app.get('/login', function(req, res){
@@ -742,6 +757,49 @@ app.post('/pedidoEnviado',function(req,res){
       pg.end();    
     });
     res.status(201).send('Pedido recibido');
+     
+});
+
+app.post('/filesPost',function(req,res){
+      console.log("----------Info del pedido ",req.body);
+      
+      var idPedido = req.body.pedidoId;
+      if(idPedido){
+        pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+         
+        var query = client.query('update pedidos set finalizado=$1 where idpedido=$2',[true,idPedido],function(err, result) {
+          
+          if (err)
+           { console.error(err);}
+       
+    
+            done();
+        });
+      
+        
+      query.on('end', function(){
+          client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera,finalizado) values ($1,$2,$3,$4,$5,$6,$7,$8)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP,false] , function(err, result) {
+          console.log("Valor de idPedido",idPedido);
+          if (err){ 
+            console.error(err);
+          }
+          else
+          { 
+            console.log("---Entra al else de insert ",result.rows);
+            result.rows.forEach(function(r){
+            console.log("---Resultado insert: "+r);
+            });
+            
+          }
+          done();
+        client.end();
+        });
+      });
+
+      pg.end();    
+    });
+    }
+    res.redirect('/files');
      
 });
 
