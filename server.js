@@ -522,6 +522,10 @@ app.get('/files/realizados', function(req, res){
       //global.info=[];
       var idCorte;
       var ultimo;
+      var pedidos = [];
+      var info;
+      var urls;
+      var nombres=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         var query = client.query('select numero from corte', function(err, result) {
@@ -555,7 +559,8 @@ app.get('/files/realizados', function(req, res){
                 //console.log("---Entra al foreach: ",Object.keys(r));      
                 if(r.nombre != null){
                   //console.log("---Entra al if: ",r.idpedido);
-                  pedido={nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate};
+                  pedidos.push({nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate});
+                  nombres.push(r.nombre);
                   console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
                 }              
               });
@@ -598,8 +603,8 @@ app.get('/files/realizados', function(req, res){
                                   if (files.length == 0) {
                                     console.log('No files found.');
                                   } else {
-                                    var urls=[];//Download urls
-                                    var info=[];
+                                     urls=[];//Download urls
+                                     info=[];
                                     console.log('Files:');
                                     var ind = 0;
                                     info[ind]=[];
@@ -642,7 +647,7 @@ app.get('/files/realizados', function(req, res){
                                               }
                                         } //end if ok
                                       } //end for
-                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres});
+                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos});
                                   }//end else
                               });//end retrieveAllFiles
                           }//end if pedido 

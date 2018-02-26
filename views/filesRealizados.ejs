@@ -29,7 +29,7 @@ function downloadAll(urls) {
 
 	
 	console.log("-------urls "+urls);
-    if(urls){
+    if(urls!= ""){
 	    var array = urls.split(',');
 	    array.forEach((elem)=>{  	
 	    
@@ -86,34 +86,36 @@ function downloadAll(urls) {
     <% console.log("----usuario en index "+user);%>
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
 
-	<% } else { console.log("---- info1 "+info.length+"  "+info[0]);%>
+	<% } else { %>
 		
-		<% if(message){ %>
+		<% if(typeof message != "undefined"){ %>
 			<h2 class="page-description text-center"><%=message%></h2>
 			<%} else { %>
 		<h2 class="page-description text-center">Pedidos pendientes </h2>
 		<% } %>
 	</div>
 
-	<% if(info){ %>
-		<h3> Descripción del pedido: <%= pedido.desc %></h3>
-		<h3> Elementos del pedido: </h3>
-		<% if(pedido.termo) {%>
-			<h3> Termo</h3>
-		<% } %>
-		<% if(pedido.mate) {%>
-			<h3> Mate</h3>
-		<% } %>
-		<% if(pedido.yerbera) {%>
-			<h3> Yerbera</h3>
-		<% } %>
-		<% if(pedido.azucarera) {%>
-			<h3> Azucarera</h3>
-		<% } %>
+	<% if(typeof info != "undefined"){ %>
+		
 
 		<div class="row">
-		    <% for (var i = 0; i < (info.length); i++) { %> 
+		    <% for (var i = 0; i < 5; i++) { %> 
 		    <%  console.log("---- info2 "+info.length+"  "+info[i]);%>
+				<h3> Descripción del pedido: <%= pedidos[i].desc %></h3>
+				<h3> Elementos del pedido: </h3>
+				<% if(pedidos[i].termo) {%>
+					<h3> Termo</h3>
+				<% } %>
+				<% if(pedidos[i].mate) {%>
+					<h3> Mate</h3>
+				<% } %>
+				<% if(pedidos[i].yerbera) {%>
+					<h3> Yerbera</h3>
+				<% } %>
+				<% if(pedidos[i].azucarera) {%>
+					<h3> Azucarera</h3>
+				<% } %>
+
 		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
 		        <%  console.log("---- info3 "+info[i][q]);%>
 
@@ -132,9 +134,9 @@ function downloadAll(urls) {
 		
 		</div>
 		<div class="row">
-		<% if(urls){ %>
+		<% if(typeof urls != "undefined"){ %>
 
-		      <center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar todas</button>
+		      <center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar imagenes</button>
 		      </center>
 		    <% } %>
         </div>
