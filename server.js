@@ -542,6 +542,7 @@ app.get('/files/realizados', function(req, res){
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero," limite ",r.limite);
               idCorte=r.numero;
+                            console.log("---Is integer: ",idCorte.isNaN());
               limit=r.limite;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
@@ -552,7 +553,7 @@ app.get('/files/realizados', function(req, res){
           
         }); //end query
         query.on('end',function(){
-            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit $3',[true,int(idCorte),limit], function(err, result) {       
+            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit $3',[true,parseInt(idCorte),limit], function(err, result) {       
             if (err)
              { console.error(err);}
             else
