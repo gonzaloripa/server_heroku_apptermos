@@ -540,7 +540,7 @@ app.get('/files/realizados', function(req, res){
             //console.log("---Entra al foreach: ",Object.keys(r));
   
             if(r.numero != null){
-              console.log("---Entra al if: ",r.numero);
+              console.log("---Entra al if: ",r.numero," limite ",r.limite);
               idCorte=r.numero;
               limit=r.limite;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
