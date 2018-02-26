@@ -27,11 +27,10 @@ function downloadAll(urls) {
     link.style.display = 'none';
 	document.body.appendChild(link);
 	
-			
+	
 	console.log("-------urls "+urls);
     if(urls){
-	    urls.forEach((l,index)=>{ 
-	    var elem=l; var ind=index;	
+	    urls.forEach((elem)=>{  	
 	    
 	  		link.setAttribute('href', elem.replace('&amp;','&'));
 	  		
@@ -111,7 +110,7 @@ function downloadAll(urls) {
 		<% } %>
 		<% if(urls){ %>
 
-			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll(JSON.stringify('<%= urls[i] %>'))">Descargar todas</button>
+			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%- urls[i] %>')">Descargar todas</button>
 			</center>
 		<% } %>
         </div>
