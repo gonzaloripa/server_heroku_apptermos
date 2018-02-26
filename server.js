@@ -563,7 +563,7 @@ app.get('/files/realizados', function(req, res){
                   //console.log("---Entra al if: ",r.idpedido);
                   pedidos.push({nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate});
                   nombres.push(r.nombre);
-                  console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
+                  console.log("---Entra al if: ",r.nombre);
                 }              
               });
              } 
