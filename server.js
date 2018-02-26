@@ -420,6 +420,9 @@ q carajo pasa 2
     }
 
 var pedido;
+var info;
+var urls;
+
 app.get('/files', function(req, res){
 
   if(req.user){
@@ -462,8 +465,8 @@ app.get('/files', function(req, res){
               console.log('No files found.');
             } else {
 
-              var urls=[];//Download urls
-              var info=[];
+              urls=[];//Download urls
+              info=[];
               console.log('Files:');
           
              
