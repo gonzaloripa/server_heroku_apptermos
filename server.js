@@ -777,24 +777,7 @@ app.post('/filesPost',function(req,res){
         });
       
         
-      query.on('end', function(){
-          client.query('insert into pedidos(idpedido,nombre,descripcion,termo,mate,yerbera,azucarera,finalizado) values ($1,$2,$3,$4,$5,$6,$7,$8)',[idPedido,nombreP,descripcionP,termoP,mateP,yerberaP,azucareraP,false] , function(err, result) {
-          console.log("Valor de idPedido",idPedido);
-          if (err){ 
-            console.error(err);
-          }
-          else
-          { 
-            console.log("---Entra al else de insert ",result.rows);
-            result.rows.forEach(function(r){
-            console.log("---Resultado insert: "+r);
-            });
-            
-          }
-          done();
-        client.end();
-        });
-      });
+      
 
       pg.end();    
     });
