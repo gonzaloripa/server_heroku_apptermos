@@ -419,9 +419,9 @@ q carajo pasa 2
         }
     }
 
-var pedido;
-var info;
-var urls;
+//var pedido;
+//var info;
+//var urls;
 
 app.get('/files', function(req, res){
 
@@ -429,7 +429,9 @@ app.get('/files', function(req, res){
       console.log("-------Request User del /files: "+ req.user);
       
       //global.info=[];
-
+      var pedido;
+      var info;
+      var urls;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       var query = client.query('select * from pedidos where finalizado=$1 order by idpedido limit 1',[false], function(err, result) {
