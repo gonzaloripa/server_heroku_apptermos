@@ -529,7 +529,7 @@ app.get('/files/realizados', function(req, res){
       var limit;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        var query = client.query('select numero,limit from corte', function(err, result) {
+        var query = client.query('select numero,limite from corte', function(err, result) {
         
         if (err)
          { console.error(err);}
@@ -542,7 +542,7 @@ app.get('/files/realizados', function(req, res){
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero);
               idCorte=r.numero;
-              limit=r.limit;
+              limit=r.limite;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
           
@@ -598,7 +598,7 @@ app.get('/files/realizados', function(req, res){
                     }else{
                       idAct = 1;
                     }
-                    client.query('update corte set numero=$1,limit=$2',[idAct,limit], function(err, result) {
+                    client.query('update corte set numero=$1,limite=$2',[idAct,limit], function(err, result) {
                     if (err)
                      { console.error(err);}
                       done();
