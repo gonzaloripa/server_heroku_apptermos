@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../../../favicon.ico">
+ <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Custom styles for this template -->
+    <link href="/stylesheets/signin.css" rel="stylesheet"> 
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script type="text/javascript">
+    baguetteBox.run('.tz-gallery');
+
+function downloadAll(urls) {
+  	
+  	
+	var link = document.createElement('a');
+	link.setAttribute('download', null);
+    link.style.display = 'none';
+	document.body.appendChild(link);
+
+	
+	console.log("-------urls "+urls);
+    if(urls){
+	    var array = urls.split(',');
+	    array.forEach((elem)=>{  	
+	    
+	  		link.setAttribute('href', elem.replace('&amp;','&'));
+	  		
+	  		if (link.click) {
+			      link.click(); // The click method is supported by most browsers.
+			    } else {
+			      $(link).click(); // Backup using jquery
+			    } 
+    	});
+    }
+  
+  	document.body.removeChild(link);
+  
+
+}
+</script>
+
+  </head>
+
+  <body>
+  
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+	      <div class="container">
+	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <div class="navbar-header">
+	         
+	          <a id="brand" class="navbar-brand">Home</a>
+	        </div> 
+	        <% if (!user) { %>
+	        <div class="navbar-header navbar-right">
+	         
+	          <a id="brand" class="navbar-brand" href="/login">Login</a>
+	        </div>
+	        <% } else { %>
+	        <div class="navbar-header navbar-right">
+	       
+	          <a id="brand" class="navbar-brand" href="/logout">Logout</a>
+	        </div>
+			<% } %>
+	    
+	      </div><!-- /.container -->
+	    </nav><!-- /.navbar -->
+
+
+<div class="container gallery-container">
+	<br>
+    
+    <div class="tz-gallery">
+   	<div class="row">
+    <% if (!user) { %>
+ 
+    <% console.log("----usuario en index "+user);%>
+		<h2 class="page-description text-center">Welcome! Please log in.</h2>
+
+	<% } else { console.log("---- info1 "+info.length+"  "+info[0]);%>
+		
+		<% if(message){ %>
+			<h2 class="page-description text-center"><%=message%></h2>
+			<%} else { %>
+		<h2 class="page-description text-center">Pedidos pendientes </h2>
+		<% } %>
+	</div>
+
+	<% if(info){ %>
+		<h3> Descripción del pedido: <%= pedido.desc %></h3>
+		<h3> Elementos del pedido: </h3>
+		<% if(pedido.termo) {%>
+			<h3> Termo</h3>
+		<% } %>
+		<% if(pedido.mate) {%>
+			<h3> Mate</h3>
+		<% } %>
+		<% if(pedido.yerbera) {%>
+			<h3> Yerbera</h3>
+		<% } %>
+		<% if(pedido.azucarera) {%>
+			<h3> Azucarera</h3>
+		<% } %>
+
+		<div class="row">
+		    <% for (var i = 0; i < (info.length); i++) { %> 
+		    <%  console.log("---- info2 "+info.length+"  "+info[i]);%>
+		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
+		        <%  console.log("---- info3 "+info[i][q]);%>
+
+            <div class="col-sm-6 col-md-4">
+                <div class="thumbnail">
+                    <a class="lightbox" href=<%=info[i][q].image.downloadUrl%>>
+                        <img src='<%=info[i][q].image.href %>' class='img-responsive'>
+                    </a>
+                    <div class="caption">
+                        <h4><%=info[i][q].image.name %></h4>
+                    </div>
+                </div>
+            </div>
+
+		<% } %>
+		
+		</div>
+		<div class="row">
+		<% if(urls){ %>
+
+		      <center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar todas</button>
+		      </center>
+		    <% } %>
+        </div>
+        <% } %>
+                   
+    </div>
+	<% } %>
+</div>
+
+</body>
+
+
+  </body>
+  </html>
+
