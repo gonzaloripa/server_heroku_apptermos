@@ -419,9 +419,9 @@ q carajo pasa 2
         }
     }
 
-
+global.pedido;
 app.get('/files', function(req, res){
-  global.pedido;
+  
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
       
