@@ -441,6 +441,8 @@ app.get('/files', function(req, res){
               //console.log("---Entra al if: ",r.idpedido);
               pedido={nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate};
               console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
+            }else{
+              pedido=null;
             }
           
           });
