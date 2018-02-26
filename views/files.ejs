@@ -75,6 +75,7 @@ function downloadAll(urls) {
 	      </div><!-- /.container -->
 	    </nav><!-- /.navbar -->
 
+
 <div class="container gallery-container">
 	<br>
     
@@ -86,8 +87,12 @@ function downloadAll(urls) {
 		<h2 class="page-description text-center">Welcome! Please log in.</h2>
 
 	<% } else { console.log("---- info1 "+info.length+"  "+info[0]);%>
-		<h2 class="page-description text-center">Bienvenido <%=user.username%> </h2>
+		
+		<% if(message){ %>
+			<h2 class="page-description text-center"><%=message%></h2>
+			<%} else { %>
 		<h2 class="page-description text-center">Pedidos pendientes </h2>
+		<% } %>
 	</div>
 
 	<% if(info){ %>
@@ -123,7 +128,8 @@ function downloadAll(urls) {
 
 		<% } %>
 		
-
+		</div>
+		<div class="row">
 		<% if(urls){ %>
 			<form class="form-signin" action="/filesPost" method="post" autocomplete="off">
 				   
@@ -141,6 +147,7 @@ function downloadAll(urls) {
 	<% } %>
 </div>
 
+</body>
 
 
   </body>
