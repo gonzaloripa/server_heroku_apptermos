@@ -21,9 +21,10 @@ body {
   background-color: #f5f5f5;
 }
 
-#descargar{
+.descargas{
   width: 100%;
   max-width: 260px;
+  margin-bottom: 30px;
 }
 .gallery-container h1 {
     
