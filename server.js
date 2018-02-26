@@ -526,9 +526,10 @@ app.get('/files/realizados', function(req, res){
       var info;
       var urls;
       var nombres=[];
+      var limit;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        var query = client.query('select numero from corte', function(err, result) {
+        var query = client.query('select numero,limit from corte', function(err, result) {
         
         if (err)
          { console.error(err);}
@@ -541,6 +542,7 @@ app.get('/files/realizados', function(req, res){
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero);
               idCorte=r.numero;
+              limit=r.limit;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
           
@@ -550,7 +552,7 @@ app.get('/files/realizados', function(req, res){
           
         }); //end query
         query.on('end',function(){
-            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit 5',[true,idCorte], function(err, result) {       
+            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit $3',[true,idCorte,limit], function(err, result) {       
             if (err)
              { console.error(err);}
             else
@@ -585,12 +587,18 @@ app.get('/files/realizados', function(req, res){
                   done();              
                 }).on('end',function(){ //end query
                     var idAct;
+                    limit=5;
                     if(idCorte != ultimo){
-                      idAct = idCorte+5; 
+                      if(idCorte+4 <= ultimo){
+                        idAct = idCorte+4;
+                      }else{
+                        idAct = idCorte+1;
+                        limit= ultimo - idAct;
+                      } 
                     }else{
                       idAct = 1;
                     }
-                    client.query('update corte set numero=$1',[idAct], function(err, result) {
+                    client.query('update corte set numero=$1,limit=$2',[idAct,limit], function(err, result) {
                     if (err)
                      { console.error(err);}
                       done();
