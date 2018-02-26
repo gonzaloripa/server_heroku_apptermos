@@ -419,19 +419,12 @@ q carajo pasa 2
         }
     }
 
-//var pedido;
-//var info;
-//var urls;
 
 app.get('/files', function(req, res){
-
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
-      
+      global.pedido;
       //global.info=[];
-      var pedido;
-      var info;
-      var urls;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       var query = client.query('select * from pedidos where finalizado=$1 order by idpedido limit 1',[false], function(err, result) {
@@ -467,8 +460,8 @@ app.get('/files', function(req, res){
               console.log('No files found.');
             } else {
 
-              urls=[];//Download urls
-              info=[];
+              var urls=[];//Download urls
+              var info=[];
               console.log('Files:');
           
              
@@ -521,81 +514,151 @@ app.get('/files', function(req, res){
   }
 });
 
+app.get('/files/realizados', function(req, res){
+  if(req.user){
+      console.log("-------Request User del /files/realizados: "+ req.user);
+      //global.info=[];
+      global.idCorte;
+      global.ultimo;
 
-
-      /*query.on('end',function(){
-                 var files=[];
-       
-     
-          retrieveAllFiles(files,null,function(files){
-            
-            console.log("---------files"+files);
-            if (files.length == 0) {
-              console.log('No files found.');
-            } else {
-
-              var urls=[];//Download urls
-              var info=[];
-              console.log('Files:');
-              var ind = 0;
-              info[ind]=[];
-              urls[ind]=[];
-              var file_act;
-              var cant = 0;
-              var first=true;
+      pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+        var query = client.query('select numero from corte', function(err, result) {
+        
+        if (err)
+         { console.error(err);}
+        else
+        { 
           
-              for (var i = 0; i < files.length; i++) {
-                var file = files[i];
-                console.log('%s (%s)', file.title, file.id);
-
-                var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
-                console.log("-----ok ",ok);
-                
-                //file_act=file.title;
-
-                if(ok){
-                    if(first){
-                      file_act=file.title;
-                      console.log("entra al if first");
-                      first=false;
-                  }
-                  if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
-                    
-                    cant+=1;
-                    console.log("---cant1",cant);
-                    
-                    info[ind][0]=cant;
-                       
-
-                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
-                    
-                  }else{
-                    file_act=file.title;
-                                        console.log("---cant2",cant);
-                    //info[ind].push(cant);
-                                        console.log("---info cant",info[ind][info[ind].length-1]);
-                    cant=1;
-                    ind+=1;
-                    info[ind]=[];
-                    urls[ind]=[];
-                    if(!info[ind][0]){
-                      info[ind][0]=cant;
-                    }               
-                    urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                    info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
-                  }
-                  //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
-                  //console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
-                  //body.emit('pass',"Termino");
-                }
-
-              }
-              res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
+          result.rows.forEach(function(r,index){
+            //console.log("---Entra al foreach: ",Object.keys(r));
+  
+            if(r.numero != null){
+              console.log("---Entra al if: ",r.numero);
+              idCorte=r.numero;
+              //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
-      });
+          
+          });
+         } 
+          done();
+          
+        }); //end query
+        query.on('end',function(){
+            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit 5',[true,idCorte], function(err, result) {       
+            if (err)
+             { console.error(err);}
+            else
+            {               
+              result.rows.forEach(function(r,index){
+                //console.log("---Entra al foreach: ",Object.keys(r));      
+                if(r.nombre != null){
+                  //console.log("---Entra al if: ",r.idpedido);
+                  pedido={nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate};
+                  console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
+                }              
+              });
+             } 
+              done();             
+            }); //end query2
+            query2.on('end',function(){
+                client.query('select idPedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
+                if (err)
+                 { console.error(err);}
+                else
+                {   
+                  result.rows.forEach(function(r,index){
+                    //console.log("---Entra al foreach: ",Object.keys(r));          
+                    if(r.idPedido != null){
+                      //console.log("---Entra al if: ",r.idpedido);
+                      ultimo= r.idPedido;
+                      console.log("---Entra al if: ",r.idPedido);
+                    }                  
+                  });
+                 } 
+                  done();              
+                }).on('end',function(){ //end query
+                    var idAct;
+                    if(idCorte != ultimo){
+                      idAct = idCorte+5; 
+                    }else{
+                      idAct = 1;
+                    }
+                    client.query('update corte set numero=$1',[idAct], function(err, result) {
+                    if (err)
+                     { console.error(err);}
+                      done();
+                      client.end();
+                    }).on('end',function(){ //end query
+                          var files=[];                       
+                          if(pedido){
+                              retrieveAllFiles(files,null,function(files){            
+                                  console.log("---------files"+files);
+                                  if (files.length == 0) {
+                                    console.log('No files found.');
+                                  } else {
+                                    var urls=[];//Download urls
+                                    var info=[];
+                                    console.log('Files:');
+                                    var ind = 0;
+                                    info[ind]=[];
+                                    urls[ind]=[];
+                                    var file_act;
+                                    var cant = 0;
+                                    var first=true;
+                                        for (var i = 0; i < files.length; i++) {
+                                        var file = files[i];
+                                        console.log('%s (%s)', file.title, file.id);
+                                        var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
+                                        console.log("-----ok ",ok);                                 
+                                        //file_act=file.title;
+                                        if(ok){
+                                            if(first){
+                                              file_act=file.title;
+                                              console.log("entra al if first");
+                                              first=false;
+                                            }
+                                            if(file.title.includes(file_act.substring(0,(file_act.length)-6))) {                                            
+                                              cant+=1;
+                                              console.log("---cant1",cant);                                            
+                                              info[ind][0]=cant;                                               
+                                              urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                                              info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
+                                            }else{
+                                                file_act=file.title;
+                                                console.log("---cant2",cant);
+                                                //info[ind].push(cant);
+                                                console.log("---info cant",info[ind][info[ind].length-1]);
+                                                cant=1;
+                                                ind+=1;
+                                                info[ind]=[];
+                                                urls[ind]=[];
+                                                if(!info[ind][0]){
+                                                  info[ind][0]=cant;
+                                                }               
+                                                urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                                              }
+                                        } //end if ok
+                                      } //end for
+                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres});
+                                  }//end else
+                              });//end retrieveAllFiles
+                          }//end if pedido 
+                          else{
+                              res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
+                          }
+                      });//end on end 4
+                  });//end on end 3
+            });//end ond end 2
+        });//end on end 1  
 
+      }); //end pg connect
+  }else{ //end if req.user
+    res.render('filesRealizados',{user:req.user});
+  } 
+});
 
+      /*
         <% if(info){ %>
         <div class="row">
     <% for (var i = 0; i < (info.length); i++) { %> 

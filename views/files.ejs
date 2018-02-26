@@ -29,7 +29,7 @@ function downloadAll(urls) {
 
 	
 	console.log("-------urls "+urls);
-    if(urls){
+    if(urls != ""){
 	    var array = urls.split(',');
 	    array.forEach((elem)=>{  	
 	    
@@ -88,14 +88,14 @@ function downloadAll(urls) {
 
 	<% } else { %>
 		
-		<% if(message){ %>
+		<% if(typeof message != "undefined"){ %>
 			<h2 class="page-description text-center"><%=message%></h2>
 			<%} else { %>
 		<h2 class="page-description text-center">Pedidos pendientes </h2>
 		<% } %>
 	</div>
 
-	<% if(info){ %>
+	<% if(typeof info != "undefined"){%>
 		<h3> Descripción del pedido: <%= pedido.desc %></h3>
 		<h3> Elementos del pedido: </h3>
 		<% if(pedido.termo) {%>
@@ -130,7 +130,7 @@ function downloadAll(urls) {
 		
 		</div>
 		<div class="row">
-		<% if(urls){ %>
+		<% if(typeof urls != "undefined"){ %>
 			<form class="form-signin" action="/filesPost" method="post" autocomplete="off">
 				   
 			
@@ -146,10 +146,6 @@ function downloadAll(urls) {
     </div>
 	<% } %>
 </div>
-
 </body>
-
-
-  </body>
-  </html>
+</html>
 
