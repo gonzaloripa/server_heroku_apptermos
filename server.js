@@ -421,9 +421,10 @@ q carajo pasa 2
 
 
 app.get('/files', function(req, res){
+  global.pedido;
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
-      global.pedido;
+      
       //global.info=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
