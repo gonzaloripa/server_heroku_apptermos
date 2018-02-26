@@ -520,8 +520,8 @@ app.get('/files/realizados', function(req, res){
   if(req.user){
       console.log("-------Request User del /files/realizados: "+ req.user);
       //global.info=[];
-      global.idCorte;
-      global.ultimo;
+      var idCorte;
+      var ultimo;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         var query = client.query('select numero from corte', function(err, result) {
