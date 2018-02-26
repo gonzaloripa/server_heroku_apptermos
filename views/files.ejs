@@ -19,7 +19,7 @@
 <script type="text/javascript">
     baguetteBox.run('.tz-gallery');
 
-function downloadAll(indUrls) {
+function downloadAll(urls) {
   	
   	
 	var link = document.createElement('a');
@@ -27,22 +27,24 @@ function downloadAll(indUrls) {
     link.style.display = 'none';
 	document.body.appendChild(link);
 	
-	<% if(urls){ %>		
-		console.log("-------urls "+indUrls);
-    <% urls[(parseInt(indUrls, 10))].forEach((l,index)=>{ 
-    var elem=l; var ind=index;	%>
-    
-  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
-  		
-  		if (link.click) {
-		      link.click(); // The click method is supported by most browsers.
-		    } else {
-		      $(link).click(); // Backup using jquery
-		    } 
-
-  	<%});%>
+			
+	console.log("-------urls "+urls);
+    if(urls){
+	    urls.forEach((l,index)=>{ 
+	    var elem=l; var ind=index;	
+	    
+	  		link.setAttribute('href', elem.replace('&amp;','&'));
+	  		
+	  		if (link.click) {
+			      link.click(); // The click method is supported by most browsers.
+			    } else {
+			      $(link).click(); // Backup using jquery
+			    } 
+    	}
+    }
+  
   	document.body.removeChild(link);
-  	<% } %>
+  
 
 }
 </script>
@@ -109,7 +111,7 @@ function downloadAll(indUrls) {
 		<% } %>
 		<% if(urls){ %>
 
-			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll(0)">Descargar todas</button>
+			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%= urls[i] %>')">Descargar todas</button>
 			</center>
 		<% } %>
         </div>
