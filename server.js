@@ -473,7 +473,7 @@ app.get('/files', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
 
-                var ok = pedido.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
+                var ok = pedido.nombre.includes(file.title.substring(0,(file.title.length)-6)); //Se fija si en algun valor de nombres esta el del archivo
                 console.log("-----ok ",ok);
                 
                 //file_act=file.title;
