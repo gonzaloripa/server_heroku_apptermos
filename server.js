@@ -597,7 +597,7 @@ app.get('/files/realizados', function(req, res){
                       client.end();
                     }).on('end',function(){ //end query
                           var files=[];                       
-                          if(pedido){
+                          if(pedidos){
                               retrieveAllFiles(files,null,function(files){            
                                   console.log("---------files"+files);
                                   if (files.length == 0) {
