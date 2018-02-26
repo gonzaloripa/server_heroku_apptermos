@@ -419,13 +419,14 @@ q carajo pasa 2
         }
     }
 
-global.pedido;
+var pedido;
 app.get('/files', function(req, res){
-  
+
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
       
       //global.info=[];
+
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       var query = client.query('select * from pedidos where finalizado=$1 order by idpedido limit 1',[false], function(err, result) {
@@ -442,8 +443,6 @@ app.get('/files', function(req, res){
               //console.log("---Entra al if: ",r.idpedido);
               pedido={nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate};
               console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
-            }else{
-              pedido=null;
             }
           
           });
