@@ -502,7 +502,7 @@ app.get('/files', function(req, res){
           });
         }
           else{
-              res.redirect('files'); { user: req.user,message:"No quedan pedidos por realizar"});
+              res.render('files', { user: req.user,message:"No quedan pedidos por realizar"});
 
           }
 
@@ -675,12 +675,12 @@ app.get('/files/realizados', function(req, res){
                 }
 
               }
-              res.render('files', { user: req.user,info:info,urls:urls,nombres:nombres});
+              res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres});
             }
           });
         }
           else{
-              res.redirect('filesRealizados'); { user: req.user,message:"No quedan pedidos por realizar"});
+              res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
 
           }
 
