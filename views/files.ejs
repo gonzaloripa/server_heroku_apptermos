@@ -28,8 +28,8 @@ function downloadAll(indUrls) {
 	document.body.appendChild(link);
 	
 	<% if(urls){ %>		
-		console.log("-------urls "+urls[indUrls]+" "+indUrls);
-    <% urls[indUrls].forEach((l,index)=>{ 
+		console.log("-------urls "+indUrls);
+    <% urls.forEach((l,index)=>{ 
     var elem=l; var ind=index;	%>
     
   		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
