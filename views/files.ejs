@@ -19,18 +19,18 @@
 <script type="text/javascript">
     baguetteBox.run('.tz-gallery');
 
-function downloadAll(urls) {
+function downloadAll(ind) {
   	
   	
 	var link = document.createElement('a');
 	link.setAttribute('download', null);
     link.style.display = 'none';
 	document.body.appendChild(link);
-	
+	var i = parseInt(ind,10);
 	
 	console.log("-------urls "+urls);
-    if(urls){
-	    urls.forEach((elem)=>{  	
+    if(urls[i]){
+	    urls[i].forEach((elem)=>{  	
 	    
 	  		link.setAttribute('href', elem.replace('&amp;','&'));
 	  		
@@ -110,7 +110,7 @@ function downloadAll(urls) {
 		<% } %>
 		<% if(urls){ %>
 
-			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%- urls[i] %>')">Descargar todas</button>
+			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%= i %>')">Descargar todas</button>
 			</center>
 		<% } %>
         </div>
