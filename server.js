@@ -452,7 +452,7 @@ app.get('/files', function(req, res){
       query.on('end',function(){
           var files=[];
        
-     
+          if(pedido){
           retrieveAllFiles(files,null,function(files){
             
             console.log("---------files"+files);
@@ -500,6 +500,11 @@ app.get('/files', function(req, res){
               res.render('files', { user: req.user,info:info,urls:urls,pedido:pedido});
             }
           });
+        }
+          else{
+              res.redirect('/'); { user: req.user});
+
+          }
 
           });
       pg.end();
