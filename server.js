@@ -517,13 +517,12 @@ app.get('/files', function(req, res){
 app.get('/files/realizados', function(req, res){
   if(req.user){
       console.log("-------Request User del /files/realizados: "+ req.user);
-      global.pedido;
       //global.info=[];
       global.idCorte;
       global.ultimo;
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      var query = client.query('select numero from corte', function(err, result) {
+       client.query('select numero from corte', function(err, result) {
         
         if (err)
          { console.error(err);}
@@ -543,12 +542,10 @@ app.get('/files/realizados', function(req, res){
          } 
           done();
           
-        });
-
-        query.on('end',function(){
+        }).query.on('end',function(){
 
         
-        var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit 5',[true,idCorte], function(err, result) {
+        client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit 5',[true,idCorte], function(err, result) {
         
         if (err)
          { console.error(err);}
@@ -568,9 +565,7 @@ app.get('/files/realizados', function(req, res){
          } 
           done();
          
-        });
-      
-      query2.on('end',function(){
+        }).on('end',function(){
 
         client.query('select idPedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
         
@@ -591,7 +586,7 @@ app.get('/files/realizados', function(req, res){
          } 
           done();
       
-        }).on('end',function(){
+        }).on('end',function(){  //3 end query
 
         var idAct;
         if(idCorte != ultimo){
@@ -607,7 +602,7 @@ app.get('/files/realizados', function(req, res){
         
           done();
           client.end();
-        }).on('end',function(){
+        }).on('end',function(){ //4 end query
           var files=[];
        
           if(pedido){
@@ -672,31 +667,31 @@ app.get('/files/realizados', function(req, res){
                   //document.write("<a href='https://drive.google.com/open?id="+file.id+"'>"+file.name + '</a> <br>');
                   //console.log("------Info "+info[i]+" "+info[i].cantFiles+" "+info[i].image);
                   //body.emit('pass',"Termino");
-                }
+                } //end if ok
 
-              }
+              } //end for
               res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres});
             }
           });
-        }
+          }//end if pedido 
           else{
               res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
 
           }
-
-        });
-
-        });
+       
+        });//end on end 4
           
-          });
+        }); //end on end 3
+      });//end on end 2
+
       });
 
       pg.end();
     });   //Cierra pg.connect
-  }else{
+  }else{ //end if req.user
     res.render('filesRealizados',{user:req.user});
   }
-});
+}); //end get
 
       /*query.on('end',function(){
                  var files=[];
