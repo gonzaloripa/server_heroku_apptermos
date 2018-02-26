@@ -15,11 +15,43 @@
     <!-- Custom styles for this template -->
     <link href="/stylesheets/signin.css" rel="stylesheet"> 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
+<script>
+    baguetteBox.run('.tz-gallery');
+
+function downloadAll(indUrls) {
+  	
+  	console.log("------doc hidden "+document.getElementById('hidden0').value);
+  	
+	var link = document.createElement('a');
+	link.setAttribute('download', null);
+    link.style.display = 'none';
+	document.body.appendChild(link);
+	
+	<% if(urls){ %>		
+		console.log("-------urls "+urls[indUrls]+" "+indUrls);
+    <% urls[indUrls].forEach((l,index)=>{ 
+    var elem=l; var ind=index;	%>
+    
+  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
+  		
+  		if (link.click) {
+		      link.click(); // The click method is supported by most browsers.
+		    } else {
+		      $(link).click(); // Backup using jquery
+		    } 
+
+  	<%});%>
+  	document.body.removeChild(link);
+  	<% } %>
+
+}
+</script>
+
   </head>
 
   <body>
   
-
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 	      <div class="container">
 	        <!-- Brand and toggle get grouped for better mobile display -->
@@ -78,7 +110,7 @@
 		<% } %>
 		<% if(urls){ %>
 
-			<center> <button id='<%=i%>' class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%=i%>')">Descargar todas</button>
+			<center> <button class="btn btn-lg btn-warning btn-block" onclick="downloadAll('<%=i%>')">Descargar todas</button>
 			</center>
 		<% } %>
         </div>
@@ -89,38 +121,7 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.8.1/baguetteBox.min.js"></script>
-<script>
-    baguetteBox.run('.tz-gallery');
 
-function downloadAll(indUrls) {
-  	
-  	console.log("------doc hidden "+document.getElementById('hidden0').value);
-  	
-	var link = document.createElement('a');
-	link.setAttribute('download', null);
-    link.style.display = 'none';
-	document.body.appendChild(link);
-	
-	<% if(urls){ %>		
-		console.log("-------urls "+urls[indUrls]+" "+indUrls);
-    <% urls[indUrls].forEach((l,index)=>{ 
-    var elem=l; var ind=index;	%>
-    
-  		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
-  		
-  		if (link.click) {
-		      link.click(); // The click method is supported by most browsers.
-		    } else {
-		      $(link).click(); // Backup using jquery
-		    } 
-
-  	<%});%>
-  	document.body.removeChild(link);
-  	<% } %>
-
-}
-</script>
   </body>
   </html>
 
