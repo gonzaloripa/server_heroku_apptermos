@@ -29,7 +29,7 @@ function downloadAll(indUrls) {
 	
 	<% if(urls){ %>		
 		console.log("-------urls "+indUrls);
-    <% urls.forEach((l,index)=>{ 
+    <% urls[0].forEach((l,index)=>{ 
     var elem=l; var ind=index;	%>
     
   		link.setAttribute('href', '<%= elem %>'.replace('&amp;','&'));
