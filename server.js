@@ -423,7 +423,9 @@ q carajo pasa 2
 app.get('/files', function(req, res){
   if(req.user){
       console.log("-------Request User del /files: "+ req.user);
-      global.pedido;
+      var pedido;
+      var info;
+      var urls;
       //global.info=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -460,8 +462,8 @@ app.get('/files', function(req, res){
               console.log('No files found.');
             } else {
 
-              var urls=[];//Download urls
-              var info=[];
+               urls=[];//Download urls
+              info=[];
               console.log('Files:');
           
              
