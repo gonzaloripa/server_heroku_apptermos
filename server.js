@@ -541,9 +541,9 @@ app.get('/files/realizados', function(req, res){
   
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero," limite ",r.limite);
-              idCorte=r.numero;
+              idCorte=parseInt(r.numero);
                             
-              limit=r.limite;
+              limit=parseInt(r.limite);
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
           
@@ -553,7 +553,7 @@ app.get('/files/realizados', function(req, res){
           
         }); //end query
         query.on('end',function(){    
-            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido > $2 order by idpedido limit $3',[true,idCorte,limit], function(err, result) {       
+            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido >= $2 order by idpedido limit $3',[true,idCorte,limit], function(err, result) {       
             if (err)
              { console.error(err);}
             else
@@ -571,7 +571,7 @@ app.get('/files/realizados', function(req, res){
               done();             
             }); //end query2
             query2.on('end',function(){
-                client.query('select idPedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
+                client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
                 if (err)
                  { console.error(err);}
                 else
