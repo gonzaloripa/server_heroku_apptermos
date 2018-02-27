@@ -569,6 +569,7 @@ app.get('/files/realizados', function(req, res){
               });
              } 
               if(!pedidos){
+                console.log("---entra al render ");
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                 done();
                 client.end();              
@@ -591,6 +592,7 @@ app.get('/files/realizados', function(req, res){
                   });
                  }
                 if(!pedidos){
+                  console.log("---entra al otro render");
                   res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                   done();
                   client.end();              
