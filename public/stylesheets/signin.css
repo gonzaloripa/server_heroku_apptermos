@@ -21,7 +21,9 @@ body {
   background-color: #f5f5f5;
 }
 
-
+#descripcion{
+  color:#ffa500;
+}
 .descargas{
   width: 100%;
   max-width: 260px;
