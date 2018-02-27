@@ -568,6 +568,11 @@ app.get('/files/realizados', function(req, res){
                 }              
               });
              } 
+              if(!pedidos){
+                res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
+                done();
+                client.end();              
+              } 
               done();             
             }); //end query2
             query2.on('end',function(){
@@ -584,7 +589,12 @@ app.get('/files/realizados', function(req, res){
                       console.log("---Entra al if: ",r.idpedido);
                     }                  
                   });
-                 } 
+                 }
+                if(!pedidos){
+                  res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
+                  done();
+                  client.end();              
+                } 
                   done();              
                 }).on('end',function(){ //end query
                     var idAct;
@@ -799,6 +809,7 @@ app.post('/pedidoEnviado',function(req,res){
       var mateP = (req.body.checkedMate == 'true');
       var azucareraP = (req.body.checkedAzucarera == 'true');
       var idPedido; //id del ultimo pedido traido de la base
+
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
        
