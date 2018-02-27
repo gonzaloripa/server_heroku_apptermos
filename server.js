@@ -563,7 +563,7 @@ app.get('/files/realizados', function(req, res){
                 if(r.nombre != null){
                   //console.log("---Entra al if: ",r.idpedido);
                   pedidos.push({nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate});
-                  nombres.push(r.nombre);
+                  nombres.push({nombre:r.nombre});
                   console.log("---Entra al if: ",r.nombre);
                 }              
               });
@@ -576,7 +576,6 @@ app.get('/files/realizados', function(req, res){
                  { console.error("Error en query ",err);}
                 else
                 {   
-                  console.log("---Afuera: ");          
                   result.rows.forEach(function(r,index){
                     console.log("---Entra al foreach: ",r.idpedido);          
                     if(r.idpedido != null){
@@ -595,7 +594,6 @@ app.get('/files/realizados', function(req, res){
                       if(idCorte+4 <= ultimo){
                         idAct = idCorte+4;
                       }else{
-                        console.log("____entra al else");
                         idAct = idCorte+1;
                         limit= ultimo -idAct;
                       } 
