@@ -827,7 +827,7 @@ app.post('/pedidoEnviado',function(req,res){
       console.log("----------Info del pedido ",req.body);
       var nombreP = req.body.nombre;
       var descripcionP = req.body.descripcion;
-      var termoP = (req.body.chekedTermo == 'true');
+      var termoP = (req.body.checkedTermo == 'true');
       var yerberaP = (req.body.checkedYerbera =='true');
       var mateP = (req.body.checkedMate == 'true');
       var azucareraP = (req.body.checkedAzucarera == 'true');
