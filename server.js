@@ -571,14 +571,14 @@ app.get('/files/realizados', function(req, res){
               done();             
             }); //end query2
             query2.on('end',function(){
-                client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
+                client.query('select idpedido,nombre from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
                 if (err)
                  { console.error("Error en query ",err);}
                 else
                 {   
                   console.log("---Afuera: ");          
                   result.rows.forEach(function(r,index){
-                    console.log("---Entra al foreach: ",r.idPedido);          
+                    console.log("---Entra al foreach: ",r.idPedido," ",r.nombre);          
                     if(r.idPedido != null){
                       //console.log("---Entra al if: ",r.idpedido);
                       ultimo= r.idPedido;
@@ -597,7 +597,7 @@ app.get('/files/realizados', function(req, res){
                       }else{
                         console.log("____entra al else");
                         idAct = idCorte+1;
-                        limit= ultimo-idAct;
+                        limit= ultimo -idAct;
                       } 
                     }else{
                       idAct = 1;
