@@ -595,13 +595,14 @@ app.get('/files/realizados', function(req, res){
              } 
               done();             
             });
-            if(pedidos.length == 0){
+            
+            query2.on('end',function(){
+              if(pedidos.length == 0){
                 console.log("---entra al render ");
                 done();
                  
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});                             
-            }else{
-            query2.on('end',function(){
+              }else{
                 client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
                 if (err)
                  { console.error("Error en query ",err);}
@@ -698,9 +699,9 @@ app.get('/files/realizados', function(req, res){
                           }
                       });//end on end 4
                   });//end on end 3
-               
+               }
             });//end ond end 2
-          }
+          
         });//end on end 1  
       pg.end();
       }); //end pg connect
