@@ -573,11 +573,12 @@ app.get('/files/realizados', function(req, res){
             query2.on('end',function(){
                 client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
                 if (err)
-                 { console.error(err);}
+                 { console.error("Error en query ",err);}
                 else
                 {   
+                  console.log("---Entra al foreach: ",Object.keys(r));          
                   result.rows.forEach(function(r,index){
-                    //console.log("---Entra al foreach: ",Object.keys(r));          
+                    console.log("---Entra al foreach: ",Object.keys(r));          
                     if(r.idPedido != null){
                       //console.log("---Entra al if: ",r.idpedido);
                       ultimo= r.idPedido;
@@ -599,7 +600,7 @@ app.get('/files/realizados', function(req, res){
                     }else{
                       idAct = 1;
                     }
-                    console.log("-----id actual ",idAct);
+                    console.log("-----id actual ",idAct," ",limit);
                     client.query('update corte set numero=$1,limite=$2',[idAct,limit], function(err, result) {
                     if (err)
                      { console.error(err);}
