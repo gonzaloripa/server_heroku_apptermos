@@ -98,9 +98,9 @@ function downloadAll(urls) {
 	<% if(typeof info != "undefined"){ %>
 		
 
-		<div class="row">
-		    <% for (var i = 0; i < 5; i++) { %> 
-		    <%  console.log("---- info2 "+info.length+"  "+info[i]);%>
+		    <% for (var i = 0; i < 5; i++) { %>
+		    	<div class="row">
+ 
 				<h3> Descripción del pedido: <%= pedidos[i].desc %></h3>
 				<h3> Elementos del pedido: </h3>
 				<% if(pedidos[i].termo) {%>
@@ -116,7 +116,7 @@ function downloadAll(urls) {
 					<h3> Azucarera</h3>
 				<% } %>
 
-		      <% for (var q = 1; q <= info[i][0]; q++) { %> 
+		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
 		        <%  console.log("---- info3 "+info[i][q]);%>
 
             <div class="col-sm-6 col-md-4">
