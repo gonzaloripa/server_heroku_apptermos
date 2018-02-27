@@ -571,7 +571,7 @@ app.get('/files/realizados', function(req, res){
               done();             
             }); //end query2
             query2.on('end',function(){
-                client.query('select idpedido,nombre from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
+                client.query('select idpedido,nombre from pedidos where finalizado=$1',[true], function(err, result) {
                 if (err)
                  { console.error("Error en query ",err);}
                 else
