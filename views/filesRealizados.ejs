@@ -55,26 +55,26 @@ function downloadAll(urls) {
   
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 	      <div class="container">
-	      	<ul class="nav">
+	      	
 	        <!-- Brand and toggle get grouped for better mobile display -->
 	        <div class="navbar-header">
-	          <li ><a href="/files/" id="brand" class="navbar-brand">Home</a></li>
+	          <a href="/files/" id="brand" class="navbar-brand">Home</a>
 	        </div> 
 	        <% if (!user) { %>
 	        <div class="navbar-header navbar-right">
-	          <li ><a id="brand" class="navbar-brand" href="/login">Login</a></li>
+	          <a id="brand" class="navbar-brand" href="/login">Login</a>
 	        </div>
 	        <% } else { %>
 	        <div class="navbar-header">	         
-	          <li id="pedidosR" class="active"><a id="brand" class="navbar-brand">Pedidos Realizados</a></li>
+	          <a id="brand" class="navbar-brand">Pedidos Realizados</a>
 	        </div>
 	        
 	        <div class="navbar-header navbar-right">
 	       
-	         <li > <a id="brand" class="navbar-brand" href="/logout">Logout</a></li>
+	         <a id="brand" class="navbar-brand" href="/logout">Logout</a>
 	        </div>
 			<% } %>
-	    	</ul>
+	    	
 	      </div><!-- /.container -->
 	    </nav><!-- /.navbar -->
 
@@ -104,20 +104,48 @@ function downloadAll(urls) {
 		    <% for (var i = 0; i < limite; i++) { %>
 		    	<div class="row">
  
-				<h3> Descripción del pedido: <%= pedidos[i].desc %></h3>
-				<h3> Elementos del pedido: </h3>
-				<% if(pedidos[i].termo) {%>
-					<h3> Termo</h3>
-				<% } %>
-				<% if(pedidos[i].mate) {%>
-					<h3> Mate</h3>
-				<% } %>
-				<% if(pedidos[i].yerbera) {%>
-					<h3> Yerbera</h3>
-				<% } %>
-				<% if(pedidos[i].azucarera) {%>
-					<h3> Azucarera</h3>
-				<% } %>
+				    <h3> Descripción del pedido: <%= pedido.desc %></h3>
+						  <table class="table table-hover">
+						    <thead>
+						      <tr>
+						        <th>Termo</th>
+						        <th>Mate</th>
+						        <th>Yerbera</th>
+						        <th>Azucarera</th>
+						      </tr>
+						    </thead>
+						    <tbody>
+						      <tr class="active">
+						        <td> <%if(pedidos[i].termo) {%>  
+						        		Si
+						        	 <% } else{ %>
+						        	    No
+						        	 <% } %>
+						        </td>
+						        <td>
+						        	<%if(pedidos[i].mate) {%>  
+						        		Si
+						        	 <% } else{ %>
+						        	    No
+						        	 <% } %>
+						        </td>
+						        <td>
+						        	<%if(pedidos[i].yerbera) {%>  
+						        		Si
+						        	 <% } else{ %>
+						        	    No
+						        	 <% } %>
+						        </td>
+						        <td>
+						        	<%if(pedidos[i].azucarera) {%>  
+						        		Si
+						        	 <% } else{ %>
+						        	    No
+						        	 <% } %>
+						        </td>
+						      </tr>
+						    </tbody>
+						</table>
 
 		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
 		        <%  console.log("---- info3 "+info[i][q]);%>
