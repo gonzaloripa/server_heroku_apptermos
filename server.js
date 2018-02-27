@@ -658,7 +658,7 @@ app.get('/files/realizados', function(req, res){
                                               }
                                         } //end if ok
                                       } //end for
-                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos});
+                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,limite:limit});
                                   }//end else
                               });//end retrieveAllFiles
                           }//end if pedido 
