@@ -14,7 +14,7 @@ var scopes = [
 "https://www.googleapis.com/auth/drive.file" 
 ];
 
-//var access_token="";
+//var access_token=""; aver q pasa
 
 var express = require('express')
   , passport = require('passport')
