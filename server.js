@@ -246,9 +246,10 @@ app.use(upload.array());
 
 app.post('/drivePost',function(req,res){
       
-      //console.log("req.files "+file.photos);
+      console.log("req.files "+req.files.photos+req.files.photos.length);
       //console.log(req.body);
       //console.log(req.body.name);
+      if(req.files.photos.length > 1){
       req.files.photos.forEach((photo) => {
           drive.files.insert({
             resource: {
@@ -272,6 +273,30 @@ app.post('/drivePost',function(req,res){
                 }
               });                              
       });
+      }else{
+        var photo = req.files.photos;
+        drive.files.insert({
+            resource: {
+                name: photo.name,
+                mimeType: 'image/jpeg',
+                title: photo.name
+              },
+            media: {
+               mimeType: 'image/jpeg',
+               body: fs.createReadStream(photo.path)
+               },
+            auth: oauth2Client
+            },function (err, file) {
+              if (err) {
+                // Handle error
+                console.error(err);
+              } else {
+                  console.log('File Id: ', file);
+                  //console.log('Req body: ', req.body);
+                  //console.log('Req files: ', req.files);
+                }
+              });         
+      }
       res.status(201).send('success upload photos')
 });
 
@@ -573,7 +598,7 @@ app.get('/files/realizados', function(req, res){
             if(pedidos.length == 0){
                 console.log("---entra al render ");
                 done();
-                client.end(); 
+                 
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});                             
             }else{
             query2.on('end',function(){
@@ -677,7 +702,7 @@ app.get('/files/realizados', function(req, res){
             });//end ond end 2
           }
         });//end on end 1  
-
+      pg.end();
       }); //end pg connect
   }else{ //end if req.user
     res.render('filesRealizados',{user:req.user});
@@ -807,6 +832,10 @@ app.post('/pedidoEnviado',function(req,res){
       var mateP = (req.body.checkedMate == 'true');
       var azucareraP = (req.body.checkedAzucarera == 'true');
       var idPedido; //id del ultimo pedido traido de la base
+      console.log("-----------Valor en termoP ",termoP);
+            console.log("-----------Valor en termoP2 ",yerberaP);
+      console.log("-----------Valor en termoP3 ",mateP);
+      console.log("-----------Valor en termoP4 ",azucareraP);
 
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
