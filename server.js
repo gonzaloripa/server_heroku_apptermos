@@ -347,11 +347,11 @@ app.get('/oauthcallback',function(req,res){
         }
       }
 
-      if(usuario == "lauchagnr"){
+      if(usuario === "lauchagnr"){
         access_token[0] = tokens.access_token;
         res.redirect('/?username=lauchagnr');
       }
-      if(usuario == "admin"){
+      if(usuario === "admin"){
         access_token[1] = tokens.access_token;
         res.redirect('/files');
       }
@@ -568,7 +568,7 @@ app.get('/files/realizados', function(req, res){
                 }              
               });
              } 
-              if(!pedidos){
+              if(pedidos.length === 0{
                 console.log("---entra al render ");
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                 done();
@@ -591,7 +591,7 @@ app.get('/files/realizados', function(req, res){
                     }                  
                   });
                  }
-                if(!pedidos){
+                if(pedidos.length === 0){
                   console.log("---entra al otro render");
                   res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                   done();
@@ -769,10 +769,10 @@ app.post('/login',
   function(req, res) {
    console.log('------Post login 2 '+req.user.username);
    
-    if(req.user.username == "lauchagnr"){
+    if(req.user.username === "lauchagnr"){
         res.redirect('/');
     }
-    if(req.user.username == "admin"){
+    if(req.user.username === "admin"){
         res.redirect('/drive');
     }
       
