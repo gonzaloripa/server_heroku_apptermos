@@ -572,9 +572,9 @@ app.get('/files/realizados', function(req, res){
             });
             if(pedidos.length == 0){
                 console.log("---entra al render ");
-                res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                 done();
-                client.end();              
+                client.end(); 
+                res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});                             
             }else{
             query2.on('end',function(){
                 client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
