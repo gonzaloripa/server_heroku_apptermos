@@ -542,7 +542,7 @@ app.get('/files/realizados', function(req, res){
             if(r.numero != null){
               console.log("---Entra al if: ",r.numero," limite ",r.limite);
               idCorte=r.numero;
-                            console.log("---Is integer: ",isNaN(idCorte));
+                            console.log("---Is integer: ",isInteger(idCorte));
               limit=r.limite;
               //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
             }
@@ -552,8 +552,8 @@ app.get('/files/realizados', function(req, res){
           done();
           
         }); //end query
-        query.on('end',function(){
-            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido=$2 order by idpedido limit $3',[true,parseFloat(idCorte),limit], function(err, result) {       
+        query.on('end',function(){    
+            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido > $2 order by idpedido limit $3',[true,idCorte,limit], function(err, result) {       
             if (err)
              { console.error(err);}
             else
@@ -599,6 +599,7 @@ app.get('/files/realizados', function(req, res){
                     }else{
                       idAct = 1;
                     }
+                    console.log("-----id actual ",idAct);
                     client.query('update corte set numero=$1,limite=$2',[idAct,limit], function(err, result) {
                     if (err)
                      { console.error(err);}
