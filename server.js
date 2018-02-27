@@ -568,14 +568,14 @@ app.get('/files/realizados', function(req, res){
                 }              
               });
              } 
-              if(pedidos.length == 0){
+              done();             
+            });
+            if(pedidos.length == 0){
                 console.log("---entra al render ");
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
                 done();
                 client.end();              
-              } 
-              done();             
-            }); //end query2
+            }else{
             query2.on('end',function(){
                 client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
                 if (err)
@@ -591,12 +591,6 @@ app.get('/files/realizados', function(req, res){
                     }                  
                   });
                  }
-                if(pedidos.length == 0){
-                  console.log("---entra al otro render");
-                  res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
-                  done();
-                  client.end();              
-                } 
                   done();              
                 }).on('end',function(){ //end query
                     var idAct;
@@ -679,7 +673,9 @@ app.get('/files/realizados', function(req, res){
                           }
                       });//end on end 4
                   });//end on end 3
+               
             });//end ond end 2
+          }
         });//end on end 1  
 
       }); //end pg connect
