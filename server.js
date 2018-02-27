@@ -576,7 +576,7 @@ app.get('/files/realizados', function(req, res){
                  { console.error("Error en query ",err);}
                 else
                 {   
-                  console.log("---Entra al foreach: ",Object.keys(r));          
+                  console.log("---Afuera: ");          
                   result.rows.forEach(function(r,index){
                     console.log("---Entra al foreach: ",Object.keys(r));          
                     if(r.idPedido != null){
