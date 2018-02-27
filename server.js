@@ -578,7 +578,7 @@ app.get('/files/realizados', function(req, res){
                 {   
                   console.log("---Afuera: ");          
                   result.rows.forEach(function(r,index){
-                    console.log("---Entra al foreach: ",Object.keys(r));          
+                    console.log("---Entra al foreach: ",r.idPedido);          
                     if(r.idPedido != null){
                       //console.log("---Entra al if: ",r.idpedido);
                       ultimo= r.idPedido;
@@ -590,12 +590,14 @@ app.get('/files/realizados', function(req, res){
                 }).on('end',function(){ //end query
                     var idAct;
                     limit=5;
+                    console.log("---Ultimo",ultimo);
                     if(idCorte != ultimo){
                       if(idCorte+4 <= ultimo){
                         idAct = idCorte+4;
                       }else{
+                        console.log("____entra al else");
                         idAct = idCorte+1;
-                        limit= ultimo - idAct;
+                        limit= ultimo-idAct;
                       } 
                     }else{
                       idAct = 1;
