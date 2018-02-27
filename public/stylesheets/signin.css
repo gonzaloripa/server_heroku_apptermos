@@ -21,8 +21,13 @@ body {
   background-color: #f5f5f5;
 }
 
-.active{
-    background: #d65c14;
+#home{
+    background-color: #f5f5f5;
+    color:#f5f5f5;
+}
+#pedidosR{
+    background-color: #f5f5f5;
+    color:#f5f5f5
 }
 
 .descargas{
