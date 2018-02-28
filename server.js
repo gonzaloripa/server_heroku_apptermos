@@ -541,6 +541,7 @@ app.get('/files', function(req, res){
   }
 });
 
+//aver
       var pedidos = [];
       var info;
       var urls;
@@ -563,7 +564,7 @@ app.get('/files/realizados/:id', function(req, res) {
       limit = cantPedidos - 1;
     }
   }
-
+  console.log("---pedidos ",pedidos);
   res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,desde:desde,limite:limit});
 
 });
