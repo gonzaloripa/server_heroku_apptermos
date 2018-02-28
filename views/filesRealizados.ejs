@@ -103,7 +103,8 @@ function downloadAll(urls) {
 		<% if(typeof nuevo != "undefined"){ %>
 				<% console.log("entra antes del for",desde,"",nuevo); %>
 
-		    <% for (var i = desde - 1; i <= nuevo - 1; i++) { %>
+		    <% for (var i = (desde - 1); i <= (nuevo - 1); i++) { %>
+		    		<%  console.log("---- Info de pedidos "+info[i].desc+i);%>
 		    	<div class="row">
  
 				    <h3 id="descripcion"> Descripción del pedido:</h3><h4> <%= pedidos[i].desc %></h4>
@@ -151,7 +152,7 @@ function downloadAll(urls) {
 						</table>
 
 		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
-		        <%  console.log("---- info3 "+info[i][q]);%>
+		        <%  console.log("---- info3 "+info[i][q].image.name);%>
 
             <div class="col-sm-6 col-md-4">
                 <div class="thumbnail">
@@ -174,15 +175,16 @@ function downloadAll(urls) {
 		      </center>
 		    <% } %>
 
-		    <% var limitevar=nuevo+1 %>
+        </div>
+        <% } %>
+         <% var limitevar=nuevo+1 %>
+         <div class="row">
 		    <form class="form-signin" action='/files/realizados/<%=limitevar%>' method="get" autocomplete="off">
 			    
 				<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas">Mas pedidos</button>
 				</center>
-			</form>
-        </div>
-        <% } %>
-                   
+			</form>  
+		</div>        
     </div>
 	<% }}}} %>
 </div>

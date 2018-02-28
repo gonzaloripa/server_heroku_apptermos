@@ -786,10 +786,22 @@ app.post('/pedidoEnviado',function(req,res){
       console.log("----------Info del pedido ",req.body);
       var nombreP = req.body.nombre;
       var descripcionP = req.body.descripcion;
-      var termoP = (req.body.checkedTermo == 'true');
-      var yerberaP = (req.body.checkedYerbera =='true');
-      var mateP = (req.body.checkedMate == 'true');
-      var azucareraP = (req.body.checkedAzucarera == 'true');
+      var termoP;
+      var yerberaP;
+      var mateP;
+      var azucareraP;
+      if(req.body.checkedCompleto == 'true'){
+        termoP = true;
+        yerberaP = true;
+        mateP = true;
+        azucareraP = true;   
+      }else{
+        termoP = (req.body.checkedTermo == 'true');
+        yerberaP = (req.body.checkedYerbera =='true');
+        mateP = (req.body.checkedMate == 'true');
+        azucareraP = (req.body.checkedAzucarera == 'true');
+      }
+      
       var idPedido; //id del ultimo pedido traido de la base
       console.log("-----------Valor en termoP ",termoP);
             console.log("-----------Valor en termoP2 ",yerberaP);
