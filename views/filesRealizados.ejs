@@ -176,11 +176,8 @@ function downloadAll(urls) {
 
 		    <% var limitevar=nuevo+1 %>
 		    <form class="form-signin" action='/files/realizados/<%=limitevar%>' method="get" autocomplete="off">
-				   
-			
-			    <input type="hidden" value="<%= pedido.id %>" id="pedidoId" name="pedidoId">
 			    
-				<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls %>')">Descargar fotos</button>
+				<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas">Mas pedidos</button>
 				</center>
 			</form>
         </div>
