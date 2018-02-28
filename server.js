@@ -550,7 +550,7 @@ app.get('/files', function(req, res){
 app.get('/files/realizados/:id', function(req, res) {
   var desde = req.params.id - 1;
   var limit;
-  if req.params.id == cantPedidos{ //Si queda 1 solo pedido
+  if (req.params.id == cantPedidos){ //Si queda 1 solo pedido
       limit = cantPedidos - 1;
   }
   if( req.params.id > cantPedidos){ //Si se mostraron todos los pedidos
