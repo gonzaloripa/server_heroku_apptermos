@@ -542,10 +542,10 @@ app.get('/files', function(req, res){
 });
 
 //aver
-      var pedidos = [];
+      var pedidos;
       var info;
       var urls;
-      var nombres=[];
+      var nombres;
       var cantPedidos;
 
 app.get('/files/realizados/:id', function(req, res) {
@@ -575,7 +575,8 @@ app.get('/files/realizados', function(req, res){
   if(req.user){
       console.log("-------Request User del /files/realizados: "+ req.user);
       //global.info=[];
-
+      pedidos = [];
+      nombres = [];
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
             var query = client.query('select * from pedidos where finalizado=$1',[true], function(err, result) {       
