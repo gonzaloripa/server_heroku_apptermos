@@ -99,8 +99,10 @@ function downloadAll(urls) {
 	</div>
 
 	<% if(typeof info != "undefined"){ %>
-		
-		<% if(typeof limite != "undefined" && typeof desde != "undefined"){ %>
+		<% console.log("entra al if info"); %>
+		<% if(typeof limite != "undefined"){ %>
+				<% console.log("entra antes del for",desde,"",limite); %>
+
 		    <% for (var i = desde; i < limite; i++) { %>
 		    	<div class="row">
  
