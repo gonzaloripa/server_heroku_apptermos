@@ -104,7 +104,7 @@ function downloadAll(urls) {
 				<% console.log("entra antes del for",desde,"",nuevo); %>
 
 		    <% for (var i = (desde - 1); i <= (nuevo - 1); i++) { %>
-		    		<%  console.log("---- Info de pedidos "+info[i].desc+i);%>
+		    		<%  console.log("---- Info de pedidos "+pedidos[i].desc+i);%>
 		    	<div class="row">
  
 				    <h3 id="descripcion"> Descripción del pedido:</h3><h4> <%= pedidos[i].desc %></h4>
@@ -151,7 +151,7 @@ function downloadAll(urls) {
 						    </tbody>
 						</table>
 
-		      <% for (var q = 1; q <= (info[i][0]); q++) { %> 
+		      <% for (var q = (info[i][0]); q >= 1; q--) { %> 
 		        <%  console.log("---- info3 "+info[i][q].image.name);%>
 
             <div class="col-sm-6 col-md-4">
