@@ -552,6 +552,7 @@ app.get('/files/realizados/:id', function(req, res) {
   var desde = req.params.id - 1;
   var limit;
   if (req.params.id == cantPedidos){ //Si queda 1 solo pedido
+      console.log("---entra al 1 solo pedido",req.params.id);
       limit = cantPedidos - 1;
   }
   if( req.params.id > cantPedidos){ //Si se mostraron todos los pedidos
@@ -564,7 +565,7 @@ app.get('/files/realizados/:id', function(req, res) {
       limit = cantPedidos - 1;
     }
   }
-  console.log("---pedidos ",pedidos);
+  console.log("---pedidos ",pedidos," ",cantPedidos," ",limit);
   res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,desde:desde,limite:limit});
 
 });
