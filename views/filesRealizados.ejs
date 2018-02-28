@@ -99,11 +99,11 @@ function downloadAll(urls) {
 	</div>
 
 	<% if(typeof info != "undefined"){ %>
-		<% console.log("entra al if info",desde,"",limite); %>
-		<% if(typeof limite != "undefined"){ %>
-				<% console.log("entra antes del for",desde,"",limite); %>
+		<% console.log("entra al if info",desde,"",nuevo); %>
+		<% if(typeof nuevo != "undefined"){ %>
+				<% console.log("entra antes del for",desde,"",nuevo); %>
 
-		    <% for (var i = desde - 1; i <= limite - 1; i++) { %>
+		    <% for (var i = desde - 1; i <= nuevo - 1; i++) { %>
 		    	<div class="row">
  
 				    <h3 id="descripcion"> Descripción del pedido:</h3><h4> <%= pedidos[i].desc %></h4>
