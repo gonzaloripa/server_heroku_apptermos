@@ -541,44 +541,42 @@ app.get('/files', function(req, res){
   }
 });
 
-app.get('/files/realizados', function(req, res){
-  if(req.user){
-      console.log("-------Request User del /files/realizados: "+ req.user);
-      //global.info=[];
-      var idCorte;
-      var ultimo;
       var pedidos = [];
       var info;
       var urls;
       var nombres=[];
-      var limit;
+      var cantPedidos;
+
+app.get('/files/realizados/:id', function(req, res) {
+  var desde = req.params.id - 1;
+  var limit;
+  if req.params.id == cantPedidos{ //Si queda 1 solo pedido
+      limit = cantPedidos - 1;
+  }
+  if( req.params.id > cantPedidos){ //Si se mostraron todos los pedidos
+      res.render('filesRealizados',{ user: req.user,message:"No quedan pedidos realizados"});
+  }
+  else{
+    if(req.params.id+4 < cantPedidos){ //Si quedan mas de 5 pedidos 
+      limit = req.params.id+3;
+    }else{
+      limit = cantPedidos - 1;
+    }
+  }
+
+  res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,desde:desde,limite:limit});
+
+});
+
+
+app.get('/files/realizados', function(req, res){
+  if(req.user){
+      console.log("-------Request User del /files/realizados: "+ req.user);
+      //global.info=[];
 
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        var query = client.query('select numero,limite from corte', function(err, result) {
         
-        if (err)
-         { console.error(err);}
-        else
-        { 
-          
-          result.rows.forEach(function(r,index){
-            //console.log("---Entra al foreach: ",Object.keys(r));
-  
-            if(r.numero != null){
-              console.log("---Entra al if: ",r.numero," limite ",r.limite);
-              idCorte=parseInt(r.numero);
-                            
-              limit=parseInt(r.limite);
-              //console.log("---Entra al if: ",r.nombre," ",pedido.nombre);
-            }
-          
-          });
-         } 
-          done();
-          
-        }); //end query
-        query.on('end',function(){    
-            var query2 = client.query('select * from pedidos where finalizado=$1 and idpedido >= $2 order by idpedido limit $3',[true,idCorte,limit], function(err, result) {       
+            var query = client.query('select * from pedidos where finalizado=$1',[true], function(err, result) {       
             if (err)
              { console.error(err);}
             else
@@ -589,58 +587,23 @@ app.get('/files/realizados', function(req, res){
                   //console.log("---Entra al if: ",r.idpedido);
                   pedidos.push({nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate});
                   nombres.push({nombre:r.nombre});
-                  console.log("---Entra al if: ",r.nombre," ",pedidos," ",pedidos.length);
+
+                  console.log("---Resultado query 1 : nombre ",r.nombre," pedidos ",pedidos," length ",pedidos.length);
                 }              
               });
+              cantPedidos=pedidos.length;
              } 
               done();             
-            });
+            }); //end query
             
-            query2.on('end',function(){
+            query.on('end',function(){
               if(pedidos.length == 0){
                 console.log("---entra al render ");
                 done();
                  
-                res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});                             
+                res.render('filesRealizados', { user: req.user,message:"No quedan pedidos realizados"});                             
               }else{
-                client.query('select idpedido from pedidos where finalizado=$1 order by idpedido desc limit 1',[true], function(err, result) {
-                if (err)
-                 { console.error("Error en query ",err);}
-                else
-                {   
-                  result.rows.forEach(function(r,index){
-                    console.log("---Entra al foreach: ",r.idpedido);          
-                    if(r.idpedido != null){
-                      //console.log("---Entra al if: ",r.idpedido);
-                      ultimo= r.idpedido;
-                      console.log("---Entra al if: ",r.idpedido);
-                    }                  
-                  });
-                 }
-                  done();              
-                }).on('end',function(){ //end query
-                    var idAct;
-                    limit=5;
-                    console.log("---Ultimo",ultimo);
-                    if(idCorte != ultimo){
-                      if(idCorte+4 <= ultimo){
-                        idAct = idCorte+4;
-                      }else{
-                        idAct = idCorte+1;
-                        limit= ultimo -idAct;
-                      } 
-                    }else{
-                      idAct = 1;
-                    }
-                    console.log("-----id actual ",idAct," ",limit);
-                    client.query('update corte set numero=$1,limite=$2',[idAct,limit], function(err, result) {
-                    if (err)
-                     { console.error(err);}
-                      done();
-                      client.end();
-                    }).on('end',function(){ //end query
                           var files=[];                       
-                          if(pedidos){
                               retrieveAllFiles(files,null,function(files){            
                                   console.log("---------files"+files);
                                   if (files.length == 0) {
@@ -690,19 +653,11 @@ app.get('/files/realizados', function(req, res){
                                               }
                                         } //end if ok
                                       } //end for
-                                      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,limite:limit});
+                                      res.redirect('/files/realizados/1');
                                   }//end else
                               });//end retrieveAllFiles
-                          }//end if pedido 
-                          else{
-                              res.render('filesRealizados', { user: req.user,message:"No quedan pedidos por realizar"});
-                          }
-                      });//end on end 4
-                  });//end on end 3
-               }
-            });//end ond end 2
-          
-        });//end on end 1  
+                }//end else (if pedidos.length)
+            });//end ond end          
       pg.end();
       }); //end pg connect
   }else{ //end if req.user

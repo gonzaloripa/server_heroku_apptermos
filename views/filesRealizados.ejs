@@ -94,14 +94,14 @@ function downloadAll(urls) {
 		<% if(typeof message != "undefined"){ %>
 			<h2 class="page-description text-center"><%=message%></h2>
 			<%} else { %>
-		<h2 class="page-description text-center">Pedidos pendientes </h2>
-		<% } %>
+		<h2 class="page-description text-center">Pedidos realizados </h2>
+	
 	</div>
 
 	<% if(typeof info != "undefined"){ %>
 		
-		<% if(typeof limite != "undefined"){ %>
-		    <% for (var i = 0; i < limite; i++) { %>
+		<% if(typeof limite != "undefined" && typeof desde != "undefined"){ %>
+		    <% for (var i = desde; i < limite; i++) { %>
 		    	<div class="row">
  
 				    <h3 id="descripcion"> Descripción del pedido:</h3><h4> <%= pedidos[i].desc %></h4>
@@ -171,11 +171,21 @@ function downloadAll(urls) {
 		      <center> <button class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls[i] %>')">Descargar imagenes</button>
 		      </center>
 		    <% } %>
+
+		    <% var limite=limit+1 %>
+		    <form class="form-signin" action='/files/realizados/<%=limite%>' method="get" autocomplete="off">
+				   
+			
+			    <input type="hidden" value="<%= pedido.id %>" id="pedidoId" name="pedidoId">
+			    
+				<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas" onclick="downloadAll('<%= urls %>')">Descargar fotos</button>
+				</center>
+			</form>
         </div>
         <% } %>
                    
     </div>
-	<% }}} %>
+	<% }}}} %>
 </div>
 
   </body>
