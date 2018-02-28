@@ -402,6 +402,7 @@ q carajo pasa 2
           drive.files.list({
                 auth: oauth2Client,
                 maxResults:4,
+                orderBy:'createdDate'
               }, function(err, response) {
                 if (err) {
                   console.log('The API returned an error: ' + err);
@@ -423,7 +424,8 @@ q carajo pasa 2
           drive.files.list({
                 auth: oauth2Client,
                 maxResults:4,
-                pageToken:nextPageToken
+                pageToken:nextPageToken,
+                orderBy:'createdDate'
               }, function(err, response) {
                 if (err) {
                   console.log('The API returned an error: ' + err);
@@ -636,9 +638,9 @@ app.get('/files/realizados', function(req, res){
                                             if(file.title.includes(file_act.substring(0,(file_act.length)-6))) {                                            
                                               cant+=1;
                                               console.log("---cant1",cant);                                            
-                                              info[ind][0]=cant;                                               
+                                              info[(pedidos[ind].id)][0]=cant;                                               
                                               urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                              info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
+                                              info[pedidos[ind].id].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
                                             }else{
                                                 file_act=file.title;
                                                 console.log("---cant2",cant);
