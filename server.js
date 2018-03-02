@@ -144,8 +144,8 @@ passport.use(new LocalStrategy(
       // authenticated `user`.
       findByUsername(username,password, function(err, user) {
         if (err) { return done(err); }
-        if (!user) { return done(null, false, { message: 'Unknown user ' + username }); }
-        if (user.password != password) { return done(null, false, { message: 'Invalid password'+user }); }
+        if (!user) { return done(null, false, { message: 'Usuario desconocido ' + username }); }
+        if (user.password != password) { return done(null, false, { message: 'Password invalido'+user }); }
         return done(null, user);
       })
     });
@@ -340,7 +340,8 @@ app.get('/drive',function(req,res){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-      scope: scopes // If you only need one scope you can pass it as string
+      scope: scopes, // If you only need one scope you can pass it as string
+      expiry_date:10000
     });
     console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
     //req.session['success'] = 'User added successfully';   req.params
@@ -352,6 +353,7 @@ app.get('/drive',function(req,res){
         var url = oauth2Client.generateAuthUrl({
           access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
           scope: scopes // If you only need one scope you can pass it as string
+          expiry_date:10000
         });
         console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
         res.redirect(url);
