@@ -339,9 +339,9 @@ app.get('/drive',function(req,res){
   if (access_token[0] === "" && usuario === "lauchagnr"){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
-      access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-      scope: scopes, // If you only need one scope you can pass it as string
-      expiry_date:10000
+      access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
+      scope: scopes // If you only need one scope you can pass it as string
+   
     });
     console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
     //req.session['success'] = 'User added successfully';   req.params
@@ -351,9 +351,9 @@ app.get('/drive',function(req,res){
     if (access_token[1] === "" && usuario === "admin"){
         console.log("-------Entro");
         var url = oauth2Client.generateAuthUrl({
-          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-          scope: scopes, // If you only need one scope you can pass it as string
-          expiry_date:10000
+          access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
+          scope: scopes // If you only need one scope you can pass it as string
+         
         });
         console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
         res.redirect(url);
