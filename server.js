@@ -304,7 +304,7 @@ var access_token=[];
 access_token[0]="";
 access_token[1]="";
 
-app.get('/acces_token',function(req,res){
+app.get('/access_token',function(req,res){
   console.log("acc token ----",access_token);
   var usuario="";
   if (req.query) {
