@@ -352,7 +352,7 @@ app.get('/drive',function(req,res){
         console.log("-------Entro");
         var url = oauth2Client.generateAuthUrl({
           access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-          scope: scopes // If you only need one scope you can pass it as string
+          scope: scopes, // If you only need one scope you can pass it as string
           expiry_date:10000
         });
         console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
