@@ -378,7 +378,7 @@ app.get('/oauthcallback',function(req,res){
       for (key in tokens){
         console.log("-----Refresh token key "+key+" value: "+tokens[key]);
       }
-      tokens.expiry_date=10000;
+      tokens.expiry_date=40000;
       oauth2Client.setCredentials(tokens);
 
       var usuario="";
