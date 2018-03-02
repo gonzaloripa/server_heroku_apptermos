@@ -314,6 +314,7 @@ app.get('/acces_token',function(req,res){
   if(req.user){
     usuario = req.user.username;
   }
+  console.log(usuario,(access_token[0] != "" && usuario === "lauchagnr"));
   if (access_token[0] != "" && usuario === "lauchagnr"){
     console.log("-------Entro al access_token");
     res.status(201).send('Ya esta autenticado')
