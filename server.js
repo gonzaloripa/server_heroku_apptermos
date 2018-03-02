@@ -304,6 +304,24 @@ var access_token=[];
 access_token[0]="";
 access_token[1]="";
 
+app.get('/acces_token',function(req,res){
+  console.log("acc token ----",access_token);
+  var usuario="";
+  if (req.query) {
+    console.log("----------username drive params ",req.query.username);
+    usuario = req.query.username;
+  }
+  if(req.user){
+    usuario = req.user.username;
+  }
+  if (access_token[0] != "" && usuario === "lauchagnr"){
+    console.log("-------Entro al access_token");
+    res.status(201).send('Ya esta autenticado')
+  }else{
+    res.status(400).send('Necesita autenticarse')
+  }
+});
+
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
   var usuario="";
