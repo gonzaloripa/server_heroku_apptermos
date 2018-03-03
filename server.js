@@ -807,6 +807,7 @@ app.get('/logout', function(req, res){
     }
   }
   if(req.query){
+        console.log("user logout"+req.query.username);
       if(users[0]){
         if(req.query.username == users[0].user){
           users[0]=null;
