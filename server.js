@@ -316,8 +316,12 @@ app.get('/access_token',function(req,res){
   }
   console.log(usuario,(access_token[0] != "" && usuario === "lauchagnr"));
   if (access_token[0] != "" && usuario === "lauchagnr"){
-    console.log("-------Entro al access_token");
-    res.status(201).send('Ya esta autenticado')
+    console.log("-------Entro al access_token ",oauth2Client.isTokenExpiring());
+    if(!oauth2Client.isTokenExpiring()){
+      res.status(201).send('Ya esta autenticado')
+    }else{
+      res.status(400).send('Necesita autenticarse')
+    }
   }else{
     res.status(400).send('Necesita autenticarse')
   }
