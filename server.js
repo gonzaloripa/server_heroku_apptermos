@@ -339,7 +339,7 @@ app.get('/drive',function(req,res){
   if (access_token[0] === "" && usuario === "lauchagnr"){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
-      access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
+      access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
       scope: scopes // If you only need one scope you can pass it as string
    
     });
@@ -351,7 +351,7 @@ app.get('/drive',function(req,res){
     if (access_token[1] === "" && usuario === "admin"){
         console.log("-------Entro");
         var url = oauth2Client.generateAuthUrl({
-          access_type: 'online', // 'online' (default) or 'offline' (gets refresh_token)
+          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
           scope: scopes // If you only need one scope you can pass it as string
          
         });
@@ -370,6 +370,11 @@ app.get('/drive',function(req,res){
 
 
 app.get('/oauthcallback',function(req,res){
+  console.log("-----OAuth2 ",oauth2Client);
+
+  for (key in oauth2Client){
+        console.log("-----OAuth2 key "+key+" value: "+oauth2Client[key]);
+      }
   console.log("Codigo " + req.query.code);
   oauth2Client.getToken(req.query.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
@@ -378,7 +383,7 @@ app.get('/oauthcallback',function(req,res){
       for (key in tokens){
         console.log("-----Refresh token key "+key+" value: "+tokens[key]);
       }
-      tokens.expiry_date=5000000000000;
+      //tokens.expiry_date=5000000000000;
       oauth2Client.setCredentials(tokens);
 
       var usuario="";
