@@ -300,12 +300,12 @@ app.post('/drivePost',function(req,res){
       res.status(201).send('success upload photos')
 });
 
-var access_token=[];
+/*var access_token=[];
 access_token[0]="";
-access_token[1]="";
+access_token[1]="";*/
 
 app.get('/access_token',function(req,res){
-  console.log("acc token ----",access_token);
+  //console.log("acc token ----",access_token);
   var usuario="";
   if (req.query) {
     console.log("----------username drive params ",req.query.username);
@@ -314,21 +314,21 @@ app.get('/access_token',function(req,res){
   if(req.user){
     usuario = req.user.username;
   }
-  console.log(usuario,(access_token[0] != "" && usuario === "lauchagnr"));
-  if (access_token[0] != "" && usuario === "lauchagnr"){
+  //console.log(usuario,(access_token[0] != "" && usuario === "lauchagnr"));
+  //if (access_token[0] != "" && usuario === "lauchagnr"){
     console.log("-------Entro al access_token ",oauth2Client.isTokenExpiring());
-    if(!oauth2Client.isTokenExpiring()){
+    if(!oauth2Client.isTokenExpiring() && usuario === "lauchagnr"){
       res.status(201).send('Ya esta autenticado')
     }else{
       res.status(400).send('Necesita autenticarse')
     }
-  }else{
-    res.status(400).send('Necesita autenticarse')
-  }
+  //}else{
+    //res.status(400).send('Necesita autenticarse')
+  //}
 });
 
 app.get('/drive',function(req,res){
-  console.log("acc token ----",access_token);
+  //console.log("acc token ----",access_token);
   console.log("-----OAuth2 ",oauth2Client.credentials);
   var usuario="";
   console.log("----------username drive params ",req.query.username);
@@ -339,9 +339,9 @@ app.get('/drive',function(req,res){
   if(req.user){
     usuario = req.user.username;
   }
-  console.log("----------username drive ",usuario+" "+access_token[1]);
+  //console.log("----------username drive ",usuario+" "+access_token[1]);
 
-  if (access_token[0] === "" && usuario === "lauchagnr"){
+  if (oauth2Client.isTokenExpiring()){
     console.log("-------Entro");
     var url = oauth2Client.generateAuthUrl({
       access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -351,26 +351,13 @@ app.get('/drive',function(req,res){
     console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
     //req.session['success'] = 'User added successfully';   req.params
     res.redirect(url);
-  }
-  else{
-    if (access_token[1] === "" && usuario === "admin"){
-        console.log("-------Entro");
-        var url = oauth2Client.generateAuthUrl({
-          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-          scope: scopes // If you only need one scope you can pass it as string
-         
-        });
-        console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
-        res.redirect(url);
-    }else{
+  }else{
         if(usuario === "lauchagnr"){
               res.redirect('/?username=lauchagnr');
         }else{
           res.redirect('/files');
         }
-    }
-  }  
-            
+    }            
 });
 
 
@@ -393,7 +380,6 @@ app.get('/oauthcallback',function(req,res){
         console.log("-----OAuth2 ",oauth2Client.credentials);
 
       var usuario="";
-
       
       if(req.user){
         console.log("----------username oauth ",req.user.username);
@@ -406,11 +392,11 @@ app.get('/oauthcallback',function(req,res){
       }
 
       if(usuario === "lauchagnr"){
-        access_token[0] = tokens.access_token;
+        //access_token[0] = tokens.access_token;
         res.redirect('/?username=lauchagnr');
       }
       if(usuario === "admin"){
-        access_token[1] = tokens.access_token;
+        //access_token[1] = tokens.access_token;
         res.redirect('/files');
       }
  
