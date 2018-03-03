@@ -317,8 +317,13 @@ app.get('/access_token',function(req,res){
   //console.log(usuario,(access_token[0] != "" && usuario === "lauchagnr"));
   //if (access_token[0] != "" && usuario === "lauchagnr"){
     console.log("-------Entro al access_token ",oauth2Client.credentials,oauth2Client.isTokenExpiring());
-    if(!oauth2Client.isTokenExpiring() && usuario === "lauchagnr"){
-      res.status(201).send('Ya esta autenticado')
+    
+    if(oauth2Client.credentials.expiry_date){
+      if(!oauth2Client.isTokenExpiring() && usuario === "lauchagnr"){
+        res.status(201).send('Ya esta autenticado')
+      }else{
+        res.status(400).send('Necesita autenticarse')
+      }
     }else{
       res.status(400).send('Necesita autenticarse')
     }
@@ -340,24 +345,34 @@ app.get('/drive',function(req,res){
     usuario = req.user.username;
   }
   //console.log("----------username drive ",usuario+" "+access_token[1]);
-
-  if (oauth2Client.isTokenExpiring()){
-    console.log("-------Entro");
-    var url = oauth2Client.generateAuthUrl({
-      access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-      scope: scopes // If you only need one scope you can pass it as string
-   
-    });
-    console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
-    //req.session['success'] = 'User added successfully';   req.params
-    res.redirect(url);
-  }else{
+  if(oauth2Client.credentials.expiry_date){
+      if (oauth2Client.isTokenExpiring()){
+        console.log("-------Entro");
+        var url = oauth2Client.generateAuthUrl({
+          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+          scope: scopes // If you only need one scope you can pass it as string
+       
+        });
+        console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
+        //req.session['success'] = 'User added successfully';   req.params
+        res.redirect(url);
+      }else{
         if(usuario === "lauchagnr"){
-              res.redirect('/?username=lauchagnr');
+          res.redirect('/?username=lauchagnr');
         }else{
           res.redirect('/files');
         }
-    }            
+      }
+  }else{
+        var url = oauth2Client.generateAuthUrl({
+          access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+          scope: scopes // If you only need one scope you can pass it as string
+       
+        });
+        console.log("Url "+url); //this is the url which will authenticate user and redirect to your local server. copy this and paste into browser
+        //req.session['success'] = 'User added successfully';   req.params
+        res.redirect(url);
+    }          
 });
 
 
