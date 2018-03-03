@@ -803,6 +803,8 @@ app.get('/logout', function(req, res){
       if(req.user.username == users[1].user){
         console.log("entra"+users[1]+(req.user.username == users[1].user));
         users[1]=null;
+        req.logout();
+        res.redirect('/login');
       }
     }
   }
@@ -811,12 +813,12 @@ app.get('/logout', function(req, res){
       if(users[0]){
         if(req.query.username == users[0].user){
           users[0]=null;
+          req.logout();
+          res.status(201).send('Logout correcto');
         }
       }
   }
   
-  req.logout();
-  res.redirect('/login');
 });
 
 app.post('/pedidoEnviado',function(req,res){
