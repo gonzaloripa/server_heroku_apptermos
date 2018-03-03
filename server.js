@@ -325,6 +325,7 @@ app.get('/access_token',function(req,res){
 
 app.get('/drive',function(req,res){
   console.log("acc token ----",access_token);
+  console.log("-----OAuth2 ",oauth2Client.credentials);
   var usuario="";
   console.log("----------username drive params ",req.query.username);
 
@@ -372,9 +373,9 @@ app.get('/drive',function(req,res){
 app.get('/oauthcallback',function(req,res){
   console.log("-----OAuth2 ",oauth2Client);
 
-  for (key in oauth2Client){
-        console.log("-----OAuth2 key "+key+" value: "+oauth2Client[key]);
-      }
+  //for (key in oauth2Client){
+   //     console.log("-----OAuth2 key "+key+" value: "+oauth2Client[key]);
+    //  }
   console.log("Codigo " + req.query.code);
   oauth2Client.getToken(req.query.code, function (err, tokens) {
   // Now tokens contains an access_token and an optional refresh_token. Save them.
@@ -385,6 +386,7 @@ app.get('/oauthcallback',function(req,res){
       }
       //tokens.expiry_date=5000000000000;
       oauth2Client.setCredentials(tokens);
+        console.log("-----OAuth2 ",oauth2Client.credentials);
 
       var usuario="";
 
