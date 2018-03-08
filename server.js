@@ -238,6 +238,17 @@ app.get('/user',function(req,res){
 
 
 
+function deleteFile(fileId) {
+  drive.files.delete({
+    'fileId': fileId
+  },function(err){
+
+  });
+}
+
+
+
+
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
 //var formidable = require('formidable'),
 multer  = require('multer'),
@@ -268,6 +279,7 @@ app.post('/drivePost',function(req,res){
                 console.error(err);
               } else {
                   console.log('File Id: ', file);
+
                   //console.log('Req body: ', req.body);
                   //console.log('Req files: ', req.files);
                 }
@@ -291,7 +303,26 @@ app.post('/drivePost',function(req,res){
                 // Handle error
                 console.error(err);
               } else {
+/*
+                  var fileId = '1sTWaJ_j7PkjzaBWtNc3IzovK5hQf21FbOw9yLeeLPNQ';
+                  var permissions = [
+                  {
+    'type': 'user',
+    'role': 'writer',
+    'value': 'user@example.com'
+  }, {
+    'type': 'domain',
+    'role': 'writer',
+    'value': 'example.com'
+  }
+];*/
+
                   console.log('File Id: ', file);
+                  /*drive.permissions.insert({
+                    resource: permission,
+                    fileId: fileId,
+                    fields: 'id',
+                  });
                   //console.log('Req body: ', req.body);
                   //console.log('Req files: ', req.files);
                 }
@@ -429,15 +460,6 @@ app.get('/oauthcallback',function(req,res){
 
 });
 
-/*var EventEmitter = require("events").EventEmitter;
-var body = new EventEmitter();
-body.on('pass', function (mensaje) {
-  info2=mensaje;
-}
-global.info2="";
-q carajo pasa 2
-*/
-
 
     function retrieveAllFiles(files,nextPageToken,callback){
 
@@ -453,6 +475,13 @@ q carajo pasa 2
                 }
                 console.log('Response: '+Object.keys(response.data));
                 console.log('Response files1: '+response.data.items);
+                /*response.data.items.forEach(function(file){
+                    var fileId = file.id;
+                    var createdDate = file.createdDate;
+                    if(createdDate<){//si se creo hace mas de dos meses,lo borro
+                      deleteFile(fileId);
+                    }
+                });*/
                 files = files.concat(response.data.items);
                 console.log(' filesconcat1: '+files);
                 if(response.data.nextPageToken){
@@ -545,7 +574,7 @@ app.get('/files', function(req, res){
                 var file = files[i];
                 console.log('%s (%s)', file.title, file.id);
 
-                var ok = pedido.nombre.includes(file.title.substring(0,(file.title.length)-6)); //Se fija si en algun valor de nombres esta el del archivo
+                var ok = pedido.nombre === (file.title.substring(0,(file.title.length)-6)); //Se fija si en algun valor de nombres esta el del archivo
                 console.log("-----ok ",ok);
                 
                 //file_act=file.title;
@@ -556,8 +585,8 @@ app.get('/files', function(req, res){
                       console.log("entra al if first");
                       first=false;
                     }
-                    if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
-                    
+                    //if(file.title.includes(file_act.substring(0,(file_act.length)-6))){
+                    if(file.title.substring(0,(file.title.length)-6) === file_act.substring(0,(file_act.length)-6)){
              
 
                     urls.push("https://drive.google.com/uc?export=download&id="+file.id);
@@ -672,37 +701,40 @@ app.get('/files/realizados', function(req, res){
                                         for (var i = 0; i < files.length; i++) {
                                         var file = files[i];
                                         console.log('%s (%s)', file.title, file.id);
-                                        var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
-                                        console.log("-----ok ",ok);                                 
-                                        //file_act=file.title;
-                                        if(ok){
-                                            if(first){
-                                              file_act=file.title;
-                                              console.log("entra al if first");
-                                              first=false;
-                                            }
-                                            if(file.title.includes(file_act.substring(0,(file_act.length)-6))) {                                            
-                                              cant+=1;
-                                              console.log("---cant1",cant);                                            
-                                              info[ind][0]=cant;                                               
-                                              urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                              info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
-                                            }else{
+                                        for (var q = 0; q < nombres.length; q++) {
+                                          //var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
+                                          ok = (nombres[q].nombre === (file.title.substring(0,(file.title.length)-6)));
+                                          console.log("-----ok ",ok);                                 
+                                          //file_act=file.title;
+                                          if(ok){
+                                              if(first){
                                                 file_act=file.title;
-                                                console.log("---cant2",cant);
-                                                //info[ind].push(cant);
-                                                console.log("---info cant",info[ind][info[ind].length-1]);
-                                                cant=1;
-                                                ind+=1;
-                                                info[ind]=[];
-                                                urls[ind]=[];
-                                                if(!info[ind][0]){
-                                                  info[ind][0]=cant;
-                                                }               
-                                                urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                                                console.log("entra al if first");
+                                                first=false;
                                               }
-                                        } //end if ok
+                                              if(file.title.substring(0,(file.title.length)-6) === (file_act.substring(0,(file_act.length)-6))) {                                            
+                                                cant+=1;
+                                                console.log("---cant1",cant);                                            
+                                                info[ind][0]=cant;                                               
+                                                urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
+                                              }else{
+                                                  file_act=file.title;
+                                                  console.log("---cant2",cant);
+                                                  //info[ind].push(cant);
+                                                  console.log("---info cant",info[ind][info[ind].length-1]);
+                                                  cant=1;
+                                                  ind+=1;
+                                                  info[ind]=[];
+                                                  urls[ind]=[];
+                                                  if(!info[ind][0]){
+                                                    info[ind][0]=cant;
+                                                  }               
+                                                  urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
+                                                  info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                                                }
+                                          } //end if ok
+                                      }
                                       } //end for
                                       res.redirect('/files/realizados/1');
                                   }//end else
