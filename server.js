@@ -598,7 +598,7 @@ app.get('/files/realizados/:id', function(req, res) {
     if((req.params.id+4) < cantPedidos){ //Si quedan mas de 5 pedidos 
       console.log("---quedan mas de 5 pedidos ",limite,req.params.id);
       limite = req.params.id+4;
-
+      console.log("---limiteee ",limite);
     }else{
       console.log("---quedan cant pedidos ",limite,req.params.id,cantPedidos)
       limite = cantPedidos;
