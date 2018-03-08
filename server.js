@@ -585,22 +585,22 @@ app.get('/files', function(req, res){
       var cantPedidos;
 
 app.get('/files/realizados/:id', function(req, res) {
-  var desde = req.params.id;
+  var desde = parseInt(req.params.id,10);
   var limite;
-  if (req.params.id == cantPedidos){ //Si queda 1 solo pedido
+  if (desde == cantPedidos){ //Si queda 1 solo pedido
       console.log("---entra al 1 solo pedido",cantPedidos);
       limite = cantPedidos;
   }
-  if( req.params.id > cantPedidos){ //Si se mostraron todos los pedidos
+  if( desde > cantPedidos){ //Si se mostraron todos los pedidos
       res.render('filesRealizados',{ user: req.user,message:"No quedan pedidos realizados"});
   }
   else{
-    if((req.params.id+4) < cantPedidos){ //Si quedan mas de 5 pedidos 
+    if((desde+4) < cantPedidos){ //Si quedan mas de 5 pedidos 
       console.log("---quedan mas de 5 pedidos ",limite,req.params.id);
-      limite = req.params.id+4;
+      limite = desde+4;
       console.log("---limiteee ",limite);
     }else{
-      console.log("---quedan cant pedidos ",limite,req.params.id,cantPedidos)
+      console.log("---quedan cant pedidos ",limite,desde,cantPedidos)
       limite = cantPedidos;
     }
   }
