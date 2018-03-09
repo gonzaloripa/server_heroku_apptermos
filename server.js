@@ -241,6 +241,7 @@ app.get('/user',function(req,res){
 
 app.get('/findName', function(req, res){
   var name = req.query.nombre;
+  console.log(name);
   var encontro;
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query('SELECT nombre FROM pedidos where nombre=$1',[name] , function(err, result) {
@@ -250,6 +251,7 @@ app.get('/findName', function(req, res){
         else
         { 
           result.rows.forEach(function(r){
+            console.log("entra aca ",r);
             encontro = r.nombre;
           });
         }        
