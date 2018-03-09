@@ -238,6 +238,33 @@ app.get('/user',function(req,res){
 
 
 
+
+app.get('/findName', function(req, res){
+  var name = req.query('nombre');
+  var encontro;
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query('SELECT nombre FROM pedidos where nombre=$1',[name] , function(err, result) {
+        done();
+        if (err)
+         { console.error(err);}
+        else
+        { 
+          result.rows.forEach(function(r){
+            encontro = r.nombre;
+          });
+        }        }
+      client.end();
+      });
+      pg.end();    
+    });
+    if (encontro){
+      res.status(401).send('Ya existe el nombre');
+    }else{
+        res.status(201).send('No existe el nombre');      
+    }
+}
+
+
 function deleteFile(fileId) {
   drive.files.delete({
     'fileId': fileId
@@ -245,8 +272,6 @@ function deleteFile(fileId) {
 
   });
 }
-
-
 
 
 //var urlEncodedParser = bodyParser.urlencoded({ extended: true});
