@@ -240,7 +240,7 @@ app.get('/user',function(req,res){
 
 
 app.get('/findName', function(req, res){
-  var name = req.query('nombre');
+  var name = req.query.nombre;
   var encontro;
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query('SELECT nombre FROM pedidos where nombre=$1',[name] , function(err, result) {
