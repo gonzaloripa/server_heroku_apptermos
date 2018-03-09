@@ -252,7 +252,7 @@ app.get('/findName', function(req, res){
           result.rows.forEach(function(r){
             encontro = r.nombre;
           });
-        }        }
+        }        
       client.end();
       });
       pg.end();    
