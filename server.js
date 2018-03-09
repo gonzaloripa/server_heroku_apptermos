@@ -244,7 +244,7 @@ app.get('/findName', function(req, res){
   console.log(name);
   var encontro;
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      client.query('SELECT nombre FROM pedidos where nombre=$1',[name] , function(err, result) {
+      var query = client.query('SELECT nombre FROM pedidos where nombre=$1',[name] , function(err, result) {
         done();
         if (err)
          { console.error(err);}
