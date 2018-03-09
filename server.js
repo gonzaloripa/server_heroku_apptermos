@@ -257,14 +257,17 @@ app.get('/findName', function(req, res){
         }        
       client.end();
       });
+
+      query.on('end',function(){
+        console.log("encontro ",encontro);
+        if (encontro){
+          res.status(401).send('Ya existe el nombre');
+        }else{
+            res.status(201).send('No existe el nombre');      
+        }
+      });
       pg.end();    
     });
-    console.log("encontro ",encontro);
-    if (encontro){
-      res.status(401).send('Ya existe el nombre');
-    }else{
-        res.status(201).send('No existe el nombre');      
-    }
 });
 
 
