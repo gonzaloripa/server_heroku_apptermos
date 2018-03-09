@@ -899,7 +899,7 @@ app.get('/logout', function(req, res){
 app.post('/pedidoEnviado',function(req,res){
       console.log("----------Info del pedido ",req.body);
       var nombreP = req.body.nombre;
-      var descripcionP = req.body.descripcion;
+      var descripcionP = (req.body.descripcion !='') ? (req.body.descripcion) : 'Sin descripcion';
       var termoP;
       var yerberaP;
       var mateP;
