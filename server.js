@@ -656,7 +656,7 @@ app.get('/files/realizados', function(req, res){
       nombres = [];
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
-            var query = client.query('select * from pedidos where finalizado=$1',[true], function(err, result) {       
+            var query = client.query('select * from pedidos where finalizado=$1 order by idpedido',[true], function(err, result) {       
             if (err)
              { console.error(err);}
             else
