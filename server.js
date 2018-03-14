@@ -672,10 +672,10 @@ app.get('/files/realizados/:id', function(req, res) {
       console.log("---quedan cant pedidos ",limite,desde,cantPedidos)
       limite = cantPedidos;
     }
+      console.log("---pedidos ",pedidos," ",cantPedidos," ",limite);
+      res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,desde:desde,nuevo:limite});
   }
-  console.log("---pedidos ",pedidos," ",cantPedidos," ",limite);
-  res.render('filesRealizados', { user: req.user,info:info,urls:urls,nombres:nombres,pedidos:pedidos,desde:desde,nuevo:limite});
-
+  
 });
 
 
