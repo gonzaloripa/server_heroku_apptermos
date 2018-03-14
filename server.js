@@ -498,7 +498,7 @@ app.get('/oauthcallback',function(req,res){
           drive.files.list({
                 auth: oauth2Client,
                 maxResults:4,
-                orderBy:'createdDate'
+                orderBy:'createdDate desc'
               }, function(err, response) {
                 if (err) {
                   console.log('The API returned an error: ' + err);
@@ -528,7 +528,7 @@ app.get('/oauthcallback',function(req,res){
                 auth: oauth2Client,
                 maxResults:4,
                 pageToken:nextPageToken,
-                orderBy:'createdDate'
+                orderBy:'createdDate desc'
               }, function(err, response) {
                 if (err) {
                   console.log('The API returned an error: ' + err);
@@ -687,7 +687,7 @@ app.get('/files/realizados', function(req, res){
       nombres = [];
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
         
-            var query = client.query('select * from pedidos where finalizado=$1 order by idpedido',[true], function(err, result) {       
+            var query = client.query('select * from pedidos where finalizado=$1 order by idpedido desc',[true], function(err, result) {       
             if (err)
              { console.error(err);}
             else
