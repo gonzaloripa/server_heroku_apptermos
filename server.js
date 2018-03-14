@@ -504,8 +504,8 @@ app.get('/oauthcallback',function(req,res){
                   console.log('The API returned an error: ' + err);
                   return;
                 }
-                console.log('Response: '+Object.keys(response.data));
-                console.log('Response files1: '+response.data.items);
+                //console.log('Response: '+Object.keys(response.data));
+                //console.log('Response files1: '+response.data.items);
                 /*response.data.items.forEach(function(file){
                     var fileId = file.id;
                     var createdDate = file.createdDate;
@@ -514,10 +514,10 @@ app.get('/oauthcallback',function(req,res){
                     }
                 });*/
                 files = files.concat(response.data.items);
-                console.log(' filesconcat1: '+files);
+                //console.log(' filesconcat1: '+files);
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
-                  console.log('Response nextPageToken1: '+nextPageToken);
+                  //console.log('Response nextPageToken1: '+nextPageToken);
                   retrieveAllFiles(files,nextPageToken,callback);
                 }else{
                     callback(files);
@@ -534,13 +534,13 @@ app.get('/oauthcallback',function(req,res){
                   console.log('The API returned an error: ' + err);
                   return;
                 }
-                console.log('Response: '+Object.keys(response.data));
-                console.log('Response files2: '+response.data.items);
+                //console.log('Response: '+Object.keys(response.data));
+                //console.log('Response files2: '+response.data.items);
                 files=files.concat(response.data.items);
-                console.log(' filesconcat2: '+files);                
+                //console.log(' filesconcat2: '+files);                
                 if(response.data.nextPageToken){
                   nextPageToken = response.data.nextPageToken;
-                  console.log('Response nextPageToken2: '+nextPageToken);
+                  //console.log('Response nextPageToken2: '+nextPageToken);
                   retrieveAllFiles(files,nextPageToken,callback);
                 }else{
                     callback(files);
@@ -735,25 +735,25 @@ app.get('/files/realizados', function(req, res){
                                         for (var q = 0; q < nombres.length; q++) {
                                           //var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
                                           ok = (nombres[q].nombre === (file.title.substring(0,(file.title.length)-6)));
-                                          console.log("-----ok ",ok);                                 
+                                          //console.log("-----ok ",ok);                                 
                                           //file_act=file.title;
                                           if(ok){
                                               if(first){
                                                 file_act=file.title;
-                                                console.log("entra al if first");
+                                                //console.log("entra al if first");
                                                 first=false;
                                               }
                                               if(file.title.substring(0,(file.title.length)-6) === (file_act.substring(0,(file_act.length)-6))) {                                            
                                                 cant+=1;
-                                                console.log("---cant1",cant);                                            
+                                                //console.log("---cant1",cant);                                            
                                                 info[ind][0]=cant;                                               
                                                 urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
                                                 info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
                                               }else{
                                                   file_act=file.title;
-                                                  console.log("---cant2",cant);
+                                                  //console.log("---cant2",cant);
                                                   //info[ind].push(cant);
-                                                  console.log("---info cant",info[ind][info[ind].length-1]);
+                                                  //console.log("---info cant",info[ind][info[ind].length-1]);
                                                   cant=1;
                                                   ind+=1;
                                                   info[ind]=[];
