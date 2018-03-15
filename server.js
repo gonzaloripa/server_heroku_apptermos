@@ -685,8 +685,9 @@ app.get('/files/realizados', function(req, res){
       //global.info=[];
       pedidos = [];
       nombres = [];
+      var start = Date.now();            
       pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-        
+          
             var query = client.query('select * from pedidos where finalizado=$1 order by idpedido desc',[true], function(err, result) {       
             if (err)
              { console.error(err);}
@@ -715,7 +716,9 @@ app.get('/files/realizados', function(req, res){
                 res.render('filesRealizados', { user: req.user,message:"No quedan pedidos realizados"});                             
               }else{
                           var files=[];                       
-                              retrieveAllFiles(files,null,function(files){            
+                              retrieveAllFiles(files,null,function(files){
+                              var end= Date.now();  
+                              console.log("------Tiempooooo ",((end - start) / 1000));            
                                   console.log("---------files"+files);
                                   if (files.length == 0) {
                                     console.log('No files found.');
