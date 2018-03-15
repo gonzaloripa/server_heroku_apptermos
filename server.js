@@ -717,8 +717,8 @@ app.get('/files/realizados', function(req, res){
               }else{
                           var files=[];                       
                               retrieveAllFiles(files,null,function(files){
-                              var end= Date.now();  
-                              console.log("------Tiempooooo ",((end - start) / 1000));            
+                              var end1= Date.now();  
+                              console.log("------Tiempo retrieve files ",((end1 - start) / 1000));            
                                   console.log("---------files"+files);
                                   if (files.length == 0) {
                                     console.log('No files found.');
@@ -770,6 +770,8 @@ app.get('/files/realizados', function(req, res){
                                           } //end if ok
                                       }
                                       } //end for
+                                      var end2= Date.now();  
+                                      console.log("------Tiempo despues de los for ",((end2 - start) / 1000));
                                       res.redirect('/files/realizados/1');
                                   }//end else
                               });//end retrieveAllFiles
