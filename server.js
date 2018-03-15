@@ -700,7 +700,7 @@ app.get('/files/realizados', function(req, res){
                   pedidos.push({nombre:r.nombre,id:r.idpedido,desc:r.descripcion,termo:r.termo,yerbera:r.yerbera,azucarera:r.azucarera,mate:r.mate});
                   nombres.push({nombre:r.nombre});
 
-                  console.log("---Resultado query 1 : nombre ",r.nombre," pedidos ",pedidos," length ",pedidos.length);
+                  //console.log("---Resultado query 1 : nombre ",r.nombre," pedidos ",pedidos," length ",pedidos.length);
                 }              
               });
               cantPedidos=pedidos.length;
