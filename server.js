@@ -664,9 +664,9 @@ app.get('/files/realizados/:id', function(req, res) {
       res.render('filesRealizados',{ user: req.user,message:"No quedan pedidos realizados"});
   }
   else{
-    if((desde+4) < cantPedidos){ //Si quedan mas de 5 pedidos 
-      console.log("---quedan mas de 5 pedidos ",limite,req.params.id);
-      limite = desde+4;
+    if((desde+2) < cantPedidos){ //Si quedan mas de 3 pedidos 
+      console.log("---quedan mas de 3 pedidos ",limite,req.params.id);
+      limite = desde+2;
       console.log("---limiteee ",limite);
     }else{
       console.log("---quedan cant pedidos ",limite,desde,cantPedidos)
