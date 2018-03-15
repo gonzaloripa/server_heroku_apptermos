@@ -102,7 +102,7 @@ function downloadAll(urls) {
 		<% console.log("entra al if info",desde,"",nuevo); %>
 		<% if(typeof nuevo != "undefined"){ %>
 				<% console.log("entra antes del for",desde,"",nuevo); %>
-
+				<% var start = Date.now() %>
 		    <% for (var i = (desde - 1); i <= (nuevo - 1); i++) { %>
 		    		<%  console.log("---- Info de pedidos "+pedidos[i].desc+i);%>
 		    	<div class="row">
@@ -177,6 +177,8 @@ function downloadAll(urls) {
 
         </div>
         <% } %>
+        <% var end= Date.now();  %>
+        <% console.log("------Tiempo files realizados ",((end - start) / 1000));%>
          <% var limitevar=nuevo+1 %>
          <div class="row">
 		    <form class="form-signin" action='/files/realizados/<%=limitevar%>' method="get" autocomplete="off">
