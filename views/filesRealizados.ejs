@@ -81,13 +81,8 @@ function downloadAll(urls) {
 	    	
 	      </div><!-- /.container -->
 	    </nav><!-- /.navbar -->
-
-
-<div class="container gallery-container">
-	<br>
-    
-    <div class="tz-gallery">
    	<div class="row">
+   			<br>
     <% if (!user) { %>
  
     <% console.log("----usuario en index "+user);%>
@@ -120,6 +115,12 @@ function downloadAll(urls) {
 			<h2 class="page-description text-center">Pedidos realizados </h2>
 			<% } %>
 	</div>
+
+<div class="container gallery-container">
+	<br>
+    
+    <div class="tz-gallery">
+
 
 	<% if(typeof info != "undefined"){ %>
 		<% console.log("entra al if info",desde,"",nuevo); %>
