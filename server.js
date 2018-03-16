@@ -734,7 +734,7 @@ app.get('/files/realizados', function(req, res){
                                     var first=true;
                                         for (var i = 0; i < files.length; i++) {
                                         var file = files[i];
-                                        console.log('%s (%s)', file.title, file.id);
+                                        console.log('%s (%s)', file.title, file);
                                         for (var q = 0; q < nombres.length; q++) {
                                           //var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
                                           ok = (nombres[q].nombre === (file.title.substring(0,(file.title.length)-6)));
@@ -751,7 +751,7 @@ app.get('/files/realizados', function(req, res){
                                                 //console.log("---cant1",cant);                                            
                                                 info[ind][0]=cant;                                               
                                                 urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="                                            
+                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/uc?export=view&id="                                            
                                               }else{
                                                   file_act=file.title;
                                                   //console.log("---cant2",cant);
