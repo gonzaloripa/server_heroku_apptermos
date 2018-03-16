@@ -735,10 +735,10 @@ app.get('/files/realizados', function(req, res){
                                         for (var i = 0; i < files.length; i++) {
                                         var file = files[i];
                                         console.log('%s (%s)', file.title, file.id);
-                                        Object.keys(file).forEach(function(k){
+                                        /*Object.keys(file).forEach(function(k){
                                           console.log('--- keys', k);
                                         });
-
+                                        */
                                         for (var q = 0; q < nombres.length; q++) {
                                           //var ok = nombres.some(a =>a.nombre.includes(file.title.substring(0,(file.title.length)-6))); //Se fija si en algun valor de nombres esta el del archivo
                                           ok = (nombres[q].nombre === (file.title.substring(0,(file.title.length)-6)));
