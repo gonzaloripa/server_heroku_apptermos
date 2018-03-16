@@ -734,7 +734,7 @@ app.get('/files/realizados', function(req, res){
                                     var first=true;
                                         for (var i = 0; i < files.length; i++) {
                                         var file = files[i];
-                                        console.log('%s (%s)', file.title, file.result);
+                                        console.log('%s (%s)', file.title, file.id);
                                         Object.keys(file).forEach(function(k){
                                           console.log('--- keys', k);
                                         });
@@ -755,7 +755,7 @@ app.get('/files/realizados', function(req, res){
                                                 //console.log("---cant1",cant);                                            
                                                 info[ind][0]=cant;                                               
                                                 urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/uc?export=view&id="                                            
+                                                info[ind].push({image:{href:file.thumbnailLink,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/uc?export=view&id="                                            
                                               }else{
                                                   file_act=file.title;
                                                   //console.log("---cant2",cant);
@@ -769,7 +769,7 @@ app.get('/files/realizados', function(req, res){
                                                     info[ind][0]=cant;
                                                   }               
                                                   urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                  info[ind].push({image:{href:"https://drive.google.com/uc?export=view&id="+file.id,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                                                  info[ind].push({image:{href:file.thumbnailLink,name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                                                 }
                                           } //end if ok
                                       }
