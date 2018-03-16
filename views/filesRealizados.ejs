@@ -81,8 +81,13 @@ function downloadAll(urls) {
 	    	
 	      </div><!-- /.container -->
 	    </nav><!-- /.navbar -->
+
+
+<div class="container gallery-container">
+	<br>
+    
+    <div class="tz-gallery">
    	<div class="row">
-   			<br>
     <% if (!user) { %>
  
     <% console.log("----usuario en index "+user);%>
@@ -107,7 +112,7 @@ function downloadAll(urls) {
 	         	<form class="form-horizontal" action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
 				  <div class="form-group f">        
 					<h2 class="page-description text-center">Pedidos realizados</h2>
-					<center><button type="submit" name="submit" class="btn btn-lg btn-warning btn-block descargas">Volver atras</button></center> 
+					<center><button type="submit" name="submit" >Volver atras</button></center> 
 				</div>  
 
 				</form>
@@ -115,12 +120,6 @@ function downloadAll(urls) {
 			<h2 class="page-description text-center">Pedidos realizados </h2>
 			<% } %>
 	</div>
-
-<div class="container gallery-container">
-	<br>
-    
-    <div class="tz-gallery">
-
 
 	<% if(typeof info != "undefined"){ %>
 		<% console.log("entra al if info",desde,"",nuevo); %>
