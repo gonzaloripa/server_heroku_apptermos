@@ -103,12 +103,11 @@ function downloadAll(urls) {
 	        <% var atras=desde-3 %>
 	         	<form action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
 				    
-					<button type="submit" class="btn btn-lg btn-warning btn-block descargas">Volver atras</button>
-					<h2 class="page-description text-center">Pedidos realizados </h2>
+					<h2 class="page-description text-center">Pedidos realizados><button type="submit" class="btn btn-lg btn-warning btn-block descargas">Volver atras</button></h2>
 
 				</form>
 			<% } else{ %>
-			<h2 class="page-description text-center">Pedidos realizados </h2>
+			<h2 class="page-description">Pedidos realizados </h2>
 			<% } %>
 	</div>
 
