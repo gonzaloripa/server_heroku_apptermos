@@ -755,7 +755,7 @@ app.get('/files/realizados', function(req, res){
                                                 //console.log("---cant1",cant);                                            
                                                 info[ind][0]=cant;                                               
                                                 urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                info[ind].push({image:{href:file.thumbnailLink+'?w=s300',name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/uc?export=view&id="                                            
+                                                info[ind].push({image:{href:file.thumbnailLink+'?w=350&h=350',name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/uc?export=view&id="                                            
                                               }else{
                                                   file_act=file.title;
                                                   //console.log("---cant2",cant);
@@ -769,7 +769,7 @@ app.get('/files/realizados', function(req, res){
                                                     info[ind][0]=cant;
                                                   }               
                                                   urls[ind].push("https://drive.google.com/uc?export=download&id="+file.id);
-                                                  info[ind].push({image:{href:file.thumbnailLink+'?w=s300',name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
+                                                  info[ind].push({image:{href:file.thumbnailLink+'?w=350&h=350',name:file.title,downloadUrl:"https://drive.google.com/uc?export=download&id="+file.id}}); //"https://drive.google.com/open?id="
                                                 }
                                           } //end if ok
                                       }
