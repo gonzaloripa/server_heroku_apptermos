@@ -661,7 +661,7 @@ app.get('/files/realizados/:id', function(req, res) {
       limite = cantPedidos;
   }
   if( desde > cantPedidos){ //Si se mostraron todos los pedidos
-      res.render('filesRealizados',{ user: req.user,message:"No quedan pedidos realizados"});
+      res.render('filesRealizados',{ user: req.user,desde:desde,message:"No quedan pedidos realizados"});
   }
   else{
     if((desde+2) < cantPedidos){ //Si quedan mas de 3 pedidos 
