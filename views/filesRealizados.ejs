@@ -98,15 +98,17 @@ function downloadAll(urls) {
 		<% if(typeof message != "undefined"){ %>
 			<h2 class="page-description text-center"><%=message%></h2>
 			<%} else { %>
-		<h2 class="page-description text-center">Pedidos realizados </h2>
-		<% if (desde >= 4) { %>
+			<div class="row">
+			<% if (desde >= 4) { %>
 	        <% var atras=desde-3 %>
-	         	<form class="form-signin" action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
+	         	<form action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
 				    
 					<center> <button type="submit" class="btn btn-lg btn-warning btn-block descargas">Volver atras</button>
 					</center>
 				</form>
-			<% } %>	
+			<% } %>
+		<h2 class="page-description text-center">Pedidos realizados </h2>
+		</div>
 	</div>
 
 	<% if(typeof info != "undefined"){ %>
