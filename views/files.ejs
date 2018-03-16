@@ -57,19 +57,17 @@ function downloadAll(urls) {
 	      <div class="container">
 	     
 
-	        <!-- Brand and toggle get grouped for better mobile display -->
+	        <% if (!user) { %>
+	        <div class="navbar-header">
+	         
+	          <a id="brand" class="navbar-brand" href="/login">Login</a>
+	        </div>
+	        <% } else { %>
 	        <div class="navbar-header">
 	         
 	        <a id="brand" class="navbar-brand">Pedidos pendientes</a>
 
 	        </div> 
-	        <% if (!user) { %>
-	        <div class="navbar-header navbar-right">
-	         
-	          <a id="brand" class="navbar-brand" href="/login">Login</a>
-	        </div>
-	        <% } else { %>
-
 	        <div class="navbar-header">	         
 	          <a id="brand" class="navbar-brand" href="/files/realizados">Pedidos Realizados</a>
 	        </div>
