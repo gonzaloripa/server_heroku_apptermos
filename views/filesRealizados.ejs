@@ -97,9 +97,10 @@ function downloadAll(urls) {
 			<% if (desde >= 4) { %>
 	        <% var atras=desde-3 %>
 	         	<form class="form-horizontal" action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
-				  <div class="form-group">        
-					<h2 class="page-description"><%=message%></h2>
-					<button type="submit" name="submit" class="btn btn-lg btn-warning btn-block descargas">Volver atras</button> 
+				  <div class="form-group">
+				  <button type="submit" name="submit" class="btn btn-warning btn-block descargas">Volver atras</button>        
+					<center><h2 class="page-description text-center"><%=message%></h2></center>
+					 
 				</div>  
 
 				</form>
@@ -110,12 +111,12 @@ function downloadAll(urls) {
 	         	<form class="form-horizontal" action='/files/realizados/<%=atras%>' method="get" autocomplete="off">
 				  <div class="form-group">   
 				  <button type="submit" name="submit" class="btn btn-warning descargas">Volver atras</button>     
-					<h2 class="page-description text-center">Pedidos realizados</h2>
+					<center><h2 class="page-description text-center">Pedidos realizados</h2></center>
 				</div>  
 
 				</form>
 			<% } else{ %>
-			<h2 class="page-description text-center">Pedidos realizados </h2>
+			<center><h2 class="page-description text-center">Pedidos realizados </h2></center>
 			<% } %>
 	</div>
 
