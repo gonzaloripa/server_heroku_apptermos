@@ -826,20 +826,7 @@ app.get('/login', function(req, res){
 
 app.get('/', function(req, res){
    
-      if(req.user){
-       console.log("-------Request User del /: "+ req.user);
-       res.render('index', { user: req.user, message: req.flash('error') });
-      }
-      else{
-        if(req.query.username){
-          console.log("-------Request User del /: "+ req.query);
-          res.render('index', { user: req.query, message: req.flash('error') });
-        }else{
-          var userObj= {username:'admin'};
-          console.log("-------Request User del /: "+ userObj.username);
-          res.render('index', { user: userObj, message: req.flash('error') });
-        }
-      }
+      res.redirect('/login');
    
 });
 
